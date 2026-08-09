@@ -48,13 +48,13 @@ export default function LiveSignal() {
       >
         <defs>
           <linearGradient id="sigstroke" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#0084ff" stopOpacity="0.15" />
-            <stop offset="70%" stopColor="#0084ff" />
-            <stop offset="100%" stopColor="#00c8ff" />
+            <stop offset="0%" stopColor="#0b5cff" stopOpacity="0.15" />
+            <stop offset="70%" stopColor="#0b5cff" />
+            <stop offset="100%" stopColor="#2d8cff" />
           </linearGradient>
           <linearGradient id="sigfill" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#0084ff" stopOpacity="0.28" />
-            <stop offset="100%" stopColor="#0084ff" stopOpacity="0" />
+            <stop offset="0%" stopColor="#0b5cff" stopOpacity="0.28" />
+            <stop offset="100%" stopColor="#0b5cff" stopOpacity="0" />
           </linearGradient>
         </defs>
         <path d={area} fill="url(#sigfill)" />
@@ -67,7 +67,7 @@ export default function LiveSignal() {
           strokeLinecap="round"
           style={{ transition: "d 0.6s linear" }}
         />
-        <circle cx={W} cy={lastY} r="4" fill="#00c8ff">
+        <circle cx={W} cy={lastY} r="4" fill="#2d8cff">
           <animate attributeName="opacity" values="1;0.3;1" dur="1.8s" repeatCount="indefinite" />
         </circle>
       </svg>
