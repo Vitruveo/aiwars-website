@@ -81,6 +81,7 @@ export default function Home() {
             className="hero-art object-cover object-center"
             sizes="100vw"
           />
+          <div className="absolute inset-0 bg-[#0b5cff]/40 mix-blend-color" />
           <div className="absolute inset-0 bg-gradient-to-b from-abyss/50 via-abyss/5 to-abyss" />
           <div className="absolute inset-0 bg-gradient-to-r from-abyss/30 via-transparent to-abyss/20" />
           <div className="starfield" />
