@@ -76,7 +76,7 @@ export default function Home() {
             fill
             priority
             placeholder="blur"
-            quality={90}
+            quality={95}
             className="hero-art object-cover object-center"
             sizes="100vw"
           />
@@ -129,7 +129,7 @@ export default function Home() {
             alt=""
             fill
             placeholder="blur"
-            quality={90}
+            quality={95}
             className="bg-drift object-cover object-center"
             sizes="100vw"
           />
@@ -175,7 +175,7 @@ export default function Home() {
             alt="Meridian — a world worth saving"
             fill
             placeholder="blur"
-            quality={90}
+            quality={95}
             className="bg-drift object-cover"
             sizes="100vw"
           />
@@ -241,7 +241,7 @@ export default function Home() {
             alt=""
             fill
             placeholder="blur"
-            quality={90}
+            quality={95}
             className="bg-drift object-cover object-center"
             sizes="100vw"
           />
@@ -300,7 +300,7 @@ export default function Home() {
             alt="The Archive awakens — figures before a monumental activating structure"
             fill
             placeholder="blur"
-            quality={90}
+            quality={95}
             className="bg-drift object-cover"
             sizes="100vw"
           />
@@ -345,7 +345,7 @@ export default function Home() {
             alt=""
             fill
             placeholder="blur"
-            quality={90}
+            quality={95}
             className="bg-drift object-cover object-bottom"
             sizes="100vw"
           />
@@ -418,7 +418,7 @@ export default function Home() {
             alt="The war beyond Meridian — fleets in orbit over a contested world"
             fill
             placeholder="blur"
-            quality={90}
+            quality={95}
             className="bg-drift object-cover"
             sizes="100vw"
           />
@@ -457,7 +457,7 @@ export default function Home() {
             alt=""
             fill
             placeholder="blur"
-            quality={90}
+            quality={95}
             className="bg-drift object-cover object-bottom"
             sizes="100vw"
           />
@@ -569,7 +569,7 @@ export default function Home() {
             alt=""
             fill
             placeholder="blur"
-            quality={90}
+            quality={95}
             className="bg-drift object-cover object-top"
             sizes="100vw"
           />
@@ -671,7 +671,7 @@ export default function Home() {
             alt="A world worth saving — Meridian at dawn"
             fill
             placeholder="blur"
-            quality={90}
+            quality={95}
             className="bg-drift object-cover"
             sizes="100vw"
           />

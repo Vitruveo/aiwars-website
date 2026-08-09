@@ -192,7 +192,7 @@ export default function Whitepaper() {
           fill
           priority
           placeholder="blur"
-          quality={90}
+          quality={95}
           className="object-cover"
           sizes="100vw"
         />
