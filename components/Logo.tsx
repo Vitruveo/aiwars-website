@@ -14,8 +14,21 @@ export default function Logo({ className = "" }: { className?: string }) {
     >
       <defs>
         <linearGradient id="aiwars-i" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#6fd3ff" />
-          <stop offset="100%" stopColor="#38bdf8" />
+          <stop offset="0%" stopColor="#00c8ff" />
+          <stop offset="100%" stopColor="#0084ff" />
+        </linearGradient>
+        <linearGradient id="aiwars-shine" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="35%" stopColor="#ffffff" stopOpacity="0" />
+          <stop offset="50%" stopColor="#ffffff" stopOpacity="0.95" />
+          <stop offset="65%" stopColor="#ffffff" stopOpacity="0" />
+          <animateTransform
+            attributeName="gradientTransform"
+            type="translate"
+            from="-1.2 0"
+            to="1.2 0"
+            dur="3.2s"
+            repeatCount="indefinite"
+          />
         </linearGradient>
       </defs>
       {/* A */}
@@ -28,6 +41,7 @@ export default function Logo({ className = "" }: { className?: string }) {
       <path d="M22 78 L68 78" stroke="currentColor" strokeWidth="14" />
       {/* I — thick blue bar, parallel to and centered between the A and W slants */}
       <path d="M90 10 L127 110" stroke="url(#aiwars-i)" strokeWidth="24" />
+      <path d="M90 10 L127 110" stroke="url(#aiwars-shine)" strokeWidth="24" />
       {/* W */}
       <path
         d="M138 14 L171 104 L193 44 L215 104 L248 14"
