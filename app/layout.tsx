@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Orbitron, Inter, Share_Tech_Mono } from "next/font/google";
+import { Orbitron, Inter, Share_Tech_Mono, Gugi } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
@@ -17,6 +17,12 @@ const body = Inter({
 const mono = Share_Tech_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
+  weight: "400",
+});
+
+const logoFont = Gugi({
+  subsets: ["latin"],
+  variable: "--font-logo",
   weight: "400",
 });
 
@@ -48,7 +54,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
+    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable} ${logoFont.variable}`}>
       <body className="grain">
         {children}
         <Analytics />

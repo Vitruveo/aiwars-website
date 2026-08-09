@@ -55,6 +55,23 @@ body {
   margin-right: 1.25rem;
 }
 
+/* -- wordmark -- */
+.logo-mark {
+  font-family: var(--font-logo), sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.logo-i {
+  display: inline-block;
+  color: #0b5cff;
+  transform: skewX(-14deg) scaleX(1.25);
+  transform-origin: center bottom;
+  margin: 0 0.015em;
+}
+
 /* -- display headings -- */
 .display {
   font-family: var(--font-display), sans-serif;

@@ -30,7 +30,7 @@ export default function Nav() {
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
         <a href="/" aria-label="AI Wars home" className="text-ink transition-colors hover:text-signal">
-          <Logo className="h-6 w-auto" />
+          <Logo className="text-2xl" />
         </a>
         <div className="hidden items-center gap-8 md:flex">
           {links.map((l) => (

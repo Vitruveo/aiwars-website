@@ -92,7 +92,7 @@ export default function Home() {
           <div className="hero-copy">
             <p className="kicker kicker-ink mb-6 font-bold">A Vertical Foundation Project</p>
             <h1 className="glitch text-ink">
-              <Logo className="h-auto w-full max-w-[26rem] sm:max-w-[34rem] lg:max-w-[42rem]" />
+              <Logo className="text-[16vw] sm:text-8xl lg:text-[9.5rem]" />
             </h1>
             <p className="mt-5 font-mono text-base font-bold uppercase tracking-[0.5em] text-ember sm:text-base">
               Prologue&nbsp;&nbsp;·&nbsp;&nbsp;The Fall of Meridian
@@ -705,7 +705,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
           <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
             <div>
-              <Logo className="h-8 w-auto text-ink" />
+              <Logo className="text-3xl text-ink" />
               <p className="mt-3 max-w-sm text-base text-faint">
                 A persistent science-fiction universe about agency, intelligence, memory
                 and war. The world continues whether or not you are there.
