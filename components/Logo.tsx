@@ -1,12 +1,12 @@
 /*
- * AI WARS wordmark. Reads "A-WARS" where the W's first stroke is a thick
- * blue bar — slanted at the same angle as the A's legs — doubling as the
- * "I" of "AI".
+ * AI WARS wordmark. A full white W; the "I" of "AI" is a thick blue bar
+ * slanted at the letter angle, centered between the A's right leg and the
+ * W's first stroke.
  */
 export default function Logo({ className = "" }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 536 120"
+      viewBox="0 0 518 120"
       role="img"
       aria-label="AI WARS"
       className={className}
@@ -26,34 +26,34 @@ export default function Logo({ className = "" }: { className?: string }) {
         strokeLinejoin="bevel"
       />
       <path d="M22 78 L68 78" stroke="currentColor" strokeWidth="14" />
-      {/* I — thick blue bar slanted to match the A's leg angle; doubles as the W's first stroke */}
-      <path d="M104 10 L141 110" stroke="url(#aiwars-i)" strokeWidth="26" />
-      {/* W — remaining strokes */}
+      {/* I — thick blue bar, parallel to and centered between the A and W slants */}
+      <path d="M90 10 L127 110" stroke="url(#aiwars-i)" strokeWidth="24" />
+      {/* W */}
       <path
-        d="M148 102 L172 40 L196 102 L229 14"
+        d="M138 14 L171 104 L193 44 L215 104 L248 14"
         stroke="currentColor"
         strokeWidth="16"
         strokeLinejoin="bevel"
       />
       {/* A */}
       <path
-        d="M253 110 L289 14 L325 110"
+        d="M238 110 L274 14 L310 110"
         stroke="currentColor"
         strokeWidth="16"
         strokeLinejoin="bevel"
       />
-      <path d="M266 78 L312 78" stroke="currentColor" strokeWidth="14" />
+      <path d="M251 78 L297 78" stroke="currentColor" strokeWidth="14" />
       {/* R */}
       <path
-        d="M353 110 L353 18 L405 18 L405 58 L353 58"
+        d="M336 110 L336 18 L388 18 L388 58 L336 58"
         stroke="currentColor"
         strokeWidth="16"
         strokeLinejoin="bevel"
       />
-      <path d="M378 58 L414 110" stroke="currentColor" strokeWidth="16" />
+      <path d="M361 58 L397 110" stroke="currentColor" strokeWidth="16" />
       {/* S */}
       <path
-        d="M516 22 L448 22 L448 60 L512 60 L512 98 L440 98"
+        d="M498 22 L430 22 L430 60 L494 60 L494 98 L422 98"
         stroke="currentColor"
         strokeWidth="16"
         strokeLinejoin="bevel"
