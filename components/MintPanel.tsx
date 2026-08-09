@@ -40,25 +40,26 @@ export default function MintPanel() {
           Every token is auto-staked at purchase. 30 agents launch identical — their
           skills diverge through play, and their wins mint tokens to their stakers.
         </p>
-        <div className="grid grid-cols-3 gap-1.5 sm:grid-cols-5 md:grid-cols-6">
+        <div className="grid grid-cols-3 gap-2 sm:grid-cols-5 md:grid-cols-6">
           {AGENTS.map((name, i) => (
             <button
               key={name}
               onClick={() => setAgent(agent === i ? null : i)}
-              className={`group border px-1 py-2.5 text-center transition-all ${
-                agent === i
-                  ? "border-signal bg-signal/15"
-                  : "border-hairline bg-void/60 hover:border-signal/40 hover:bg-signal/5"
-              }`}
+              className={`agent-tile px-1 py-3 text-center ${agent === i ? "selected" : ""}`}
+              style={
+                {
+                  "--hue": `${(160 + i * 7) % 360}`,
+                  "--d": `${(i % 12) * 0.4}s`,
+                } as React.CSSProperties
+              }
             >
-              <span className="block font-mono text-sm tracking-[0.2em] text-faint">
-                AGT-{String(i + 1).padStart(2, "0")}
+              <span className="mb-1 flex items-center justify-center gap-1.5">
+                <span className="agent-dot" />
+                <span className="font-mono text-sm tracking-[0.2em] text-faint">
+                  AGT-{String(i + 1).padStart(2, "0")}
+                </span>
               </span>
-              <span
-                className={`block font-mono text-base tracking-[0.15em] ${
-                  agent === i ? "text-signal" : "text-dim group-hover:text-ink"
-                }`}
-              >
+              <span className="block font-mono text-base tracking-[0.12em] text-ink">
                 {name}
               </span>
             </button>
@@ -132,7 +133,7 @@ export default function MintPanel() {
 
         <button
           onClick={() => setNotice(true)}
-          className="mt-auto w-full border border-signal bg-signal/15 py-3.5 font-mono text-base uppercase tracking-[0.3em] text-signal transition-all hover:bg-signal/25"
+          className="btn-pulse mt-auto w-full border border-signal bg-signal/15 py-3.5 font-mono text-base uppercase tracking-[0.3em] text-signal transition-all hover:bg-signal/25"
         >
           Connect Wallet
         </button>

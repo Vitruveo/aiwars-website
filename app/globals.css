@@ -177,3 +177,128 @@ p {
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(111, 211, 255, 0.4), transparent);
 }
+
+/* -- slow drift for section background art -- */
+@keyframes bgdrift {
+  from { transform: scale(1); }
+  to { transform: scale(1.07); }
+}
+
+.bg-drift {
+  animation: bgdrift 38s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* -- animated gradient numerals / accents -- */
+@keyframes gradshift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.grad-text {
+  background: linear-gradient(90deg, #38bdf8, #eef3fb, #6fd3ff, #38bdf8);
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradshift 5s ease-in-out infinite;
+}
+
+.grad-ember {
+  background: linear-gradient(90deg, #f0954f, #ffe3c4, #f7b06a, #f0954f);
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradshift 5s ease-in-out infinite;
+}
+
+/* -- pulsing primary CTA -- */
+@keyframes ctapulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.35), 0 0 24px rgba(56, 189, 248, 0.12); }
+  50% { box-shadow: 0 0 0 6px rgba(56, 189, 248, 0), 0 0 44px rgba(56, 189, 248, 0.3); }
+}
+
+.btn-pulse {
+  animation: ctapulse 2.6s ease-in-out infinite;
+}
+
+/* -- agent tiles: per-hue gradients + staggered scan sweep -- */
+.agent-tile {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(111, 211, 255, 0.14);
+  background:
+    linear-gradient(150deg, hsl(var(--hue) 85% 62% / 0.2), rgba(6, 10, 20, 0.92) 60%),
+    linear-gradient(330deg, hsl(var(--hue) 85% 55% / 0.12), transparent 50%);
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.agent-tile::before {
+  content: "";
+  position: absolute;
+  top: -60%;
+  left: 0;
+  width: 45%;
+  height: 220%;
+  background: linear-gradient(105deg, transparent, hsl(var(--hue) 90% 72% / 0.28), transparent);
+  transform: rotate(18deg) translateX(-260%);
+  animation: tilesweep 6.5s linear infinite;
+  animation-delay: var(--d);
+  pointer-events: none;
+}
+
+@keyframes tilesweep {
+  0% { transform: rotate(18deg) translateX(-260%); }
+  45% { transform: rotate(18deg) translateX(520%); }
+  100% { transform: rotate(18deg) translateX(520%); }
+}
+
+.agent-tile:hover {
+  border-color: hsl(var(--hue) 90% 65% / 0.7);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px hsl(var(--hue) 90% 55% / 0.2);
+}
+
+.agent-tile.selected {
+  border-color: hsl(var(--hue) 90% 65%);
+  box-shadow:
+    0 0 28px hsl(var(--hue) 90% 58% / 0.4),
+    inset 0 0 20px hsl(var(--hue) 90% 58% / 0.16);
+}
+
+.agent-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 9999px;
+  background: hsl(var(--hue) 90% 65%);
+  animation: livepulse 2.2s ease-in-out infinite;
+  animation-delay: var(--d);
+}
+
+/* -- halving bars grow when revealed -- */
+.bar-grow {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
+}
+
+.reveal.is-in .bar-grow {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-drift,
+  .grad-text,
+  .grad-ember,
+  .btn-pulse,
+  .agent-tile::before,
+  .agent-dot {
+    animation: none;
+  }
+  .bar-grow {
+    transform: scaleX(1);
+    transition: none;
+  }
+}

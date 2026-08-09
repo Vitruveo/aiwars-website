@@ -3,6 +3,7 @@ import Nav from "@/components/Nav";
 import Ticker from "@/components/Ticker";
 import Reveal from "@/components/Reveal";
 import MintPanel from "@/components/MintPanel";
+import LiveSignal from "@/components/LiveSignal";
 
 import meridian from "@/public/art/meridian.jpg";
 import war from "@/public/art/war.jpg";
@@ -101,7 +102,7 @@ export default function Home() {
             <div className="mt-10 flex flex-wrap gap-4">
               <a
                 href="#mint"
-                className="border border-signal bg-signal/15 px-8 py-4 font-mono text-base uppercase tracking-[0.3em] text-signal transition-all hover:bg-signal/25"
+                className="btn-pulse border border-signal bg-signal/15 px-8 py-4 font-mono text-base uppercase tracking-[0.3em] text-signal transition-all hover:bg-signal/25"
               >
                 Mint $AIWARS
               </a>
@@ -129,7 +130,7 @@ export default function Home() {
             fill
             placeholder="blur"
             quality={90}
-            className="object-cover object-center"
+            className="bg-drift object-cover object-center"
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-abyss/65" />
@@ -175,7 +176,7 @@ export default function Home() {
             fill
             placeholder="blur"
             quality={90}
-            className="object-cover"
+            className="bg-drift object-cover"
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-abyss/55" />
@@ -241,7 +242,7 @@ export default function Home() {
             fill
             placeholder="blur"
             quality={90}
-            className="object-cover object-center"
+            className="bg-drift object-cover object-center"
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-abyss/70" />
@@ -300,7 +301,7 @@ export default function Home() {
             fill
             placeholder="blur"
             quality={90}
-            className="object-cover"
+            className="bg-drift object-cover"
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-abyss/40" />
@@ -345,7 +346,7 @@ export default function Home() {
             fill
             placeholder="blur"
             quality={90}
-            className="object-cover object-bottom"
+            className="bg-drift object-cover object-bottom"
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-abyss/75" />
@@ -366,8 +367,8 @@ export default function Home() {
 
         <div className="mt-14 grid gap-4 md:grid-cols-4">
           {[
-            ["1", "human-controlled Actor", "text-ember"],
-            ["29", "AI-controlled Actors", "text-signal"],
+            ["1", "human-controlled Actor", "grad-ember"],
+            ["29", "AI-controlled Actors", "grad-text"],
             ["100s", "hostile machine units", "text-ink"],
             ["0", "bot labels, tells, or separate queues", "text-faint"],
           ].map(([num, label, color], i) => (
@@ -418,7 +419,7 @@ export default function Home() {
             fill
             placeholder="blur"
             quality={90}
-            className="object-cover"
+            className="bg-drift object-cover"
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-abyss via-abyss/20 to-abyss" />
@@ -457,7 +458,7 @@ export default function Home() {
             fill
             placeholder="blur"
             quality={90}
-            className="object-cover object-bottom"
+            className="bg-drift object-cover object-bottom"
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-abyss/75" />
@@ -521,13 +522,13 @@ export default function Home() {
               <Reveal delay={80}>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="panel panel-glow p-8 text-center">
-                    <p className="display text-6xl text-signal">5s</p>
+                    <p className="display grad-text text-6xl">5s</p>
                     <p className="mt-3 font-mono text-base uppercase tracking-[0.2em] text-dim">
                       signal update cadence
                     </p>
                   </div>
                   <div className="panel panel-glow p-8 text-center">
-                    <p className="display text-6xl text-ember">10m</p>
+                    <p className="display grad-ember text-6xl">10m</p>
                     <p className="mt-3 font-mono text-base uppercase tracking-[0.2em] text-dim">
                       market duration
                     </p>
@@ -536,6 +537,8 @@ export default function Home() {
               </Reveal>
               <Reveal delay={160}>
                 <div className="panel h-full p-8">
+                  <LiveSignal />
+                  <div className="rule my-6" />
                   <p className="mb-4 font-mono text-base uppercase tracking-[0.35em] text-signal">
                     Why the signal moves wildly
                   </p>
@@ -567,7 +570,7 @@ export default function Home() {
             fill
             placeholder="blur"
             quality={90}
-            className="object-cover object-top"
+            className="bg-drift object-cover object-top"
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-abyss/80" />
@@ -593,7 +596,7 @@ export default function Home() {
           ].map(([num, label], i) => (
             <Reveal key={label} delay={i * 80}>
               <div className="panel panel-glow h-full p-8 text-center">
-                <p className="display text-5xl text-signal">{num}</p>
+                <p className="display grad-text text-5xl">{num}</p>
                 <p className="mt-4 font-mono text-base uppercase tracking-[0.2em] text-dim">
                   {label}
                 </p>
@@ -644,7 +647,7 @@ export default function Home() {
                       <span className="text-ink">{reward} / WIN</span>
                     </div>
                     <div className="h-2 w-full bg-hairline/40">
-                      <div className="h-2 bg-signal/80" style={{ width: `${width}%` }} />
+                      <div className="bar-grow h-2 bg-signal/80" style={{ width: `${width}%` }} />
                     </div>
                   </div>
                 ))}
@@ -669,7 +672,7 @@ export default function Home() {
             fill
             placeholder="blur"
             quality={90}
-            className="object-cover"
+            className="bg-drift object-cover"
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-abyss/65" />
