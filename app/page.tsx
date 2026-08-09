@@ -84,6 +84,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-[#0b5cff]/40 mix-blend-color" />
           <div className="absolute inset-0 bg-gradient-to-b from-abyss/50 via-abyss/5 to-abyss" />
           <div className="absolute inset-0 bg-gradient-to-r from-abyss/30 via-transparent to-abyss/20" />
+          <div className="absolute inset-0 bg-abyss/45 sm:hidden" />
           <div className="starfield" />
           <div className="scanline" />
         </div>
@@ -98,7 +99,7 @@ export default function Home() {
               Prologue&nbsp;&nbsp;·&nbsp;&nbsp;The Fall of Meridian
             </p>
             <div className="rule my-8 max-w-xl" />
-            <p className="max-w-2xl text-xl text-dim">
+            <p className="max-w-2xl text-xl text-ink drop-shadow-[0_2px_10px_rgba(4,7,13,0.9)]">
               Humanity&rsquo;s greatest city. Its most dangerous secret. A persistent
               science-fiction universe about agency, intelligence, memory and war —
               populated by Actors whose controllers are never revealed.
