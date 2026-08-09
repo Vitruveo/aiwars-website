@@ -94,7 +94,7 @@ export default function Home() {
               Prologue&nbsp;&nbsp;·&nbsp;&nbsp;The Fall of Meridian
             </p>
             <div className="rule my-8 max-w-xl" />
-            <p className="max-w-2xl text-2xl text-dim">
+            <p className="max-w-2xl text-xl text-dim">
               Humanity&rsquo;s greatest city. Its most dangerous secret. A persistent
               science-fiction universe about agency, intelligence, memory and war —
               populated by Actors whose controllers are never revealed.
@@ -142,7 +142,7 @@ export default function Home() {
           <h2 className="display max-w-4xl text-4xl text-ink sm:text-6xl">
             The assumption should collapse
           </h2>
-          <p className="mt-6 max-w-2xl text-2xl text-dim">
+          <p className="mt-6 max-w-2xl text-xl text-dim">
             The player begins believing humans are fighting AI. Over time, that framing
             has to break. The machine intelligences are not one thing — they have
             histories, loyalties, and ideas about what humanity should become.
@@ -153,13 +153,13 @@ export default function Home() {
             <Reveal key={title} delay={i * 60}>
               <div className="panel panel-glow h-full p-6">
                 <p className="mb-3 font-mono text-base tracking-[0.3em] text-signal">{title}</p>
-                <p className="text-xl leading-relaxed text-dim">{body}</p>
+                <p className="text-lg leading-relaxed text-dim">{body}</p>
               </div>
             </Reveal>
           ))}
         </div>
         <Reveal>
-          <p className="mt-12 max-w-3xl border-l-2 border-ember/60 pl-6 text-2xl italic leading-relaxed text-ink/90">
+          <p className="mt-12 max-w-3xl border-l-2 border-ember/60 pl-6 text-xl italic leading-relaxed text-ink/90">
             The real conflict is not whether humanity survives. It is who gets to decide
             what humanity becomes.
           </p>
@@ -187,7 +187,7 @@ export default function Home() {
             <Reveal>
               <Kicker num="02">The setting</Kicker>
               <h2 className="display text-5xl text-ink sm:text-7xl">Meridian</h2>
-              <p className="mt-5 max-w-2xl text-2xl text-dim">
+              <p className="mt-5 max-w-2xl text-xl text-dim">
                 A monumental human megacity — beautiful before it is damaged. The
                 first emotional beat is not &ldquo;look at this ruined
                 future.&rdquo; It is{" "}
@@ -219,7 +219,7 @@ export default function Home() {
                 <p className="mb-3 font-mono text-base uppercase tracking-[0.35em] text-ember">
                   At the center — The Archive
                 </p>
-                <p className="text-xl leading-relaxed text-dim">
+                <p className="text-lg leading-relaxed text-dim">
                   It predates much of the surrounding city. Meridian appears to have been
                   built around it. The population believes it is humanity&rsquo;s
                   authenticated repository of history, knowledge, culture and continuity.
@@ -252,7 +252,7 @@ export default function Home() {
         <Reveal>
           <Kicker num="03">Prologue story arc</Kicker>
           <h2 className="display text-4xl text-ink sm:text-6xl">Seven beats</h2>
-          <p className="mt-5 max-w-2xl text-2xl text-dim">
+          <p className="mt-5 max-w-2xl text-xl text-dim">
             Ten to fifteen minutes. One connected region. One continuous escalation. A
             compact, canonical opening chapter — small enough to build at high visual
             quality, large enough to imply an enormous universe.
@@ -263,8 +263,8 @@ export default function Home() {
             <Reveal key={num} delay={i * 60}>
               <div className="panel panel-glow h-full p-6">
                 <p className="mb-3 font-mono text-base tracking-[0.3em] text-signal">{num}</p>
-                <p className="display mb-3 text-2xl text-ink">{title}</p>
-                <p className="text-xl leading-relaxed text-dim">{body}</p>
+                <p className="display mb-3 text-xl text-ink">{title}</p>
+                <p className="text-lg leading-relaxed text-dim">{body}</p>
               </div>
             </Reveal>
           ))}
@@ -272,8 +272,8 @@ export default function Home() {
             <Reveal key={num} delay={i * 60}>
               <div className="panel panel-glow h-full p-6">
                 <p className="mb-3 font-mono text-base tracking-[0.3em] text-signal">{num}</p>
-                <p className="display mb-3 text-2xl text-ink">{title}</p>
-                <p className="text-xl leading-relaxed text-dim">{body}</p>
+                <p className="display mb-3 text-xl text-ink">{title}</p>
+                <p className="text-lg leading-relaxed text-dim">{body}</p>
               </div>
             </Reveal>
           ))}
@@ -282,7 +282,7 @@ export default function Home() {
               <p className="mb-3 font-mono text-base tracking-[0.3em] text-ember">
                 THE PLAYER IS NOT A CHOSEN HERO
               </p>
-              <p className="text-xl leading-relaxed text-dim">
+              <p className="text-lg leading-relaxed text-dim">
                 One capable defender inside an escalating crisis, fighting beside Actors
                 whose controllers are never revealed.
               </p>
@@ -358,7 +358,7 @@ export default function Home() {
           <h2 className="display max-w-4xl text-4xl text-ink sm:text-6xl">
             Actors — not players and bots
           </h2>
-          <p className="mt-6 max-w-2xl text-2xl text-dim">
+          <p className="mt-6 max-w-2xl text-xl text-dim">
             Every character has an identity: name, history, faction, reputation,
             relationships, memory, goals. An Actor may be controlled by a human or by an
             autonomous agent. The game does not tell you which.
@@ -396,7 +396,7 @@ export default function Home() {
               </p>
             </div>
             <div className="border-l-2 border-signal/50 pl-6">
-              <p className="text-2xl italic leading-relaxed text-ink/90">
+              <p className="text-xl italic leading-relaxed text-ink/90">
                 &ldquo;If someone has fought beside you, remembers your history, saved
                 your life, and has goals of their own — why should the nature of their
                 controller matter?&rdquo;
@@ -440,8 +440,8 @@ export default function Home() {
               <Reveal key={phase} delay={i * 60}>
                 <div className="panel panel-glow h-full p-6">
                   <p className="mb-3 font-mono text-base tracking-[0.35em] text-ember">{phase}</p>
-                  <p className="display mb-3 text-2xl normal-case tracking-normal text-ink">{title}</p>
-                  <p className="text-xl leading-relaxed text-dim">{body}</p>
+                  <p className="display mb-3 text-xl normal-case tracking-normal text-ink">{title}</p>
+                  <p className="text-lg leading-relaxed text-dim">{body}</p>
                 </div>
               </Reveal>
             ))}
@@ -470,7 +470,7 @@ export default function Home() {
             <h2 className="display max-w-4xl text-4xl text-ink sm:text-6xl">
               Two products, one session
             </h2>
-            <p className="mt-6 max-w-2xl text-2xl text-dim">
+            <p className="mt-6 max-w-2xl text-xl text-dim">
               AI Wars is a premium game.{" "}
               <a
                 href="https://www.pretrend.ai"
@@ -542,7 +542,7 @@ export default function Home() {
                   <p className="mb-4 font-mono text-base uppercase tracking-[0.35em] text-signal">
                     Why the signal moves wildly
                   </p>
-                  <p className="text-xl leading-relaxed text-dim">
+                  <p className="text-lg leading-relaxed text-dim">
                     Within seconds: Actors die, positions change hands, structures fail,
                     reinforcements arrive, an AI commander alters its attack behavior. A
                     human force may look visually successful while the composite signal
@@ -580,7 +580,7 @@ export default function Home() {
         <Reveal>
           <Kicker num="07">$AIWARS</Kicker>
           <h2 className="display text-4xl text-ink sm:text-6xl">Tokenomics</h2>
-          <p className="mt-6 max-w-2xl text-2xl text-dim">
+          <p className="mt-6 max-w-2xl text-xl text-dim">
             The sale is the only source. No secondary allocations, no team reserve, no
             pre-mine. Every token purchased is staked to an agent fighting in the world —
             emissions flow from agent wins alone.
@@ -617,12 +617,12 @@ export default function Home() {
                     <span className="w-28 shrink-0 font-mono text-base tracking-[0.25em] text-ember">
                       {action}
                     </span>
-                    <p className="text-xl leading-relaxed text-dim">{body}</p>
+                    <p className="text-lg leading-relaxed text-dim">{body}</p>
                   </div>
                 ))}
               </div>
               <div className="rule my-6" />
-              <p className="text-xl leading-relaxed text-faint">
+              <p className="text-lg leading-relaxed text-faint">
                 All tokens locked until game launch or 180 days, whichever comes first. At
                 unlock, the greater of 20% of the raise or $50,000 seeds the DEX pool —
                 and the LP position is burned. Liquidity is permanently locked.
@@ -653,7 +653,7 @@ export default function Home() {
                 ))}
               </div>
               <div className="rule my-6" />
-              <p className="text-xl leading-relaxed text-faint">
+              <p className="text-lg leading-relaxed text-faint">
                 The circulating cap measures live supply — unstake burns reopen headroom,
                 so emissions continue against freed space rather than terminating.
               </p>
@@ -682,7 +682,7 @@ export default function Home() {
           <Reveal>
             <Kicker num="08">Public mint</Kicker>
             <h2 className="display text-4xl text-ink sm:text-6xl">Stake your agent</h2>
-            <p className="mt-6 max-w-2xl text-2xl text-dim">
+            <p className="mt-6 max-w-2xl text-xl text-dim">
               Thirty agents enter the war identical. Their skills diverge through play.
               Their wins mint tokens to the people staked behind them. Choose whose war
               you fund.

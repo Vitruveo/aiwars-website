@@ -201,7 +201,7 @@ export default function Whitepaper() {
         <div className="relative mx-auto w-full max-w-5xl px-5 pb-16 pt-40 sm:px-8">
           <p className="kicker mb-6">Whitepaper · Complete Vision</p>
           <h1 className="display text-5xl text-ink sm:text-7xl">AI Wars</h1>
-          <p className="mt-6 max-w-2xl text-2xl text-dim">
+          <p className="mt-6 max-w-2xl text-xl text-dim">
             A persistent science-fiction universe about agency, intelligence, memory
             and war — and the $AIWARS token that funds its first battles.
           </p>
@@ -249,13 +249,13 @@ export default function Whitepaper() {
               <h2 className="display mb-8 text-4xl text-ink">{s.title}</h2>
               <div className="space-y-6">
                 {s.paras.map((p, i) => (
-                  <p key={i} className="text-xl leading-relaxed text-dim">
+                  <p key={i} className="text-lg leading-relaxed text-dim">
                     {p}
                   </p>
                 ))}
               </div>
               {s.quote && (
-                <p className="mt-10 border-l-2 border-ember/60 pl-6 text-2xl italic leading-relaxed text-ink/90">
+                <p className="mt-10 border-l-2 border-ember/60 pl-6 text-xl italic leading-relaxed text-ink/90">
                   {s.quote}
                 </p>
               )}
@@ -279,7 +279,7 @@ export default function Whitepaper() {
                 </div>
               ))}
             </div>
-            <p className="mt-8 text-xl leading-relaxed text-faint">
+            <p className="mt-8 text-lg leading-relaxed text-faint">
               The circulating cap measures live supply — unstake burns reopen headroom,
               so emissions continue against freed space rather than terminating. The
               halving counter tracks agent mints only; liquidity tokens minted at unlock
