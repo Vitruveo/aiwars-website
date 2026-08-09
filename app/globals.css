@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+@theme {
+  --color-abyss: #04070d;
+  --color-void: #060b14;
+  --color-panel: #0a1120;
+  --color-hairline: #1b2a44;
+  --color-ink: #e8eef8;
+  --color-dim: #8fa1bd;
+  --color-faint: #5d6f8c;
+  --color-signal: #6fd3ff;
+  --color-signal-deep: #38bdf8;
+  --color-ember: #f0954f;
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-abyss);
+  color: var(--color-ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(111, 211, 255, 0.25);
+  color: #ffffff;
+}
+
+/* -- kicker: numbered mono section labels, like the deck -- */
+.kicker {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--color-signal);
+}
+
+.kicker-num {
+  color: var(--color-ember);
+  margin-right: 1.25rem;
+}
+
+/* -- display headings -- */
+.display {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  line-height: 0.95;
+}
+
+/* -- panel card -- */
+.panel {
+  background: linear-gradient(160deg, rgba(13, 21, 38, 0.92), rgba(7, 12, 22, 0.88));
+  border: 1px solid var(--color-hairline);
+  border-radius: 0.375rem;
+  backdrop-filter: blur(6px);
+}
+
+.panel-glow {
+  transition: border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.panel-glow:hover {
+  border-color: rgba(111, 211, 255, 0.45);
+  box-shadow: 0 0 40px rgba(56, 189, 248, 0.08), inset 0 0 24px rgba(56, 189, 248, 0.04);
+  transform: translateY(-2px);
+}
+
+/* -- scroll reveal -- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* -- grain + scanline atmosphere overlay -- */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* -- ticker marquee -- */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee {
+  animation: marquee 48s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    animation: none;
+  }
+}
+
+/* -- slow pulse for live dot -- */
+@keyframes livepulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+.live-dot {
+  animation: livepulse 1.8s ease-in-out infinite;
+}
+
+/* -- hero pan: extremely slow scale drift -- */
+@keyframes heropan {
+  from { transform: scale(1.08) translateY(0); }
+  to { transform: scale(1.0) translateY(0); }
+}
+
+.hero-art {
+  animation: heropan 14s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-art {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* -- thin gradient rule -- */
+.rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(111, 211, 255, 0.4), transparent);
+}
