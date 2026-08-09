@@ -90,11 +90,11 @@ export default function Home() {
 
         <div className="relative mx-auto w-full max-w-7xl px-5 pb-24 pt-40 sm:px-8">
           <div className="hero-copy">
-            <p className="kicker kicker-ember mb-6">A Vertical Foundation Project</p>
+            <p className="kicker kicker-ember mb-6 font-bold">A Vertical Foundation Project</p>
             <h1 className="glitch text-ink">
               <Logo className="h-auto w-full max-w-[26rem] sm:max-w-[34rem] lg:max-w-[42rem]" />
             </h1>
-            <p className="mt-5 font-mono text-base uppercase tracking-[0.5em] text-ember sm:text-base">
+            <p className="mt-5 font-mono text-base font-bold uppercase tracking-[0.5em] text-ember sm:text-base">
               Prologue&nbsp;&nbsp;·&nbsp;&nbsp;The Fall of Meridian
             </p>
             <div className="rule my-8 max-w-xl" />
