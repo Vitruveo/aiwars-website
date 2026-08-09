@@ -36,7 +36,7 @@ export default function MintPanel() {
             or auto-assign
           </p>
         </div>
-        <p className="mb-5 text-lg text-dim">
+        <p className="mb-5 text-xl text-dim">
           Every token is auto-staked at purchase. 30 agents launch identical — their
           skills diverge through play, and their wins mint tokens to their stakers.
         </p>
@@ -89,7 +89,7 @@ export default function MintPanel() {
             step={50}
             value={usd}
             onChange={(e) => setUsd(Math.max(0, Number(e.target.value)))}
-            className="w-full bg-transparent font-mono text-lg text-ink outline-none"
+            className="w-full bg-transparent font-mono text-2xl text-ink outline-none"
           />
         </div>
 

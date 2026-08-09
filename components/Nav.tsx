@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 
 const links = [
-  { href: "#universe", label: "Universe" },
-  { href: "#prologue", label: "Prologue" },
-  { href: "#actors", label: "Actors" },
-  { href: "#token", label: "Token" },
+  { href: "/#universe", label: "Universe" },
+  { href: "/#prologue", label: "Prologue" },
+  { href: "/#token", label: "Token" },
+  { href: "/whitepaper", label: "Whitepaper" },
 ];
 
 export default function Nav() {
@@ -28,7 +28,7 @@ export default function Nav() {
       }`}
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
-        <a href="#top" className="display text-lg tracking-[0.35em] text-ink">
+        <a href="/" className="display text-lg tracking-[0.35em] text-ink">
           AI&nbsp;WARS
         </a>
         <div className="hidden items-center gap-8 md:flex">
@@ -43,7 +43,7 @@ export default function Nav() {
           ))}
         </div>
         <a
-          href="#mint"
+          href="/#mint"
           className="border border-signal/50 bg-signal/10 px-4 py-2 font-mono text-base uppercase tracking-[0.25em] text-signal transition-all hover:border-signal hover:bg-signal/20"
         >
           Mint&nbsp;$AIWARS
