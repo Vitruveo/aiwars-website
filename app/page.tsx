@@ -99,7 +99,7 @@ export default function Home() {
               Prologue&nbsp;&nbsp;·&nbsp;&nbsp;The Fall of Meridian
             </p>
             <div className="rule my-8 max-w-xl" />
-            <p className="max-w-2xl text-xl text-ink drop-shadow-[0_2px_10px_rgba(4,7,13,0.9)]">
+            <p className="max-w-2xl text-xl text-ink drop-shadow-[0_2px_10px_rgba(4,7,13,0.9)] sm:text-dim sm:drop-shadow-none">
               Humanity&rsquo;s greatest city. Its most dangerous secret. A persistent
               science-fiction universe about agency, intelligence, memory and war —
               populated by Actors whose controllers are never revealed.

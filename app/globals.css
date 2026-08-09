@@ -67,7 +67,7 @@ body {
 .logo-i {
   display: inline-block;
   color: #0b5cff;
-  transform: skewX(-17deg) scaleX(1.25);
+  transform: skewX(17deg) scaleX(1.25);
   transform-origin: center center;
   margin: 0 0.06em;
 }
