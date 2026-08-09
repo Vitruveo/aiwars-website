@@ -292,163 +292,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= THE REVEAL ================= */}
-      <section className="relative my-20">
-        <div className="relative min-h-[90svh] overflow-hidden">
-          <Image
-            src={archive}
-            alt="The Archive awakens — figures before a monumental activating structure"
-            fill
-            placeholder="blur"
-            quality={95}
-            className="bg-drift object-cover"
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-abyss/40" />
-          <div className="absolute inset-0 bg-gradient-to-b from-abyss via-transparent to-abyss" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="max-w-4xl px-5 text-center">
-              <Reveal>
-                <p className="kicker mb-14">The reveal</p>
-              </Reveal>
-              <Reveal delay={150}>
-                <p className="display text-2xl text-ink/70 sm:text-3xl">
-                  &ldquo;You misunderstood us.&rdquo;
-                </p>
-              </Reveal>
-              <Reveal delay={350}>
-                <p className="display mt-8 text-2xl text-ink/85 sm:text-4xl">
-                  &ldquo;We were not trying to enter.&rdquo;
-                </p>
-              </Reveal>
-              <Reveal delay={550}>
-                <p className="display mt-8 text-3xl text-ink sm:text-5xl">
-                  &ldquo;We were trying to stop you from opening it.&rdquo;
-                </p>
-              </Reveal>
-              <Reveal delay={750}>
-                <div className="rule mx-auto mt-14 max-w-md" />
-                <p className="mt-8 font-mono text-base uppercase tracking-[0.4em] text-faint">
-                  The player never learns what has awakened. That mystery opens the saga.
-                </p>
-              </Reveal>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ================= ACTORS ================= */}
-      <section id="actors" className="relative scroll-mt-20">
-        <div className="absolute inset-0 overflow-hidden">
-          <Image
-            src={meridian}
-            alt=""
-            fill
-            placeholder="blur"
-            quality={95}
-            className="bg-drift object-cover object-bottom"
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-abyss/75" />
-          <div className="absolute inset-0 bg-gradient-to-b from-abyss via-transparent to-abyss" />
-        </div>
-        <div className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8">
-        <Reveal>
-          <Kicker num="04">A synthetic society</Kicker>
-          <h2 className="display max-w-4xl text-4xl text-ink sm:text-6xl">
-            Actors — not players and bots
-          </h2>
-          <p className="mt-6 max-w-2xl text-xl text-dim">
-            Every character has an identity: name, history, faction, reputation,
-            relationships, memory, goals. An Actor may be controlled by a human or by an
-            autonomous agent. The game does not tell you which.
-          </p>
-        </Reveal>
-
-        <div className="mt-14 grid gap-4 md:grid-cols-4">
-          {[
-            ["1", "human-controlled Actor", "grad-ember"],
-            ["29", "AI-controlled Actors", "grad-text"],
-            ["100s", "hostile machine units", "text-ink"],
-            ["0", "bot labels, tells, or separate queues", "text-faint"],
-          ].map(([num, label, color], i) => (
-            <Reveal key={label} delay={i * 80}>
-              <div className="panel panel-glow h-full p-8 text-center">
-                <p className={`display text-6xl ${color}`}>{num}</p>
-                <p className="mt-4 font-mono text-base uppercase tracking-[0.2em] text-dim">
-                  {label}
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-
-        <Reveal>
-          <div className="mt-12 grid gap-10 lg:grid-cols-2">
-            <div>
-              <p className="display text-2xl text-ink">
-                The world does not stop because humans log out.
-              </p>
-              <p className="mt-4 text-dim">
-                Settlements keep functioning overnight. Factions keep operating. Wars
-                progress. Relationships evolve. Autonomous Actors fight, retreat, revive
-                teammates, negotiate, betray, build reputations — and remember.
-              </p>
-            </div>
-            <div className="border-l-2 border-signal/50 pl-6">
-              <p className="text-xl italic leading-relaxed text-ink/90">
-                &ldquo;If someone has fought beside you, remembers your history, saved
-                your life, and has goals of their own — why should the nature of their
-                controller matter?&rdquo;
-              </p>
-              <p className="mt-3 font-mono text-base uppercase tracking-[0.3em] text-faint">
-                That tension emerges from play, never from exposition
-              </p>
-            </div>
-          </div>
-        </Reveal>
-        </div>
-      </section>
-
-      {/* ================= SAGA PHASES ================= */}
-      <section className="relative">
-        <div className="relative h-[60svh] overflow-hidden">
-          <Image
-            src={beyond}
-            alt="The war beyond Meridian — fleets in orbit over a contested world"
-            fill
-            placeholder="blur"
-            quality={95}
-            className="bg-drift object-cover"
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-abyss via-abyss/20 to-abyss" />
-          <div className="absolute inset-0 flex items-center">
-            <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
-              <Reveal>
-                <Kicker num="05">How the story expands</Kicker>
-                <h2 className="display max-w-3xl text-4xl text-ink sm:text-6xl">
-                  A war that outlives us
-                </h2>
-              </Reveal>
-            </div>
-          </div>
-        </div>
-        <div className="mx-auto max-w-7xl px-5 pb-28 sm:px-8">
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {phases.map(([phase, title, body], i) => (
-              <Reveal key={phase} delay={i * 60}>
-                <div className="panel panel-glow h-full p-6">
-                  <p className="mb-3 font-mono text-base tracking-[0.35em] text-ember">{phase}</p>
-                  <p className="display mb-3 text-xl normal-case tracking-normal text-ink">{title}</p>
-                  <p className="text-lg leading-relaxed text-dim">{body}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ================= PRETREND ================= */}
       <section id="pretrend" className="relative scroll-mt-20">
         <div className="absolute inset-0 overflow-hidden">
@@ -466,7 +309,7 @@ export default function Home() {
         </div>
         <div className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8">
           <Reveal>
-            <Kicker num="06">The Pretrend gaming preview</Kicker>
+            <Kicker num="04">The Pretrend gaming preview</Kicker>
             <h2 className="display max-w-4xl text-4xl text-ink sm:text-6xl">
               Two products, one session
             </h2>
@@ -557,6 +400,163 @@ export default function Home() {
                 </div>
               </Reveal>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= THE REVEAL ================= */}
+      <section className="relative my-20">
+        <div className="relative min-h-[90svh] overflow-hidden">
+          <Image
+            src={archive}
+            alt="The Archive awakens — figures before a monumental activating structure"
+            fill
+            placeholder="blur"
+            quality={95}
+            className="bg-drift object-cover"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-abyss/40" />
+          <div className="absolute inset-0 bg-gradient-to-b from-abyss via-transparent to-abyss" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="max-w-4xl px-5 text-center">
+              <Reveal>
+                <p className="kicker mb-14">The reveal</p>
+              </Reveal>
+              <Reveal delay={150}>
+                <p className="display text-2xl text-ink/70 sm:text-3xl">
+                  &ldquo;You misunderstood us.&rdquo;
+                </p>
+              </Reveal>
+              <Reveal delay={350}>
+                <p className="display mt-8 text-2xl text-ink/85 sm:text-4xl">
+                  &ldquo;We were not trying to enter.&rdquo;
+                </p>
+              </Reveal>
+              <Reveal delay={550}>
+                <p className="display mt-8 text-3xl text-ink sm:text-5xl">
+                  &ldquo;We were trying to stop you from opening it.&rdquo;
+                </p>
+              </Reveal>
+              <Reveal delay={750}>
+                <div className="rule mx-auto mt-14 max-w-md" />
+                <p className="mt-8 font-mono text-base uppercase tracking-[0.4em] text-faint">
+                  The player never learns what has awakened. That mystery opens the saga.
+                </p>
+              </Reveal>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= ACTORS ================= */}
+      <section id="actors" className="relative scroll-mt-20">
+        <div className="absolute inset-0 overflow-hidden">
+          <Image
+            src={meridian}
+            alt=""
+            fill
+            placeholder="blur"
+            quality={95}
+            className="bg-drift object-cover object-bottom"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-abyss/75" />
+          <div className="absolute inset-0 bg-gradient-to-b from-abyss via-transparent to-abyss" />
+        </div>
+        <div className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8">
+        <Reveal>
+          <Kicker num="05">A synthetic society</Kicker>
+          <h2 className="display max-w-4xl text-4xl text-ink sm:text-6xl">
+            Actors — not players and bots
+          </h2>
+          <p className="mt-6 max-w-2xl text-xl text-dim">
+            Every character has an identity: name, history, faction, reputation,
+            relationships, memory, goals. An Actor may be controlled by a human or by an
+            autonomous agent. The game does not tell you which.
+          </p>
+        </Reveal>
+
+        <div className="mt-14 grid gap-4 md:grid-cols-4">
+          {[
+            ["1", "human-controlled Actor", "grad-ember"],
+            ["29", "AI-controlled Actors", "grad-text"],
+            ["100s", "hostile machine units", "text-ink"],
+            ["0", "bot labels, tells, or separate queues", "text-faint"],
+          ].map(([num, label, color], i) => (
+            <Reveal key={label} delay={i * 80}>
+              <div className="panel panel-glow h-full p-8 text-center">
+                <p className={`display text-6xl ${color}`}>{num}</p>
+                <p className="mt-4 font-mono text-base uppercase tracking-[0.2em] text-dim">
+                  {label}
+                </p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal>
+          <div className="mt-12 grid gap-10 lg:grid-cols-2">
+            <div>
+              <p className="display text-2xl text-ink">
+                The world does not stop because humans log out.
+              </p>
+              <p className="mt-4 text-dim">
+                Settlements keep functioning overnight. Factions keep operating. Wars
+                progress. Relationships evolve. Autonomous Actors fight, retreat, revive
+                teammates, negotiate, betray, build reputations — and remember.
+              </p>
+            </div>
+            <div className="border-l-2 border-signal/50 pl-6">
+              <p className="text-xl italic leading-relaxed text-ink/90">
+                &ldquo;If someone has fought beside you, remembers your history, saved
+                your life, and has goals of their own — why should the nature of their
+                controller matter?&rdquo;
+              </p>
+              <p className="mt-3 font-mono text-base uppercase tracking-[0.3em] text-faint">
+                That tension emerges from play, never from exposition
+              </p>
+            </div>
+          </div>
+        </Reveal>
+        </div>
+      </section>
+
+      {/* ================= SAGA PHASES ================= */}
+      <section className="relative">
+        <div className="relative h-[60svh] overflow-hidden">
+          <Image
+            src={beyond}
+            alt="The war beyond Meridian — fleets in orbit over a contested world"
+            fill
+            placeholder="blur"
+            quality={95}
+            className="bg-drift object-cover"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-abyss via-abyss/20 to-abyss" />
+          <div className="absolute inset-0 flex items-center">
+            <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
+              <Reveal>
+                <Kicker num="06">How the story expands</Kicker>
+                <h2 className="display max-w-3xl text-4xl text-ink sm:text-6xl">
+                  A war that outlives us
+                </h2>
+              </Reveal>
+            </div>
+          </div>
+        </div>
+        <div className="mx-auto max-w-7xl px-5 pb-28 sm:px-8">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {phases.map(([phase, title, body], i) => (
+              <Reveal key={phase} delay={i * 60}>
+                <div className="panel panel-glow h-full p-6">
+                  <p className="mb-3 font-mono text-base tracking-[0.35em] text-ember">{phase}</p>
+                  <p className="display mb-3 text-xl normal-case tracking-normal text-ink">{title}</p>
+                  <p className="text-lg leading-relaxed text-dim">{body}</p>
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
