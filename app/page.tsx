@@ -94,7 +94,7 @@ export default function Home() {
             <h1 className="glitch text-ink">
               <Logo className="h-auto w-full max-w-[26rem] sm:max-w-[34rem] lg:max-w-[42rem]" />
             </h1>
-            <p className="mt-5 font-mono text-base uppercase tracking-[0.5em] text-signal sm:text-base">
+            <p className="mt-5 font-mono text-base uppercase tracking-[0.5em] text-ember sm:text-base">
               Prologue&nbsp;&nbsp;·&nbsp;&nbsp;The Fall of Meridian
             </p>
             <div className="rule my-8 max-w-xl" />
