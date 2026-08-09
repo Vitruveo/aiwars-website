@@ -4,6 +4,7 @@ import Ticker from "@/components/Ticker";
 import Reveal from "@/components/Reveal";
 import MintPanel from "@/components/MintPanel";
 import LiveSignal from "@/components/LiveSignal";
+import Logo from "@/components/Logo";
 
 import meridian from "@/public/art/meridian.jpg";
 import war from "@/public/art/war.jpg";
@@ -82,13 +83,15 @@ export default function Home() {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-abyss/50 via-abyss/5 to-abyss" />
           <div className="absolute inset-0 bg-gradient-to-r from-abyss/30 via-transparent to-abyss/20" />
+          <div className="starfield" />
+          <div className="scanline" />
         </div>
 
         <div className="relative mx-auto w-full max-w-7xl px-5 pb-24 pt-40 sm:px-8">
           <div className="hero-copy">
             <p className="kicker mb-6">A Vertical Foundation Project</p>
-            <h1 className="display text-[17vw] leading-[0.85] tracking-[0.06em] text-ink sm:text-[9rem] lg:text-[11rem]">
-              AI&nbsp;WARS
+            <h1 className="glitch text-ink">
+              <Logo className="h-auto w-full max-w-[26rem] sm:max-w-[34rem] lg:max-w-[42rem]" />
             </h1>
             <p className="mt-5 font-mono text-base uppercase tracking-[0.5em] text-signal sm:text-base">
               Prologue&nbsp;&nbsp;·&nbsp;&nbsp;The Fall of Meridian
@@ -701,7 +704,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
           <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
             <div>
-              <p className="display text-xl tracking-[0.35em] text-ink">AI WARS</p>
+              <Logo className="h-8 w-auto text-ink" />
               <p className="mt-3 max-w-sm text-base text-faint">
                 A persistent science-fiction universe about agency, intelligence, memory
                 and war. The world continues whether or not you are there.

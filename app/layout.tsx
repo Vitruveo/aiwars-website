@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter, IBM_Plex_Mono } from "next/font/google";
+import { Orbitron, Inter, Share_Tech_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
-const display = Space_Grotesk({
+const display = Orbitron({
   subsets: ["latin"],
   variable: "--font-display",
-  weight: ["500", "700"],
+  weight: ["500", "700", "900"],
 });
 
 const body = Inter({
@@ -14,10 +14,10 @@ const body = Inter({
   variable: "--font-body",
 });
 
-const mono = IBM_Plex_Mono({
+const mono = Share_Tech_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
-  weight: ["400", "500"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {

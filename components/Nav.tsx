@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Logo from "@/components/Logo";
 
 const links = [
   { href: "/#universe", label: "Universe" },
@@ -28,15 +29,15 @@ export default function Nav() {
       }`}
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
-        <a href="/" className="display text-lg tracking-[0.35em] text-ink">
-          AI&nbsp;WARS
+        <a href="/" aria-label="AI Wars home" className="text-ink transition-colors hover:text-signal">
+          <Logo className="h-6 w-auto" />
         </a>
         <div className="hidden items-center gap-8 md:flex">
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className="font-mono text-base uppercase tracking-[0.25em] text-dim transition-colors hover:text-signal"
+              className="relative font-mono text-base uppercase tracking-[0.25em] text-dim transition-colors after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-signal after:transition-transform after:duration-300 hover:text-signal hover:after:scale-x-100"
             >
               {l.label}
             </a>
