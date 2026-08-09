@@ -121,7 +121,21 @@ export default function Home() {
       </section>
 
       {/* ================= PREMISE ================= */}
-      <section id="universe" className="relative mx-auto max-w-7xl scroll-mt-20 px-5 py-28 sm:px-8">
+      <section id="universe" className="relative scroll-mt-20">
+        <div className="absolute inset-0 overflow-hidden">
+          <Image
+            src={beyond}
+            alt=""
+            fill
+            placeholder="blur"
+            quality={90}
+            className="object-cover object-center"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-abyss/65" />
+          <div className="absolute inset-0 bg-gradient-to-b from-abyss via-transparent to-abyss" />
+        </div>
+        <div className="relative mx-auto max-w-7xl px-5 py-28 sm:px-8">
         <Reveal>
           <Kicker num="01">A universe, not just a game</Kicker>
           <h2 className="display max-w-4xl text-4xl text-ink sm:text-6xl">
@@ -149,38 +163,40 @@ export default function Home() {
             what humanity becomes.
           </p>
         </Reveal>
+        </div>
       </section>
 
       {/* ================= MERIDIAN ================= */}
       <section className="relative">
-        <div className="relative h-[70svh] overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden">
           <Image
-            src={war}
-            alt="The war arrives — machine walkers over a burning district"
+            src={world}
+            alt="Meridian — a world worth saving"
             fill
             placeholder="blur"
             quality={90}
             className="object-cover"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-abyss via-abyss/10 to-abyss" />
-          <div className="absolute inset-0 flex items-center">
-            <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
-              <Reveal>
-                <Kicker num="02">The setting</Kicker>
-                <h2 className="display text-5xl text-ink sm:text-7xl">Meridian</h2>
-                <p className="mt-5 max-w-2xl text-2xl text-dim">
-                  A monumental human megacity — beautiful before it is damaged. The
-                  first emotional beat is not &ldquo;look at this ruined
-                  future.&rdquo; It is{" "}
-                  <span className="text-ink">&ldquo;look at what is being lost.&rdquo;</span>
-                </p>
-              </Reveal>
-            </div>
+          <div className="absolute inset-0 bg-abyss/55" />
+          <div className="absolute inset-0 bg-gradient-to-b from-abyss via-transparent to-abyss" />
+        </div>
+        <div className="relative flex min-h-[70svh] items-center">
+          <div className="mx-auto w-full max-w-7xl px-5 py-16 sm:px-8">
+            <Reveal>
+              <Kicker num="02">The setting</Kicker>
+              <h2 className="display text-5xl text-ink sm:text-7xl">Meridian</h2>
+              <p className="mt-5 max-w-2xl text-2xl text-dim">
+                A monumental human megacity — beautiful before it is damaged. The
+                first emotional beat is not &ldquo;look at this ruined
+                future.&rdquo; It is{" "}
+                <span className="text-ink">&ldquo;look at what is being lost.&rdquo;</span>
+              </p>
+            </Reveal>
           </div>
         </div>
 
-        <div className="mx-auto max-w-7xl px-5 pb-28 sm:px-8">
+        <div className="relative mx-auto max-w-7xl px-5 pb-28 sm:px-8">
           <div className="grid gap-4 md:grid-cols-3">
             <Reveal className="md:col-span-2">
               <div className="panel h-full p-8">
@@ -217,7 +233,21 @@ export default function Home() {
       </section>
 
       {/* ================= PROLOGUE / SEVEN BEATS ================= */}
-      <section id="prologue" className="mx-auto max-w-7xl scroll-mt-20 px-5 py-8 sm:px-8">
+      <section id="prologue" className="relative scroll-mt-20">
+        <div className="absolute inset-0 overflow-hidden">
+          <Image
+            src={war}
+            alt=""
+            fill
+            placeholder="blur"
+            quality={90}
+            className="object-cover object-center"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-abyss/70" />
+          <div className="absolute inset-0 bg-gradient-to-b from-abyss via-transparent to-abyss" />
+        </div>
+        <div className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8">
         <Reveal>
           <Kicker num="03">Prologue story arc</Kicker>
           <h2 className="display text-4xl text-ink sm:text-6xl">Seven beats</h2>
@@ -257,6 +287,7 @@ export default function Home() {
               </p>
             </div>
           </Reveal>
+        </div>
         </div>
       </section>
 
@@ -306,7 +337,21 @@ export default function Home() {
       </section>
 
       {/* ================= ACTORS ================= */}
-      <section id="actors" className="mx-auto max-w-7xl scroll-mt-20 px-5 py-20 sm:px-8">
+      <section id="actors" className="relative scroll-mt-20">
+        <div className="absolute inset-0 overflow-hidden">
+          <Image
+            src={meridian}
+            alt=""
+            fill
+            placeholder="blur"
+            quality={90}
+            className="object-cover object-bottom"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-abyss/75" />
+          <div className="absolute inset-0 bg-gradient-to-b from-abyss via-transparent to-abyss" />
+        </div>
+        <div className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8">
         <Reveal>
           <Kicker num="04">A synthetic society</Kicker>
           <h2 className="display max-w-4xl text-4xl text-ink sm:text-6xl">
@@ -361,6 +406,7 @@ export default function Home() {
             </div>
           </div>
         </Reveal>
+        </div>
       </section>
 
       {/* ================= SAGA PHASES ================= */}
@@ -403,7 +449,21 @@ export default function Home() {
       </section>
 
       {/* ================= TOKENOMICS ================= */}
-      <section id="token" className="mx-auto max-w-7xl scroll-mt-20 px-5 py-8 sm:px-8">
+      <section id="token" className="relative scroll-mt-20">
+        <div className="absolute inset-0 overflow-hidden">
+          <Image
+            src={archive}
+            alt=""
+            fill
+            placeholder="blur"
+            quality={90}
+            className="object-cover object-top"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-abyss/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-abyss via-transparent to-abyss" />
+        </div>
+        <div className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8">
         <Reveal>
           <Kicker num="06">$AIWARS</Kicker>
           <h2 className="display text-4xl text-ink sm:text-6xl">Tokenomics</h2>
@@ -487,6 +547,7 @@ export default function Home() {
             </div>
           </Reveal>
         </div>
+        </div>
       </section>
 
       {/* ================= MINT ================= */}
@@ -559,11 +620,6 @@ export default function Home() {
                 </p>
                 <ul className="space-y-2.5 text-base text-dim">
                   <li>
-                    <a href="https://www.pretrend.ai" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-signal">
-                      Pretrend
-                    </a>
-                  </li>
-                  <li>
                     <a href="https://www.vitruveo.xyz" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-signal">
                       Vitruveo
                     </a>
@@ -578,7 +634,7 @@ export default function Home() {
               <span className="text-dim">Vertical Foundation</span> project
             </p>
             <p className="font-mono text-base uppercase tracking-[0.3em] text-faint">
-              Persisted on Vitruveo · Observed by Pretrend
+              Persisted on Vitruveo
             </p>
           </div>
         </div>
