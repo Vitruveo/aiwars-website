@@ -46,6 +46,10 @@ body {
   color: var(--color-ember);
 }
 
+.kicker-ink {
+  color: var(--color-ink);
+}
+
 .kicker-num {
   color: var(--color-ember);
   margin-right: 1.25rem;
