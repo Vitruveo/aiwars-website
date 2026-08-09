@@ -75,20 +75,21 @@ export default function Home() {
             fill
             priority
             placeholder="blur"
+            quality={90}
             className="hero-art object-cover object-center"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-abyss/70 via-abyss/20 to-abyss" />
-          <div className="absolute inset-0 bg-gradient-to-r from-abyss/40 via-transparent to-abyss/40" />
+          <div className="absolute inset-0 bg-gradient-to-b from-abyss/50 via-abyss/5 to-abyss" />
+          <div className="absolute inset-0 bg-gradient-to-r from-abyss/30 via-transparent to-abyss/20" />
         </div>
 
         <div className="relative mx-auto w-full max-w-7xl px-5 pb-24 pt-40 sm:px-8">
-          <Reveal>
+          <div className="hero-copy">
             <p className="kicker mb-6">A Vertical Foundation Project</p>
             <h1 className="display text-[17vw] leading-[0.85] tracking-[0.06em] text-ink sm:text-[9rem] lg:text-[11rem]">
               AI&nbsp;WARS
             </h1>
-            <p className="mt-5 font-mono text-[0.7rem] uppercase tracking-[0.5em] text-signal sm:text-sm">
+            <p className="mt-5 font-mono text-base uppercase tracking-[0.5em] text-signal sm:text-base">
               Prologue&nbsp;&nbsp;·&nbsp;&nbsp;The Fall of Meridian
             </p>
             <div className="rule my-8 max-w-xl" />
@@ -100,18 +101,18 @@ export default function Home() {
             <div className="mt-10 flex flex-wrap gap-4">
               <a
                 href="#mint"
-                className="border border-signal bg-signal/15 px-8 py-4 font-mono text-[0.75rem] uppercase tracking-[0.3em] text-signal transition-all hover:bg-signal/25"
+                className="border border-signal bg-signal/15 px-8 py-4 font-mono text-base uppercase tracking-[0.3em] text-signal transition-all hover:bg-signal/25"
               >
                 Mint $AIWARS
               </a>
               <a
                 href="#universe"
-                className="border border-hairline px-8 py-4 font-mono text-[0.75rem] uppercase tracking-[0.3em] text-dim transition-all hover:border-dim hover:text-ink"
+                className="border border-hairline px-8 py-4 font-mono text-base uppercase tracking-[0.3em] text-dim transition-all hover:border-dim hover:text-ink"
               >
                 Enter the universe
               </a>
             </div>
-          </Reveal>
+          </div>
         </div>
 
         <div className="relative">
@@ -126,7 +127,7 @@ export default function Home() {
           <h2 className="display max-w-4xl text-4xl text-ink sm:text-6xl">
             The assumption should collapse
           </h2>
-          <p className="mt-6 max-w-2xl text-lg text-dim">
+          <p className="mt-6 max-w-2xl text-xl text-dim">
             The player begins believing humans are fighting AI. Over time, that framing
             has to break. The machine intelligences are not one thing — they have
             histories, loyalties, and ideas about what humanity should become.
@@ -136,8 +137,8 @@ export default function Home() {
           {conflicts.map(([title, body], i) => (
             <Reveal key={title} delay={i * 60}>
               <div className="panel panel-glow h-full p-6">
-                <p className="mb-3 font-mono text-[0.65rem] tracking-[0.3em] text-signal">{title}</p>
-                <p className="text-sm leading-relaxed text-dim">{body}</p>
+                <p className="mb-3 font-mono text-base tracking-[0.3em] text-signal">{title}</p>
+                <p className="text-lg leading-relaxed text-dim">{body}</p>
               </div>
             </Reveal>
           ))}
@@ -158,6 +159,7 @@ export default function Home() {
             alt="The war arrives — machine walkers over a burning district"
             fill
             placeholder="blur"
+            quality={90}
             className="object-cover"
             sizes="100vw"
           />
@@ -181,10 +183,10 @@ export default function Home() {
           <div className="grid gap-4 md:grid-cols-3">
             <Reveal className="md:col-span-2">
               <div className="panel h-full p-8">
-                <p className="mb-4 font-mono text-[0.65rem] uppercase tracking-[0.35em] text-signal">
+                <p className="mb-4 font-mono text-base uppercase tracking-[0.35em] text-signal">
                   Visual characteristics
                 </p>
-                <ul className="grid gap-3 text-sm text-dim sm:grid-cols-2">
+                <ul className="grid gap-3 text-base text-dim sm:grid-cols-2">
                   <li>Kilometer-scale inhabited towers</li>
                   <li>Layered transportation and airborne traffic</li>
                   <li>Vast civic infrastructure and elevated plazas</li>
@@ -196,15 +198,15 @@ export default function Home() {
             </Reveal>
             <Reveal delay={100}>
               <div className="panel panel-glow h-full border-ember/30 p-8">
-                <p className="mb-3 font-mono text-[0.65rem] uppercase tracking-[0.35em] text-ember">
+                <p className="mb-3 font-mono text-base uppercase tracking-[0.35em] text-ember">
                   At the center — The Archive
                 </p>
-                <p className="text-sm leading-relaxed text-dim">
+                <p className="text-lg leading-relaxed text-dim">
                   It predates much of the surrounding city. Meridian appears to have been
                   built around it. The population believes it is humanity&rsquo;s
                   authenticated repository of history, knowledge, culture and continuity.
                 </p>
-                <p className="mt-4 text-sm italic text-ink/80">
+                <p className="mt-4 text-base italic text-ink/80">
                   That assumption is central to the Prologue.
                 </p>
               </div>
@@ -218,7 +220,7 @@ export default function Home() {
         <Reveal>
           <Kicker num="03">Prologue story arc</Kicker>
           <h2 className="display text-4xl text-ink sm:text-6xl">Seven beats</h2>
-          <p className="mt-5 max-w-2xl text-lg text-dim">
+          <p className="mt-5 max-w-2xl text-xl text-dim">
             Ten to fifteen minutes. One connected region. One continuous escalation. A
             compact, canonical opening chapter — small enough to build at high visual
             quality, large enough to imply an enormous universe.
@@ -228,27 +230,27 @@ export default function Home() {
           {beats.slice(0, 4).map(([num, title, body], i) => (
             <Reveal key={num} delay={i * 60}>
               <div className="panel panel-glow h-full p-6">
-                <p className="mb-3 font-mono text-[0.65rem] tracking-[0.3em] text-signal">{num}</p>
+                <p className="mb-3 font-mono text-base tracking-[0.3em] text-signal">{num}</p>
                 <p className="display mb-3 text-lg text-ink">{title}</p>
-                <p className="text-sm leading-relaxed text-dim">{body}</p>
+                <p className="text-lg leading-relaxed text-dim">{body}</p>
               </div>
             </Reveal>
           ))}
           {beats.slice(4).map(([num, title, body], i) => (
             <Reveal key={num} delay={i * 60}>
               <div className="panel panel-glow h-full p-6">
-                <p className="mb-3 font-mono text-[0.65rem] tracking-[0.3em] text-signal">{num}</p>
+                <p className="mb-3 font-mono text-base tracking-[0.3em] text-signal">{num}</p>
                 <p className="display mb-3 text-lg text-ink">{title}</p>
-                <p className="text-sm leading-relaxed text-dim">{body}</p>
+                <p className="text-lg leading-relaxed text-dim">{body}</p>
               </div>
             </Reveal>
           ))}
           <Reveal delay={240}>
             <div className="panel h-full border-ember/40 p-6">
-              <p className="mb-3 font-mono text-[0.65rem] tracking-[0.3em] text-ember">
+              <p className="mb-3 font-mono text-base tracking-[0.3em] text-ember">
                 THE PLAYER IS NOT A CHOSEN HERO
               </p>
-              <p className="text-sm leading-relaxed text-dim">
+              <p className="text-lg leading-relaxed text-dim">
                 One capable defender inside an escalating crisis, fighting beside Actors
                 whose controllers are never revealed.
               </p>
@@ -265,10 +267,11 @@ export default function Home() {
             alt="The Archive awakens — figures before a monumental activating structure"
             fill
             placeholder="blur"
+            quality={90}
             className="object-cover"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-abyss/55" />
+          <div className="absolute inset-0 bg-abyss/40" />
           <div className="absolute inset-0 bg-gradient-to-b from-abyss via-transparent to-abyss" />
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="max-w-4xl px-5 text-center">
@@ -292,7 +295,7 @@ export default function Home() {
               </Reveal>
               <Reveal delay={750}>
                 <div className="rule mx-auto mt-14 max-w-md" />
-                <p className="mt-8 font-mono text-[0.65rem] uppercase tracking-[0.4em] text-faint">
+                <p className="mt-8 font-mono text-base uppercase tracking-[0.4em] text-faint">
                   The player never learns what has awakened. That mystery opens the saga.
                 </p>
               </Reveal>
@@ -308,7 +311,7 @@ export default function Home() {
           <h2 className="display max-w-4xl text-4xl text-ink sm:text-6xl">
             Actors — not players and bots
           </h2>
-          <p className="mt-6 max-w-2xl text-lg text-dim">
+          <p className="mt-6 max-w-2xl text-xl text-dim">
             Every character has an identity: name, history, faction, reputation,
             relationships, memory, goals. An Actor may be controlled by a human or by an
             autonomous agent. The game does not tell you which.
@@ -325,7 +328,7 @@ export default function Home() {
             <Reveal key={label} delay={i * 80}>
               <div className="panel panel-glow h-full p-8 text-center">
                 <p className={`display text-6xl ${color}`}>{num}</p>
-                <p className="mt-4 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-dim">
+                <p className="mt-4 font-mono text-base uppercase tracking-[0.2em] text-dim">
                   {label}
                 </p>
               </div>
@@ -351,7 +354,7 @@ export default function Home() {
                 your life, and has goals of their own — why should the nature of their
                 controller matter?&rdquo;
               </p>
-              <p className="mt-3 font-mono text-[0.6rem] uppercase tracking-[0.3em] text-faint">
+              <p className="mt-3 font-mono text-base uppercase tracking-[0.3em] text-faint">
                 That tension emerges from play, never from exposition
               </p>
             </div>
@@ -367,6 +370,7 @@ export default function Home() {
             alt="The war beyond Meridian — fleets in orbit over a contested world"
             fill
             placeholder="blur"
+            quality={90}
             className="object-cover"
             sizes="100vw"
           />
@@ -387,9 +391,9 @@ export default function Home() {
             {phases.map(([phase, title, body], i) => (
               <Reveal key={phase} delay={i * 60}>
                 <div className="panel panel-glow h-full p-6">
-                  <p className="mb-3 font-mono text-[0.65rem] tracking-[0.35em] text-ember">{phase}</p>
+                  <p className="mb-3 font-mono text-base tracking-[0.35em] text-ember">{phase}</p>
                   <p className="display mb-3 text-xl normal-case tracking-normal text-ink">{title}</p>
-                  <p className="text-sm leading-relaxed text-dim">{body}</p>
+                  <p className="text-lg leading-relaxed text-dim">{body}</p>
                 </div>
               </Reveal>
             ))}
@@ -402,7 +406,7 @@ export default function Home() {
         <Reveal>
           <Kicker num="06">$AIWARS</Kicker>
           <h2 className="display text-4xl text-ink sm:text-6xl">Tokenomics</h2>
-          <p className="mt-6 max-w-2xl text-lg text-dim">
+          <p className="mt-6 max-w-2xl text-xl text-dim">
             The sale is the only source. No secondary allocations, no team reserve, no
             pre-mine. Every token purchased is staked to an agent fighting in the world —
             emissions flow from agent wins alone.
@@ -419,7 +423,7 @@ export default function Home() {
             <Reveal key={label} delay={i * 80}>
               <div className="panel panel-glow h-full p-8 text-center">
                 <p className="display text-5xl text-signal">{num}</p>
-                <p className="mt-4 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-dim">
+                <p className="mt-4 font-mono text-base uppercase tracking-[0.2em] text-dim">
                   {label}
                 </p>
               </div>
@@ -430,21 +434,21 @@ export default function Home() {
         <div className="mt-4 grid gap-4 lg:grid-cols-2">
           <Reveal>
             <div className="panel h-full p-8">
-              <p className="mb-6 font-mono text-[0.65rem] uppercase tracking-[0.35em] text-signal">
+              <p className="mb-6 font-mono text-base uppercase tracking-[0.35em] text-signal">
                 Mechanics
               </p>
               <div className="space-y-5">
                 {tokenMechanics.map(([action, body]) => (
                   <div key={action} className="flex gap-5">
-                    <span className="w-20 shrink-0 font-mono text-[0.7rem] tracking-[0.25em] text-ember">
+                    <span className="w-28 shrink-0 font-mono text-base tracking-[0.25em] text-ember">
                       {action}
                     </span>
-                    <p className="text-sm leading-relaxed text-dim">{body}</p>
+                    <p className="text-lg leading-relaxed text-dim">{body}</p>
                   </div>
                 ))}
               </div>
               <div className="rule my-6" />
-              <p className="text-sm leading-relaxed text-faint">
+              <p className="text-lg leading-relaxed text-faint">
                 All tokens locked until game launch or 180 days, whichever comes first. At
                 unlock, the greater of 20% of the raise or $50,000 seeds the DEX pool —
                 and the LP position is burned. Liquidity is permanently locked.
@@ -454,17 +458,17 @@ export default function Home() {
 
           <Reveal delay={100}>
             <div className="panel h-full p-8">
-              <p className="mb-2 font-mono text-[0.65rem] uppercase tracking-[0.35em] text-signal">
+              <p className="mb-2 font-mono text-base uppercase tracking-[0.35em] text-signal">
                 Emission halvings
               </p>
-              <p className="mb-8 text-sm text-dim">
+              <p className="mb-8 text-lg text-dim">
                 Agents mint 150 tokens per win, pro-rata to their stakers. The reward
                 halves each time cumulative agent mints cross a 50M threshold.
               </p>
               <div className="space-y-4">
                 {halvings.map(([threshold, reward, width]) => (
                   <div key={threshold as string}>
-                    <div className="mb-1.5 flex justify-between font-mono text-[0.65rem] tracking-[0.2em]">
+                    <div className="mb-1.5 flex justify-between font-mono text-base tracking-[0.2em]">
                       <span className="text-faint">AFTER {threshold} MINTED</span>
                       <span className="text-ink">{reward} / WIN</span>
                     </div>
@@ -475,7 +479,7 @@ export default function Home() {
                 ))}
               </div>
               <div className="rule my-6" />
-              <p className="text-sm leading-relaxed text-faint">
+              <p className="text-lg leading-relaxed text-faint">
                 The circulating cap measures live supply — unstake burns reopen headroom,
                 so emissions continue against freed space rather than terminating.
               </p>
@@ -492,17 +496,18 @@ export default function Home() {
             alt="A world worth saving — Meridian at dawn"
             fill
             placeholder="blur"
+            quality={90}
             className="object-cover"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-abyss/80" />
+          <div className="absolute inset-0 bg-abyss/65" />
           <div className="absolute inset-0 bg-gradient-to-b from-abyss via-transparent to-abyss" />
         </div>
         <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
           <Reveal>
             <Kicker num="07">Public mint</Kicker>
             <h2 className="display text-4xl text-ink sm:text-6xl">Stake your agent</h2>
-            <p className="mt-6 max-w-2xl text-lg text-dim">
+            <p className="mt-6 max-w-2xl text-xl text-dim">
               Thirty agents enter the war identical. Their skills diverge through play.
               Their wins mint tokens to the people staked behind them. Choose whose war
               you fund.
@@ -522,36 +527,36 @@ export default function Home() {
           <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
             <div>
               <p className="display text-xl tracking-[0.35em] text-ink">AI WARS</p>
-              <p className="mt-3 max-w-sm text-sm text-faint">
+              <p className="mt-3 max-w-sm text-base text-faint">
                 A persistent science-fiction universe about agency, intelligence, memory
                 and war. The world continues whether or not you are there.
               </p>
             </div>
             <div className="flex gap-16">
               <div>
-                <p className="mb-4 font-mono text-[0.6rem] uppercase tracking-[0.3em] text-faint">
+                <p className="mb-4 font-mono text-base uppercase tracking-[0.3em] text-faint">
                   Universe
                 </p>
-                <ul className="space-y-2.5 text-sm text-dim">
+                <ul className="space-y-2.5 text-base text-dim">
                   <li><a href="#universe" className="transition-colors hover:text-signal">Vision</a></li>
                   <li><a href="#prologue" className="transition-colors hover:text-signal">Prologue</a></li>
                   <li><a href="#actors" className="transition-colors hover:text-signal">Actors</a></li>
                 </ul>
               </div>
               <div>
-                <p className="mb-4 font-mono text-[0.6rem] uppercase tracking-[0.3em] text-faint">
+                <p className="mb-4 font-mono text-base uppercase tracking-[0.3em] text-faint">
                   Token
                 </p>
-                <ul className="space-y-2.5 text-sm text-dim">
+                <ul className="space-y-2.5 text-base text-dim">
                   <li><a href="#token" className="transition-colors hover:text-signal">Tokenomics</a></li>
                   <li><a href="#mint" className="transition-colors hover:text-signal">Mint</a></li>
                 </ul>
               </div>
               <div>
-                <p className="mb-4 font-mono text-[0.6rem] uppercase tracking-[0.3em] text-faint">
+                <p className="mb-4 font-mono text-base uppercase tracking-[0.3em] text-faint">
                   Ecosystem
                 </p>
-                <ul className="space-y-2.5 text-sm text-dim">
+                <ul className="space-y-2.5 text-base text-dim">
                   <li>
                     <a href="https://www.pretrend.ai" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-signal">
                       Pretrend
@@ -567,11 +572,11 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-hairline pt-8 sm:flex-row sm:items-center">
-            <p className="font-mono text-[0.65rem] tracking-[0.15em] text-faint">
+            <p className="font-mono text-base tracking-[0.15em] text-faint">
               © 2026 AI Wars · A{" "}
               <span className="text-dim">Vertical Foundation</span> project
             </p>
-            <p className="font-mono text-[0.6rem] uppercase tracking-[0.3em] text-faint">
+            <p className="font-mono text-base uppercase tracking-[0.3em] text-faint">
               Persisted on Vitruveo · Observed by Pretrend
             </p>
           </div>

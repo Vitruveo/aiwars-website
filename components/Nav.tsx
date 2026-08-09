@@ -36,7 +36,7 @@ export default function Nav() {
             <a
               key={l.href}
               href={l.href}
-              className="font-mono text-[0.7rem] uppercase tracking-[0.25em] text-dim transition-colors hover:text-signal"
+              className="font-mono text-base uppercase tracking-[0.25em] text-dim transition-colors hover:text-signal"
             >
               {l.label}
             </a>
@@ -44,7 +44,7 @@ export default function Nav() {
         </div>
         <a
           href="#mint"
-          className="border border-signal/50 bg-signal/10 px-4 py-2 font-mono text-[0.7rem] uppercase tracking-[0.25em] text-signal transition-all hover:border-signal hover:bg-signal/20"
+          className="border border-signal/50 bg-signal/10 px-4 py-2 font-mono text-base uppercase tracking-[0.25em] text-signal transition-all hover:border-signal hover:bg-signal/20"
         >
           Mint&nbsp;$AIWARS
         </a>

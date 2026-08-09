@@ -67,7 +67,7 @@ export default function Ticker() {
 
   return (
     <div className="relative overflow-hidden border-y border-hairline bg-void/90">
-      <div className="marquee flex w-max py-2.5 font-mono text-[0.65rem] tracking-[0.2em]">
+      <div className="marquee flex w-max py-3 font-mono text-base tracking-[0.2em]">
         <TickerRow signals={signals} />
         <TickerRow signals={signals} />
       </div>
