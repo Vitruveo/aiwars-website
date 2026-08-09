@@ -42,6 +42,10 @@ body {
   color: var(--color-signal);
 }
 
+.kicker-ember {
+  color: var(--color-ember);
+}
+
 .kicker-num {
   color: var(--color-ember);
   margin-right: 1.25rem;
