@@ -21,6 +21,11 @@ const mono = Share_Tech_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : "http://localhost:3000"
+  ),
   title: "AI Wars — The Fall of Meridian",
   description:
     "A persistent science-fiction universe about agency, intelligence, memory and war. $AIWARS public mint — every token auto-staked to one of 30 agents. A Vertical Foundation project.",
@@ -28,7 +33,14 @@ export const metadata: Metadata = {
     title: "AI Wars — The Fall of Meridian",
     description:
       "Humanity's greatest city. Its most dangerous secret. $AIWARS public mint — a Vertical Foundation project.",
-    images: ["/art/meridian.jpg"],
+    images: [{ url: "/og.jpg", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AI Wars — The Fall of Meridian",
+    description:
+      "Humanity's greatest city. Its most dangerous secret. $AIWARS public mint — a Vertical Foundation project.",
+    images: ["/og.jpg"],
   },
 };
 

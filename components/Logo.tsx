@@ -1,11 +1,12 @@
 /*
  * AI WARS wordmark. Reads "A-WARS" where the W's first stroke is a thick
- * blue vertical bar that doubles as the "I" of "AI".
+ * blue bar — slanted at the same angle as the A's legs — doubling as the
+ * "I" of "AI".
  */
 export default function Logo({ className = "" }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 520 120"
+      viewBox="0 0 536 120"
       role="img"
       aria-label="AI WARS"
       className={className}
@@ -25,34 +26,34 @@ export default function Logo({ className = "" }: { className?: string }) {
         strokeLinejoin="bevel"
       />
       <path d="M22 78 L68 78" stroke="currentColor" strokeWidth="14" />
-      {/* I — thick slanted blue bar, doubles as the W's first stroke */}
-      <path d="M112 10 L124 110" stroke="url(#aiwars-i)" strokeWidth="26" />
+      {/* I — thick blue bar slanted to match the A's leg angle; doubles as the W's first stroke */}
+      <path d="M104 10 L141 110" stroke="url(#aiwars-i)" strokeWidth="26" />
       {/* W — remaining strokes */}
       <path
-        d="M136 102 L160 40 L184 102 L212 14"
+        d="M148 102 L172 40 L196 102 L229 14"
         stroke="currentColor"
         strokeWidth="16"
         strokeLinejoin="bevel"
       />
       {/* A */}
       <path
-        d="M237 110 L273 14 L309 110"
+        d="M253 110 L289 14 L325 110"
         stroke="currentColor"
         strokeWidth="16"
         strokeLinejoin="bevel"
       />
-      <path d="M250 78 L296 78" stroke="currentColor" strokeWidth="14" />
+      <path d="M266 78 L312 78" stroke="currentColor" strokeWidth="14" />
       {/* R */}
       <path
-        d="M337 110 L337 18 L389 18 L389 58 L337 58"
+        d="M353 110 L353 18 L405 18 L405 58 L353 58"
         stroke="currentColor"
         strokeWidth="16"
         strokeLinejoin="bevel"
       />
-      <path d="M362 58 L398 110" stroke="currentColor" strokeWidth="16" />
+      <path d="M378 58 L414 110" stroke="currentColor" strokeWidth="16" />
       {/* S */}
       <path
-        d="M500 22 L432 22 L432 60 L496 60 L496 98 L424 98"
+        d="M516 22 L448 22 L448 60 L512 60 L512 98 L440 98"
         stroke="currentColor"
         strokeWidth="16"
         strokeLinejoin="bevel"
