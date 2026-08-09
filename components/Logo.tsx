@@ -6,7 +6,7 @@
 export default function Logo({ className = "" }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 518 120"
+      viewBox="0 0 511 120"
       role="img"
       aria-label="AI WARS"
       className={className}
@@ -53,7 +53,7 @@ export default function Logo({ className = "" }: { className?: string }) {
       <path d="M361 58 L397 110" stroke="currentColor" strokeWidth="16" />
       {/* S */}
       <path
-        d="M498 22 L430 22 L430 60 L494 60 L494 98 L422 98"
+        d="M491 22 L423 22 L423 60 L487 60 L487 98 L415 98"
         stroke="currentColor"
         strokeWidth="16"
         strokeLinejoin="bevel"
