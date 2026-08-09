@@ -296,10 +296,26 @@ export default function Whitepaper() {
       </div>
 
       <footer className="border-t border-hairline bg-void">
-        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-4 px-5 py-10 sm:flex-row sm:items-center sm:px-8">
-          <p className="font-mono text-base tracking-[0.15em] text-faint">
-            © 2026 AI Wars · A <span className="text-dim">Vertical Foundation</span> project
-          </p>
+        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-5 py-10 sm:flex-row sm:items-center sm:px-8">
+          <div className="flex items-center gap-6">
+            <a
+              href="https://www.verticalfoundation.net"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="opacity-60 transition-opacity hover:opacity-100"
+            >
+              <Image
+                src="/vertical-foundation-logo.png"
+                alt="Vertical Foundation"
+                width={125}
+                height={80}
+                className="h-16 w-auto"
+              />
+            </a>
+            <p className="font-mono text-base tracking-[0.15em] text-faint">
+              © 2026 AI Wars · A Vertical Foundation project
+            </p>
+          </div>
           <a href="/" className="font-mono text-base uppercase tracking-[0.3em] text-dim transition-colors hover:text-signal">
             Back to site
           </a>

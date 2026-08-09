@@ -448,6 +448,116 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ================= PRETREND ================= */}
+      <section id="pretrend" className="relative scroll-mt-20">
+        <div className="absolute inset-0 overflow-hidden">
+          <Image
+            src={beyond}
+            alt=""
+            fill
+            placeholder="blur"
+            quality={90}
+            className="object-cover object-bottom"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-abyss/75" />
+          <div className="absolute inset-0 bg-gradient-to-b from-abyss via-transparent to-abyss" />
+        </div>
+        <div className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8">
+          <Reveal>
+            <Kicker num="06">The Pretrend gaming preview</Kicker>
+            <h2 className="display max-w-4xl text-4xl text-ink sm:text-6xl">
+              Two products, one session
+            </h2>
+            <p className="mt-6 max-w-2xl text-2xl text-dim">
+              AI Wars is a premium game.{" "}
+              <a
+                href="https://www.pretrend.ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-signal underline decoration-signal/40 underline-offset-4 transition-colors hover:decoration-signal"
+              >
+                Pretrend
+              </a>{" "}
+              is an external observer. They share gameplay — nothing else. Pretrend
+              reads live telemetry from outside the game, derives its own Battle
+              Momentum signal, and opens live trend markets around it. The game never
+              changes, never reacts, never even knows.
+            </p>
+          </Reveal>
+
+          <div className="mt-14 grid gap-4 lg:grid-cols-2">
+            <Reveal>
+              <div className="panel h-full p-8">
+                <p className="mb-6 font-mono text-base uppercase tracking-[0.35em] text-signal">
+                  One direction of flow
+                </p>
+                <div className="space-y-2.5">
+                  {[
+                    ["AI WARS", "Gameplay only"],
+                    ["RAW GAME TELEMETRY", "Dense, continuous, multidimensional"],
+                    ["PRETREND PROVIDER MODULE", "Interprets the event stream"],
+                    ["BATTLE MOMENTUM SIGNAL", "Proprietary, external, 5-second cadence"],
+                    ["10-MINUTE TREND MARKET", "Live, tradable, continuously moving"],
+                    ["RESOLUTION / SETTLEMENT", "Vitruveo where durability matters"],
+                  ].map(([step, note], i) => (
+                    <div key={step}>
+                      {i > 0 && (
+                        <p className="py-0.5 text-center font-mono text-base text-faint">v</p>
+                      )}
+                      <div className="flex items-baseline justify-between gap-4 border border-hairline bg-void/70 px-5 py-3.5">
+                        <span className={`font-mono text-base tracking-[0.1em] ${i === 0 ? "text-ember" : i >= 3 ? "text-signal" : "text-ink"}`}>
+                          {step}
+                        </span>
+                        <span className="hidden text-right text-base text-faint sm:block">{note}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+
+            <div className="flex flex-col gap-4">
+              <Reveal delay={80}>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="panel panel-glow p-8 text-center">
+                    <p className="display text-6xl text-signal">5s</p>
+                    <p className="mt-3 font-mono text-base uppercase tracking-[0.2em] text-dim">
+                      signal update cadence
+                    </p>
+                  </div>
+                  <div className="panel panel-glow p-8 text-center">
+                    <p className="display text-6xl text-ember">10m</p>
+                    <p className="mt-3 font-mono text-base uppercase tracking-[0.2em] text-dim">
+                      market duration
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
+              <Reveal delay={160}>
+                <div className="panel h-full p-8">
+                  <p className="mb-4 font-mono text-base uppercase tracking-[0.35em] text-signal">
+                    Why the signal moves wildly
+                  </p>
+                  <p className="text-xl leading-relaxed text-dim">
+                    Within seconds: Actors die, positions change hands, structures fail,
+                    reinforcements arrive, an AI commander alters its attack behavior. A
+                    human force may look visually successful while the composite signal
+                    moves against it — a market on the evolving direction of the battle,
+                    not a simple who-wins outcome.
+                  </p>
+                  <div className="rule my-6" />
+                  <p className="text-xl italic leading-relaxed text-ink/90">
+                    &ldquo;Any sufficiently rich game can become a live market data
+                    source — without changing the game itself.&rdquo;
+                  </p>
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ================= TOKENOMICS ================= */}
       <section id="token" className="relative scroll-mt-20">
         <div className="absolute inset-0 overflow-hidden">
@@ -465,7 +575,7 @@ export default function Home() {
         </div>
         <div className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8">
         <Reveal>
-          <Kicker num="06">$AIWARS</Kicker>
+          <Kicker num="07">$AIWARS</Kicker>
           <h2 className="display text-4xl text-ink sm:text-6xl">Tokenomics</h2>
           <p className="mt-6 max-w-2xl text-2xl text-dim">
             The sale is the only source. No secondary allocations, no team reserve, no
@@ -567,7 +677,7 @@ export default function Home() {
         </div>
         <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
           <Reveal>
-            <Kicker num="07">Public mint</Kicker>
+            <Kicker num="08">Public mint</Kicker>
             <h2 className="display text-4xl text-ink sm:text-6xl">Stake your agent</h2>
             <p className="mt-6 max-w-2xl text-2xl text-dim">
               Thirty agents enter the war identical. Their skills diverge through play.
@@ -620,6 +730,11 @@ export default function Home() {
                 </p>
                 <ul className="space-y-2.5 text-base text-dim">
                   <li>
+                    <a href="https://www.pretrend.ai" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-signal">
+                      Pretrend
+                    </a>
+                  </li>
+                  <li>
                     <a href="https://www.vitruveo.xyz" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-signal">
                       Vitruveo
                     </a>
@@ -628,15 +743,28 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-hairline pt-8 sm:flex-row sm:items-center">
-            <p className="font-mono text-base tracking-[0.15em] text-faint">
-              © 2026 AI Wars · A{" "}
-              <span className="text-dim">Vertical Foundation</span> project
-            </p>
+          <div className="mt-14 flex flex-col items-start justify-between gap-6 border-t border-hairline pt-8 sm:flex-row sm:items-center">
+            <a
+              href="https://www.verticalfoundation.net"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="opacity-60 transition-opacity hover:opacity-100"
+            >
+              <Image
+                src="/vertical-foundation-logo.png"
+                alt="Vertical Foundation"
+                width={125}
+                height={80}
+                className="h-16 w-auto"
+              />
+            </a>
             <p className="font-mono text-base uppercase tracking-[0.3em] text-faint">
-              Persisted on Vitruveo
+              Persisted on Vitruveo · Observed by Pretrend
             </p>
           </div>
+          <p className="mt-8 text-center font-mono text-base tracking-[0.15em] text-faint">
+            © 2026 AI Wars · A Vertical Foundation project
+          </p>
         </div>
       </footer>
     </main>
