@@ -6,7 +6,7 @@ import archive from "@/public/art/archive.jpg";
 export const metadata: Metadata = {
   title: "Whitepaper — AI Wars",
   description:
-    "AI Wars: Complete Vision. A persistent science-fiction universe about agency, intelligence, memory and war — with the $AIWARS token appendix.",
+    "AI Wars: Complete Vision. A persistent science-fiction universe about agency, intelligence, memory and war — with the Archive Shard NFT appendix.",
 };
 
 type Section = {
@@ -164,19 +164,19 @@ const sections: Section[] = [
   },
 ];
 
-const tokenRows: [string, string][] = [
-  ["Price", "$0.05 per token"],
-  ["Sale cap", "50,000,000 tokens — $2.5M max raise"],
-  ["Availability", "The sale is the only source. No secondary allocations."],
-  ["Lock", "Until game launch or 180 days, whichever comes first"],
-  ["Staking", "Every token purchased is auto-staked to one of 30 agents"],
-  ["Switch agent", "1% burned, 7-day lock on the new position"],
-  ["Unstake", "10% burned — burns reopen headroom under the cap"],
-  ["Emissions", "150 tokens minted per agent win, pro-rata to that agent's stakers"],
-  ["Halvings", "150 → 75 → 38 → 19, each time agent mints cross a 50M threshold"],
-  ["Max circulating", "250,000,000 tokens"],
-  ["Liquidity", "Greater of 20% of raise or $50,000 seeds the DEX pool at $0.05"],
-  ["LP position", "Burned — liquidity is permanently locked"],
+const shardRows: [string, string][] = [
+  ["Type", "One NFT type — the Archive Shard"],
+  ["Beta", "Holders are the exclusive closed-beta testers of the game"],
+  ["Supply", "4,000 shards, fixed forever. Unsold shards are burned at close."],
+  ["Tiers", "T1 Archivist 100 · T2 Vanguard 200 · T3 Defender 500 · T4 Citizen 1,000 · T5 Survivor 2,200"],
+  ["Price", "$100 for Tiers 1–4, $50 for Tier 5 — $290,000 max raise"],
+  ["Sequence", "Each tier opens only when the one above it sells out. Speed decides tier."],
+  ["Wallet cap", "3 shards per wallet and IP pair"],
+  ["Metadata", "Tier, Powers, Scapes, Affinity, Sector — all on chain"],
+  ["Power", "Each shard rolls 1–3 of five bonuses; the value is fixed by tier"],
+  ["Scape", "Each shard rolls 0–3 of eight terrain assists from its tier's pool — an escalator instead of a staircase"],
+  ["Activations", "Power, Scape, Duo, Trio — earlier tiers roll more and stronger"],
+  ["Set rule", "A set activation applies only if every participating shard carries it"],
 ];
 
 export default function Whitepaper() {
@@ -203,7 +203,7 @@ export default function Whitepaper() {
           <h1 className="display text-5xl text-ink sm:text-7xl">AI Wars</h1>
           <p className="mt-6 max-w-2xl text-xl text-dim">
             A persistent science-fiction universe about agency, intelligence, memory
-            and war — and the $AIWARS token that funds its first battles.
+            and war — and the Archive Shard that anchors its first players.
           </p>
         </div>
       </section>
@@ -228,11 +228,11 @@ export default function Whitepaper() {
             ))}
             <li>
               <a
-                href="#token-appendix"
+                href="#shard-appendix"
                 className="flex gap-3 text-base text-dim transition-colors hover:text-signal"
               >
                 <span className="font-mono text-ember">15</span>
-                Appendix — $AIWARS
+                Appendix — Archive Shard
               </a>
             </li>
           </ol>
@@ -263,14 +263,14 @@ export default function Whitepaper() {
           ))}
 
           {/* token appendix */}
-          <section id="token-appendix" className="scroll-mt-28">
+          <section id="shard-appendix" className="scroll-mt-28">
             <p className="kicker mb-4">
               <span className="kicker-num">15</span>
               Appendix
             </p>
-            <h2 className="display mb-8 text-4xl text-ink">$AIWARS Tokenomics</h2>
+            <h2 className="display mb-8 text-4xl text-ink">Archive Shard NFT</h2>
             <div className="panel divide-y divide-hairline">
-              {tokenRows.map(([k, v]) => (
+              {shardRows.map(([k, v]) => (
                 <div key={k} className="flex flex-col gap-1 px-6 py-4 sm:flex-row sm:gap-6">
                   <span className="w-44 shrink-0 font-mono text-base uppercase tracking-[0.15em] text-ember">
                     {k}
@@ -280,17 +280,18 @@ export default function Whitepaper() {
               ))}
             </div>
             <p className="mt-8 text-lg leading-relaxed text-faint">
-              The circulating cap measures live supply — unstake burns reopen headroom,
-              so emissions continue against freed space rather than terminating. The
-              halving counter tracks agent mints only; liquidity tokens minted at unlock
-              count toward the circulating cap, not the halving counter.
+              Shards are the durable, on-chain layer of the game. Real-time play never
+              waits on them. The full tier, metadata and activation design lives on the
+              shard page.
             </p>
-            <a
-              href="/#mint"
-              className="mt-10 inline-block border border-signal bg-signal/15 px-8 py-4 font-mono text-base uppercase tracking-[0.3em] text-signal transition-all hover:bg-signal/25"
-            >
-              Mint $AIWARS
-            </a>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <a
+                href="/nft"
+                className="inline-block border border-signal bg-signal/15 px-8 py-4 font-mono text-base uppercase tracking-[0.3em] text-signal transition-all hover:bg-signal/25"
+              >
+                Mint Shards
+              </a>
+            </div>
           </section>
         </article>
       </div>

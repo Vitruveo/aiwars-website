@@ -94,6 +94,11 @@ p {
   backdrop-filter: blur(6px);
 }
 
+.panel-flat {
+  backdrop-filter: none;
+  background: #0a1120;
+}
+
 .panel-glow {
   transition: border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
 }
@@ -426,4 +431,179 @@ p {
   .scanline {
     display: none;
   }
+}
+
+/* ===================== Archive Shard mint page ===================== */
+
+/* -- shard: float + core pulse -- */
+@keyframes shardfloat {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-14px) rotate(2deg); }
+}
+.shard-float {
+  animation: shardfloat 6s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform;
+}
+@keyframes corepulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+.shard-core {
+  animation: corepulse 2.4s ease-in-out infinite;
+}
+@keyframes shardspin {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+.shard-spin {
+  animation: shardspin 14s linear infinite;
+  transform-style: preserve-3d;
+}
+.shard-stage {
+  perspective: 900px;
+}
+
+/* -- energy flow along a path -- */
+@keyframes flowdash {
+  to { stroke-dashoffset: -60; }
+}
+.flow-line {
+  stroke-dasharray: 8 12;
+  animation: flowdash 1.4s linear infinite;
+}
+@keyframes nodepulse {
+  0%, 100% { r: 22; opacity: 0.35; }
+  50% { r: 34; opacity: 0; }
+}
+.node-pulse {
+  animation: nodepulse 2s ease-out infinite;
+}
+
+/* -- sweep highlight across a tile -- */
+.sweep {
+  position: relative;
+  overflow: hidden;
+}
+.sweep::before {
+  content: "";
+  position: absolute;
+  top: -60%;
+  left: 0;
+  width: 45%;
+  height: 220%;
+  background: linear-gradient(105deg, transparent, rgba(45, 140, 255, 0.22), transparent);
+  transform: rotate(18deg) translateX(-260%);
+  animation: tilesweep 7s linear infinite;
+  animation-delay: var(--d, 0s);
+  pointer-events: none;
+}
+
+/* -- chips lighting up -- */
+.chip {
+  border: 1px solid var(--color-hairline);
+  color: var(--color-faint);
+  transition: border-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease, background 0.5s ease;
+}
+.chip.lit {
+  border-color: rgba(45, 140, 255, 0.8);
+  color: var(--color-ink);
+  background: rgba(45, 140, 255, 0.12);
+  box-shadow: 0 0 22px rgba(45, 140, 255, 0.3);
+}
+.chip.lit-ember {
+  border-color: rgba(240, 149, 79, 0.9);
+  color: var(--color-ink);
+  background: rgba(240, 149, 79, 0.12);
+  box-shadow: 0 0 22px rgba(240, 149, 79, 0.35);
+}
+
+/* -- hold diagram slots -- */
+.slot {
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease, filter 0.6s ease;
+}
+.slot.empty {
+  opacity: 0.18;
+  filter: grayscale(1);
+  transform: scale(0.85);
+}
+
+/* -- tilt on hover -- */
+.tilt {
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+.tilt:hover {
+  transform: perspective(800px) rotateX(3deg) rotateY(-4deg) translateY(-4px);
+  border-color: rgba(45, 140, 255, 0.6);
+  box-shadow: 0 20px 60px rgba(11, 92, 255, 0.18);
+}
+
+/* -- big number ticking in -- */
+@keyframes countin {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+.count-in {
+  animation: countin 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* -- ember gradient bar -- */
+.bar-ember {
+  background: linear-gradient(90deg, #0b5cff, #2d8cff 60%, #f0954f);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shard-float, .shard-core, .shard-spin, .flow-line, .node-pulse, .sweep::before, .count-in {
+    animation: none;
+  }
+}
+
+/* -- NFT flip card: logo face, then the shard over lightning -- */
+@keyframes cardflip {
+  0%, 38% { transform: rotateY(0deg); }
+  50%, 88% { transform: rotateY(180deg); }
+  100% { transform: rotateY(360deg); }
+}
+.flip-stage {
+  perspective: 1400px;
+}
+.flip-card {
+  position: relative;
+  transform-style: preserve-3d;
+  border-radius: 0.5rem;
+  animation:
+    cardflip 9s cubic-bezier(0.7, 0, 0.3, 1) infinite,
+    edgeglow 3s ease-in-out infinite;
+  will-change: transform;
+}
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  border: 1px solid rgba(45, 140, 255, 0.45);
+  border-radius: 0.5rem;
+}
+.flip-back {
+  transform: rotateY(180deg);
+}
+.flip-face::before,
+.flip-face::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(45, 140, 255, 0.8);
+  pointer-events: none;
+  z-index: 2;
+}
+.flip-face::before { top: 10px; left: 10px; border-right: 0; border-bottom: 0; }
+.flip-face::after { bottom: 10px; right: 10px; border-left: 0; border-top: 0; }
+@keyframes edgeglow {
+  0%, 100% { box-shadow: 0 0 30px rgba(11, 92, 255, 0.25), 0 0 0 1px rgba(45, 140, 255, 0.2); }
+  50% { box-shadow: 0 0 70px rgba(11, 92, 255, 0.5), 0 0 0 1px rgba(45, 140, 255, 0.5); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flip-card { animation: none; }
 }

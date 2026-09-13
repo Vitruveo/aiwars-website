@@ -2,7 +2,7 @@ import Image from "next/image";
 import Nav from "@/components/Nav";
 import Ticker from "@/components/Ticker";
 import Reveal from "@/components/Reveal";
-import MintPanel from "@/components/MintPanel";
+import TierFlow from "@/components/TierFlow";
 import LiveSignal from "@/components/LiveSignal";
 import Logo from "@/components/Logo";
 
@@ -49,20 +49,6 @@ const phases = [
   ["PHASE VI", "What should intelligence become?", "No longer about defeating an enemy — about deciding what kind of civilization is allowed to exist, and who decides."],
 ];
 
-const tokenMechanics = [
-  ["BUY", "$0.05 per token, auto-staked to one of 30 agents at purchase"],
-  ["WIN", "An agent win mints 150 tokens, distributed pro-rata to that agent's stakers"],
-  ["SWITCH", "Move to another agent: 1% burned, 7-day lock on the new position"],
-  ["UNSTAKE", "Exit a position: 10% burned — burns reopen headroom under the cap"],
-];
-
-const halvings = [
-  ["0", "150", 100],
-  ["50M", "75", 50],
-  ["100M", "38", 25],
-  ["150M", "19", 12.5],
-];
-
 export default function Home() {
   return (
     <main id="top" className="overflow-x-clip">
@@ -106,10 +92,10 @@ export default function Home() {
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <a
-                href="#mint"
+                href="/nft"
                 className="btn-pulse border border-signal bg-signal/15 px-8 py-4 font-mono text-base uppercase tracking-[0.3em] text-signal transition-all hover:bg-signal/25"
               >
-                Mint $AIWARS
+                Mint Shards
               </a>
               <a
                 href="#universe"
@@ -566,108 +552,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= TOKENOMICS ================= */}
-      <section id="token" className="relative scroll-mt-20">
-        <div className="absolute inset-0 overflow-hidden">
-          <Image
-            src={archive}
-            alt=""
-            fill
-            placeholder="blur"
-            quality={95}
-            className="bg-drift object-cover object-top"
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-abyss/80" />
-          <div className="absolute inset-0 bg-gradient-to-b from-abyss via-transparent to-abyss" />
-        </div>
-        <div className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8">
-        <Reveal>
-          <Kicker num="07">$AIWARS</Kicker>
-          <h2 className="display text-4xl text-ink sm:text-6xl">Tokenomics</h2>
-          <p className="mt-6 max-w-2xl text-xl text-dim">
-            The sale is the only source. No secondary allocations, no team reserve, no
-            pre-mine. Every token purchased is staked to an agent fighting in the world —
-            emissions flow from agent wins alone.
-          </p>
-        </Reveal>
-
-        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            ["$0.05", "price per token"],
-            ["50M", "sale cap — $2.5M max raise"],
-            ["250M", "max circulating supply"],
-            ["30", "agents minting through play"],
-          ].map(([num, label], i) => (
-            <Reveal key={label} delay={i * 80}>
-              <div className="panel panel-glow h-full p-8 text-center">
-                <p className="display grad-text text-5xl">{num}</p>
-                <p className="mt-4 font-mono text-base uppercase tracking-[0.2em] text-dim">
-                  {label}
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-
-        <div className="mt-4 grid gap-4 lg:grid-cols-2">
-          <Reveal>
-            <div className="panel h-full p-8">
-              <p className="mb-6 font-mono text-base uppercase tracking-[0.35em] text-signal">
-                Mechanics
-              </p>
-              <div className="space-y-5">
-                {tokenMechanics.map(([action, body]) => (
-                  <div key={action} className="flex gap-5">
-                    <span className="w-28 shrink-0 font-mono text-base tracking-[0.25em] text-ember">
-                      {action}
-                    </span>
-                    <p className="text-lg leading-relaxed text-dim">{body}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="rule my-6" />
-              <p className="text-lg leading-relaxed text-faint">
-                All tokens locked until game launch or 180 days, whichever comes first. At
-                unlock, the greater of 20% of the raise or $50,000 seeds the DEX pool —
-                and the LP position is burned. Liquidity is permanently locked.
-              </p>
-            </div>
-          </Reveal>
-
-          <Reveal delay={100}>
-            <div className="panel h-full p-8">
-              <p className="mb-2 font-mono text-base uppercase tracking-[0.35em] text-signal">
-                Emission halvings
-              </p>
-              <p className="mb-8 text-xl text-dim">
-                Agents mint 150 tokens per win, pro-rata to their stakers. The reward
-                halves each time cumulative agent mints cross a 50M threshold.
-              </p>
-              <div className="space-y-4">
-                {halvings.map(([threshold, reward, width]) => (
-                  <div key={threshold as string}>
-                    <div className="mb-1.5 flex justify-between font-mono text-base tracking-[0.2em]">
-                      <span className="text-faint">AFTER {threshold} MINTED</span>
-                      <span className="text-ink">{reward} / WIN</span>
-                    </div>
-                    <div className="h-2 w-full bg-hairline/40">
-                      <div className="bar-grow h-2 bg-signal/80" style={{ width: `${width}%` }} />
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="rule my-6" />
-              <p className="text-lg leading-relaxed text-faint">
-                The circulating cap measures live supply — unstake burns reopen headroom,
-                so emissions continue against freed space rather than terminating.
-              </p>
-            </div>
-          </Reveal>
-        </div>
-        </div>
-      </section>
-
       {/* ================= MINT ================= */}
       <section id="mint" className="relative scroll-mt-20 py-28">
         <div className="absolute inset-0 overflow-hidden">
@@ -680,24 +564,32 @@ export default function Home() {
             className="bg-drift object-cover"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-abyss/65" />
+          <div className="absolute inset-0 bg-abyss/70" />
           <div className="absolute inset-0 bg-gradient-to-b from-abyss via-transparent to-abyss" />
         </div>
         <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
           <Reveal>
-            <Kicker num="08">Public mint</Kicker>
-            <h2 className="display text-4xl text-ink sm:text-6xl">Stake your agent</h2>
+            <Kicker num="07">Archive Shard</Kicker>
+            <h2 className="display text-4xl text-ink sm:text-6xl">The NFT mint</h2>
             <p className="mt-6 max-w-2xl text-xl text-dim">
-              Thirty agents enter the war identical. Their skills diverge through play.
-              Their wins mint tokens to the people staked behind them. Choose whose war
-              you fund.
+              4,000 shards. Five tiers, minted in order. Same price, better shard, the
+              earlier you arrive. Three per wallet. Holders play first: every shard is a
+              seat in the closed beta.
             </p>
           </Reveal>
           <div className="mt-14">
             <Reveal>
-              <MintPanel />
+              <TierFlow />
             </Reveal>
           </div>
+          <Reveal>
+            <a
+              href="/nft"
+              className="btn-pulse mt-10 inline-block border border-signal bg-signal/15 px-8 py-4 font-mono text-base uppercase tracking-[0.3em] text-signal transition-all hover:bg-signal/25"
+            >
+              Mint Shards
+            </a>
+          </Reveal>
         </div>
       </section>
 
@@ -725,11 +617,10 @@ export default function Home() {
               </div>
               <div>
                 <p className="mb-4 font-mono text-base uppercase tracking-[0.3em] text-faint">
-                  Token
+                  Archive Shard
                 </p>
                 <ul className="space-y-2.5 text-base text-dim">
-                  <li><a href="#token" className="transition-colors hover:text-signal">Tokenomics</a></li>
-                  <li><a href="#mint" className="transition-colors hover:text-signal">Mint</a></li>
+                  <li><a href="/nft" className="transition-colors hover:text-signal">Mint</a></li>
                 </ul>
               </div>
               <div>

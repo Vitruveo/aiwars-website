@@ -6,7 +6,7 @@ import Logo from "@/components/Logo";
 const links = [
   { href: "/#universe", label: "Universe" },
   { href: "/#prologue", label: "Prologue" },
-  { href: "/#token", label: "Token" },
+  { href: "/nft", label: "Mint" },
   { href: "/whitepaper", label: "Whitepaper" },
 ];
 
@@ -44,10 +44,10 @@ export default function Nav() {
           ))}
         </div>
         <a
-          href="/#mint"
+          href="/nft"
           className="border border-signal/50 bg-signal/10 px-4 py-2 font-mono text-base uppercase tracking-[0.25em] text-signal transition-all hover:border-signal hover:bg-signal/20"
         >
-          Mint&nbsp;$AIWARS
+          Mint&nbsp;Shards
         </a>
       </nav>
     </header>
