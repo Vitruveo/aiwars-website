@@ -18,7 +18,7 @@ import { TIERS, MINTED, POWER, POWER_SLOTS, SCAPE, SCAPE_SLOTS, DUO, TRIO, TOTAL
 export const metadata: Metadata = {
   title: "Mint — Archive Shard — AI Wars",
   description:
-    "4,000 Archive Shards. Five tiers minted in order. Three per wallet. Holders are the exclusive beta testers of AI Wars.",
+    "5,000 Archive Shards. Five tiers minted in order. Three per wallet. Holders are the exclusive beta testers of AI Wars.",
 };
 
 const th = "sticky top-16 z-10 border-b border-signal/40 bg-abyss px-4 py-5 text-left align-bottom";

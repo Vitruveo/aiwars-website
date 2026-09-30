@@ -167,9 +167,9 @@ const sections: Section[] = [
 const shardRows: [string, string][] = [
   ["Type", "One NFT type — the Archive Shard"],
   ["Beta", "Holders are the exclusive closed-beta testers of the game"],
-  ["Supply", "4,000 shards, fixed forever. Unsold shards are burned at close."],
-  ["Tiers", "T1 Archivist 100 · T2 Vanguard 200 · T3 Defender 500 · T4 Citizen 1,000 · T5 Survivor 2,200"],
-  ["Price", "$100 for Tiers 1–4, $50 for Tier 5 — $290,000 max raise"],
+  ["Supply", "5,000 shards, fixed forever. Unsold shards are burned at close."],
+  ["Tiers", "T1 Archivist 125 · T2 Vanguard 250 · T3 Defender 625 · T4 Citizen 1,250 · T5 Survivor 2,750"],
+  ["Price", "$100 for Tiers 1–4, $50 for Tier 5 — $362,500 max raise"],
   ["Sequence", "Each tier opens only when the one above it sells out. Speed decides tier."],
   ["Wallet cap", "3 shards per wallet and IP pair"],
   ["Metadata", "Tier, Powers, Scapes, Affinity, Sector — all on chain"],

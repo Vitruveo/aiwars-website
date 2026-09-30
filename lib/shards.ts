@@ -12,11 +12,11 @@ export type Tier = {
 };
 
 export const TIERS: Tier[] = [
-  { n: 1, name: "Archivist", supply: 100, price: 100, acts: { power: true, scape: true, duo: true, trio: true } },
-  { n: 2, name: "Vanguard", supply: 200, price: 100, acts: { power: true, scape: true, duo: true, trio: true } },
-  { n: 3, name: "Defender", supply: 500, price: 100, acts: { power: true, scape: true, duo: true, trio: true } },
-  { n: 4, name: "Citizen", supply: 1000, price: 100, acts: { power: true, scape: true, duo: true, trio: true } },
-  { n: 5, name: "Survivor", supply: 2200, price: 50, acts: { power: true, scape: false, duo: false, trio: true } },
+  { n: 1, name: "Archivist", supply: 125, price: 100, acts: { power: true, scape: true, duo: true, trio: true } },
+  { n: 2, name: "Vanguard", supply: 250, price: 100, acts: { power: true, scape: true, duo: true, trio: true } },
+  { n: 3, name: "Defender", supply: 625, price: 100, acts: { power: true, scape: true, duo: true, trio: true } },
+  { n: 4, name: "Citizen", supply: 1250, price: 100, acts: { power: true, scape: true, duo: true, trio: true } },
+  { n: 5, name: "Survivor", supply: 2750, price: 50, acts: { power: true, scape: false, duo: false, trio: true } },
 ];
 
 // POWER — percentage bonuses. Each shard rolls POWER_SLOTS[tier] of these five at mint;
@@ -63,8 +63,8 @@ export const TRIO: { name: string; what: string }[] = [
   { name: "Machine Parley", what: "Open negotiations with a machine intelligence on behalf of a faction." },
 ];
 
-export const TOTAL_SUPPLY = TIERS.reduce((a, t) => a + t.supply, 0); // 4000
-export const MAX_RAISE = TIERS.reduce((a, t) => a + t.supply * t.price, 0); // 290000
+export const TOTAL_SUPPLY = TIERS.reduce((a, t) => a + t.supply, 0); // 5000
+export const MAX_RAISE = TIERS.reduce((a, t) => a + t.supply * t.price, 0); // 362500
 export const MAX_PER_WALLET = 3;
 
 // Minted per tier. Replaced by contract reads when the sale opens.

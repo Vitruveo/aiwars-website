@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   ),
   title: "AI Wars — The Fall of Meridian",
   description:
-    "A persistent science-fiction universe about agency, intelligence, memory and war. Archive Shard public mint — 4,000 NFTs, five tiers, four activations. A Vertical Foundation project.",
+    "A persistent science-fiction universe about agency, intelligence, memory and war. Archive Shard public mint — 5,000 NFTs, five tiers, four activations. A Vertical Foundation project.",
   openGraph: {
     title: "AI Wars — The Fall of Meridian",
     description:

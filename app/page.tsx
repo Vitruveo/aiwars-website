@@ -572,7 +572,7 @@ export default function Home() {
             <Kicker num="07">Archive Shard</Kicker>
             <h2 className="display text-4xl text-ink sm:text-6xl">The NFT mint</h2>
             <p className="mt-6 max-w-2xl text-xl text-dim">
-              4,000 shards. Five tiers, minted in order. Same price, better shard, the
+              5,000 shards. Five tiers, minted in order. Same price, better shard, the
               earlier you arrive. Three per wallet. Holders play first: every shard is a
               seat in the closed beta.
             </p>
