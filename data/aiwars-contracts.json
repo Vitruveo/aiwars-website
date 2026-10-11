@@ -2705,5 +2705,12 @@
         ]
       }
     ]
+  },
+  "vitruveo": {
+    "AIWarsNFT": "0x269879505D6313Dde37b481C5F4124669638BF91"
+  },
+  "bsc": {
+    "ShardSale": "0xf3Aa53396378d3e82311423D4733A83f1e345a0c",
+    "GenesisPass": "0x269879505D6313Dde37b481C5F4124669638BF91"
   }
 }
