@@ -3,20 +3,18 @@ import Image from "next/image";
 import Nav from "@/components/Nav";
 import Reveal from "@/components/Reveal";
 import Shard from "@/components/Shard";
-import ShardCard from "@/components/ShardCard";
 import TierFlow from "@/components/TierFlow";
 import HoldDiagram from "@/components/HoldDiagram";
 import CountUp from "@/components/CountUp";
 import MintTicker from "@/components/MintTicker";
-import ShardMintPanel from "@/components/ShardMintPanel";
+import MyShards from "@/components/MyShards";
 import war from "@/public/art/war.jpg";
-import world from "@/public/art/world.jpg";
 import archive from "@/public/art/archive.jpg";
 import beyond from "@/public/art/beyond.jpg";
 import { TIERS, MINTED, POWER, POWER_SLOTS, SCAPE, SCAPE_SLOTS, DUO, TRIO, TOTAL_SUPPLY, MAX_PER_WALLET, liveTierIndex, actsCount, fmt } from "@/lib/shards";
 
 export const metadata: Metadata = {
-  title: "Mint — Archive Shard — AI Wars",
+  title: "Archive Shard — AI Wars",
   description:
     "5,000 Archive Shards. Five tiers minted in order. Three per wallet. Holders are the exclusive beta testers of AI Wars.",
 };
@@ -82,10 +80,10 @@ export default function Mint() {
         <div className="absolute inset-0 bg-gradient-to-b from-abyss/70 via-abyss/10 to-abyss" />
         <div className="starfield" />
         <div className="scanline" />
-        <div className="relative mx-auto grid w-full max-w-7xl items-center gap-10 px-5 pb-16 pt-32 sm:px-8 lg:grid-cols-[1.2fr_0.8fr]">
+        <div className="relative mx-auto grid w-full max-w-7xl items-center gap-10 px-5 pb-16 pt-32 sm:px-8 lg:grid-cols-[1fr_1fr]">
           <div className="hero-copy">
             <p className="kicker mb-6">
-              Public mint · <span className="text-ember">Opening soon</span>
+              Your shards · <span className="text-ember">max three per wallet</span>
             </p>
             <h1 className="display text-[13vw] leading-none text-ink sm:text-8xl lg:text-[8rem]">
               Archive
@@ -111,7 +109,7 @@ export default function Mint() {
               <span className="text-dim">{fmt(left)} of {fmt(live.supply)} left</span>
             </p>
             <div className="mt-6 flex flex-wrap gap-4">
-              <a href="#mint" className="btn-pulse border border-signal bg-signal/15 px-8 py-4 font-mono text-base uppercase tracking-[0.3em] text-signal transition-all hover:bg-signal/25">
+              <a href="/mint" className="btn-pulse border border-signal bg-signal/15 px-8 py-4 font-mono text-base uppercase tracking-[0.3em] text-signal transition-all hover:bg-signal/25">
                 Mint now
               </a>
               <a href="#hold" className="border border-hairline px-8 py-4 font-mono text-base uppercase tracking-[0.3em] text-dim transition-all hover:border-dim hover:text-ink">
@@ -120,9 +118,8 @@ export default function Mint() {
             </div>
           </div>
 
-          <div className="relative mx-auto w-fit">
-            <div className="absolute inset-0 -z-10 rounded-full bg-signal/20 blur-[90px]" />
-            <ShardCard tier={live.n} size={360} />
+          <div className="relative mx-auto w-full max-w-2xl">
+            <MyShards size={200} />
           </div>
         </div>
       </section>
@@ -205,61 +202,6 @@ export default function Mint() {
         </div>
       </section>
 
-      {/* ================= MINT ================= */}
-      <section id="mint" className="relative scroll-mt-20 py-24">
-        <div className="absolute inset-0 overflow-hidden">
-          <Image src={world} alt="" fill placeholder="blur" quality={95} className="object-cover" sizes="100vw" />
-          <div className="absolute inset-0 bg-abyss/75" />
-          <div className="absolute inset-0 bg-gradient-to-b from-abyss via-transparent to-abyss" />
-        </div>
-        <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
-          <Reveal>
-            <Kicker n="02">Mint</Kicker>
-            <h2 className="display text-4xl text-ink sm:text-6xl">Claim your shard</h2>
-            <p className="mt-6 text-xl text-dim">
-              Tier {String(live.n).padStart(2, "0")} is open. When its {fmt(live.supply)} shards are gone, it never comes back.
-            </p>
-          </Reveal>
-          <div className="mt-12 grid gap-6 lg:grid-cols-5">
-            <Reveal className="lg:col-span-3">
-              <div className="panel panel-flat sweep flex h-full flex-col justify-between p-8 sm:flex-row sm:items-center sm:gap-8">
-                <div>
-                  <p className="font-mono text-base uppercase tracking-[0.35em] text-signal">Minting now</p>
-                  <p className="display mt-4 text-7xl leading-none sm:text-8xl">
-                    <span className="grad-text">{String(live.n).padStart(2, "0")}</span>
-                  </p>
-                  <p className="display mt-2 text-3xl text-ink sm:text-4xl">{live.name}</p>
-                  <div className="mt-8 grid grid-cols-3 gap-4">
-                    {[
-                      [`$${live.price}`, "per shard"],
-                      [fmt(left), "left"],
-                      [String(actsCount(live)), "activations"],
-                    ].map(([n, l]) => (
-                      <div key={l}>
-                        <p className="display text-2xl text-ember sm:text-3xl">{n}</p>
-                        <p className="mt-1 font-mono text-sm uppercase tracking-[0.2em] text-faint">{l}</p>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="rule my-6" />
-                  <p className="font-mono text-sm uppercase tracking-[0.25em] text-signal">
-                    Holders are the closed beta. Play before anyone else.
-                  </p>
-                </div>
-                <div className="shard-stage mx-auto mt-8 shrink-0 sm:mt-0">
-                  <div className="shard-spin">
-                    <Shard tier={live.n} size={180} float />
-                  </div>
-                </div>
-              </div>
-            </Reveal>
-            <Reveal className="lg:col-span-2" delay={100}>
-              <ShardMintPanel />
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
       {/* ================= BETA ================= */}
       <section className="relative overflow-hidden py-28">
         <Image src={archive} alt="The Archive awakens" fill placeholder="blur" quality={95} className="bg-drift object-cover object-top" sizes="100vw" />
@@ -267,7 +209,7 @@ export default function Mint() {
         <div className="absolute inset-0 bg-gradient-to-b from-abyss via-transparent to-abyss" />
         <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
           <Reveal>
-            <Kicker n="03">Holders play first</Kicker>
+            <Kicker n="02">Holders play first</Kicker>
             <h2 className="display text-4xl text-ink sm:text-6xl">Your shard is a seat in the closed beta</h2>
             <p className="mt-6 text-xl text-dim sm:text-2xl">
               AI Wars opens to shard holders before anyone else. Not a waitlist. Not a lottery. Hold a shard,
@@ -295,7 +237,7 @@ export default function Mint() {
       <section id="tiers" className="relative scroll-mt-20 py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <Reveal>
-            <Kicker n="04">Five tiers</Kicker>
+            <Kicker n="03">Five tiers</Kicker>
             <h2 className="display text-4xl text-ink sm:text-6xl">One line. No skipping.</h2>
             <p className="mt-6 text-xl text-dim">
               Tier 01 mints first. When its 100 shards are gone, Tier 02 opens. Then 03, 04, 05.
@@ -319,7 +261,7 @@ export default function Mint() {
         </div>
         <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
           <Reveal>
-            <Kicker n="05">Four activations</Kicker>
+            <Kicker n="04">Four activations</Kicker>
             <h2 className="display text-4xl text-ink sm:text-6xl">Hold more. Unlock more.</h2>
             <p className="mt-6 text-xl text-dim">
               One shard makes you stronger and opens the way. Two doubles you. Three wakes what is dormant.
@@ -359,7 +301,7 @@ export default function Mint() {
       <section id="table" className="relative scroll-mt-20 py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <Reveal>
-            <Kicker n="06">Exactly what each tier gets</Kicker>
+            <Kicker n="05">Exactly what each tier gets</Kicker>
             <h2 className="display text-4xl text-ink sm:text-6xl">The readout</h2>
           </Reveal>
           <Reveal>
@@ -463,7 +405,7 @@ export default function Mint() {
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
             <Reveal>
-              <Kicker n="07">On chain</Kicker>
+              <Kicker n="06">On chain</Kicker>
               <h2 className="display text-4xl text-ink sm:text-5xl">Written on every shard</h2>
               <p className="mt-6 text-xl text-dim">
                 Written to Vitruveo at mint and never changed. No two shards need be alike:
@@ -508,7 +450,7 @@ export default function Mint() {
             <div className="mx-auto mt-12 w-fit">
               <Shard tier={1} size={140} float />
             </div>
-            <a href="#mint" className="btn-pulse mt-12 inline-block border border-signal bg-signal/15 px-10 py-5 font-mono text-lg uppercase tracking-[0.3em] text-signal transition-all hover:bg-signal/25">
+            <a href="/mint" className="btn-pulse mt-12 inline-block border border-signal bg-signal/15 px-10 py-5 font-mono text-lg uppercase tracking-[0.3em] text-signal transition-all hover:bg-signal/25">
               Mint now
             </a>
           </Reveal>

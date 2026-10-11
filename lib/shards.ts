@@ -82,3 +82,14 @@ export function actsCount(t: Tier) {
 export function fmt(n: number) {
   return n.toLocaleString("en-US", { maximumFractionDigits: 0 });
 }
+
+// Tiers mint strictly in order, so a token id alone fixes its tier.
+// Returns the 0-based tier index, the tier, and that token's serial within the tier (1-based).
+export function tierForTokenId(id: number) {
+  let upto = 0;
+  for (let i = 0; i < TIERS.length; i++) {
+    upto += TIERS[i].supply;
+    if (id <= upto) return { index: i, tier: TIERS[i], serial: id - (upto - TIERS[i].supply) };
+  }
+  return null;
+}

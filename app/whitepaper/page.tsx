@@ -286,7 +286,7 @@ export default function Whitepaper() {
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <a
-                href="/nft"
+                href="/mint"
                 className="inline-block border border-signal bg-signal/15 px-8 py-4 font-mono text-base uppercase tracking-[0.3em] text-signal transition-all hover:bg-signal/25"
               >
                 Mint Shards

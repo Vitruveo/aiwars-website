@@ -558,7 +558,7 @@ p {
   }
 }
 
-/* -- NFT flip card: logo face, then the shard over lightning -- */
+/* -- NFT flip card: logo face, then the shard over the NFT video -- */
 @keyframes cardflip {
   0%, 38% { transform: rotateY(0deg); }
   50%, 88% { transform: rotateY(180deg); }

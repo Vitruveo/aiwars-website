@@ -92,7 +92,7 @@ export default function Home() {
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <a
-                href="/nft"
+                href="/mint"
                 className="btn-pulse border border-signal bg-signal/15 px-8 py-4 font-mono text-base uppercase tracking-[0.3em] text-signal transition-all hover:bg-signal/25"
               >
                 Mint Shards
@@ -584,7 +584,7 @@ export default function Home() {
           </div>
           <Reveal>
             <a
-              href="/nft"
+              href="/mint"
               className="btn-pulse mt-10 inline-block border border-signal bg-signal/15 px-8 py-4 font-mono text-base uppercase tracking-[0.3em] text-signal transition-all hover:bg-signal/25"
             >
               Mint Shards
@@ -620,7 +620,7 @@ export default function Home() {
                   Archive Shard
                 </p>
                 <ul className="space-y-2.5 text-base text-dim">
-                  <li><a href="/nft" className="transition-colors hover:text-signal">Mint</a></li>
+                  <li><a href="/mint" className="transition-colors hover:text-signal">Mint</a></li>
                 </ul>
               </div>
               <div>

@@ -2,11 +2,14 @@
 
 import { useEffect, useState } from "react";
 import Logo from "@/components/Logo";
+import WalletButton from "@/components/WalletButton";
 
 const links = [
   { href: "/#universe", label: "Universe" },
   { href: "/#prologue", label: "Prologue" },
-  { href: "/nft", label: "Mint" },
+  { href: "/nft", label: "Shards" },
+  { href: "/mint", label: "Mint" },
+  { href: "/genesis", label: "Genesis" },
   { href: "/whitepaper", label: "Whitepaper" },
 ];
 
@@ -43,12 +46,15 @@ export default function Nav() {
             </a>
           ))}
         </div>
-        <a
-          href="/nft"
-          className="border border-signal/50 bg-signal/10 px-4 py-2 font-mono text-base uppercase tracking-[0.25em] text-signal transition-all hover:border-signal hover:bg-signal/20"
-        >
-          Mint&nbsp;Shards
-        </a>
+        <div className="flex items-center gap-3">
+          <a
+            href="/mint"
+            className="hidden border border-signal/50 bg-signal/10 px-4 py-2 font-mono text-base uppercase tracking-[0.25em] text-signal transition-all hover:border-signal hover:bg-signal/20 sm:block"
+          >
+            Mint&nbsp;Shards
+          </a>
+          <WalletButton />
+        </div>
       </nav>
     </header>
   );

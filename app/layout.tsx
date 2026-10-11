@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Orbitron, Inter, Share_Tech_Mono, Gugi } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import "@rainbow-me/rainbowkit/styles.css";
 import "./globals.css";
+import Web3Providers from "@/components/Web3Providers";
 
 const display = Orbitron({
   subsets: ["latin"],
@@ -56,7 +58,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable} ${logoFont.variable}`}>
       <body className="grain">
-        {children}
+        <Web3Providers>{children}</Web3Providers>
         <Analytics />
       </body>
     </html>

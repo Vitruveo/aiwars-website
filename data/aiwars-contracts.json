@@ -1,0 +1,2709 @@
+{
+  "abi": {
+    "AIWarsNFT": [
+      {
+        "type": "constructor",
+        "stateMutability": "undefined",
+        "payable": false,
+        "inputs": []
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "AdminChanged",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "previousAdmin",
+            "indexed": false
+          },
+          {
+            "type": "address",
+            "name": "newAdmin",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Approval",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "owner",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "approved",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "tokenId",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "ApprovalForAll",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "owner",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "operator",
+            "indexed": true
+          },
+          {
+            "type": "bool",
+            "name": "approved",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "BaseURIUpdated",
+        "inputs": [
+          {
+            "type": "string",
+            "name": "baseURI",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "BatchMetadataUpdate",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "_fromTokenId",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "_toTokenId",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "BeaconUpgraded",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "beacon",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Initialized",
+        "inputs": [
+          {
+            "type": "uint8",
+            "name": "version",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "MetadataUpdate",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "_tokenId",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "OwnershipTransferred",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "previousOwner",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "newOwner",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Paused",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Transfer",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "from",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "to",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "tokenId",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Unpaused",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Upgraded",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "implementation",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "approve",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "to"
+          },
+          {
+            "type": "uint256",
+            "name": "tokenId"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "balanceOf",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "owner"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "baseURI",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "string",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "burn",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "tokenId"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "getApproved",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "tokenId"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "initialize",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "isApprovedForAll",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "owner"
+          },
+          {
+            "type": "address",
+            "name": "operator"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "mint",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "to"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": "tokenId"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "mintBatch",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address[]",
+            "name": "to"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "mintWithURI",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "to"
+          },
+          {
+            "type": "string",
+            "name": "uri"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": "tokenId"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "name",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "string",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "owner",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "ownerOf",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "tokenId"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "pause",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "paused",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "proxiableUUID",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "bytes32",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "renounceOwnership",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "safeTransferFrom",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "from"
+          },
+          {
+            "type": "address",
+            "name": "to"
+          },
+          {
+            "type": "uint256",
+            "name": "tokenId"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "safeTransferFrom",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "from"
+          },
+          {
+            "type": "address",
+            "name": "to"
+          },
+          {
+            "type": "uint256",
+            "name": "tokenId"
+          },
+          {
+            "type": "bytes",
+            "name": "data"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setApprovalForAll",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "operator"
+          },
+          {
+            "type": "bool",
+            "name": "approved"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setBaseURI",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "string",
+            "name": "baseURI_"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setTokenURI",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "tokenId"
+          },
+          {
+            "type": "string",
+            "name": "uri"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "supportsInterface",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "bytes4",
+            "name": "interfaceId"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "symbol",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "string",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "tokenByIndex",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "index"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "tokenOfOwnerByIndex",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "owner"
+          },
+          {
+            "type": "uint256",
+            "name": "index"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "tokenURI",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "tokenId"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "string",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "totalMinted",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "totalSupply",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "transferFrom",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "from"
+          },
+          {
+            "type": "address",
+            "name": "to"
+          },
+          {
+            "type": "uint256",
+            "name": "tokenId"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "transferOwnership",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "newOwner"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "unpause",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "upgradeTo",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "newImplementation"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "upgradeToAndCall",
+        "constant": false,
+        "stateMutability": "payable",
+        "payable": true,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "newImplementation"
+          },
+          {
+            "type": "bytes",
+            "name": "data"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "ShardSale": [
+      {
+        "type": "constructor",
+        "stateMutability": "undefined",
+        "payable": false,
+        "inputs": []
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "AdminChanged",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "previousAdmin",
+            "indexed": false
+          },
+          {
+            "type": "address",
+            "name": "newAdmin",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "BeaconUpgraded",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "beacon",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "ClaimRedeemed",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "claimId",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "holder",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "purchaseIndex",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "GenesisUpdated",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "genesis",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Initialized",
+        "inputs": [
+          {
+            "type": "uint8",
+            "name": "version",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Issued",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "purchaseIndex",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "buyer",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "tokenId",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "OwnershipTransferred",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "previousOwner",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "newOwner",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Paused",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "PaymentTokenUpdated",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "token",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Purchase",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "buyer",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "firstIndex",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "quantity",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "amountPaid",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Referral",
+        "inputs": [
+          {
+            "type": "string",
+            "name": "code",
+            "indexed": false
+          },
+          {
+            "type": "address",
+            "name": "buyer",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "quantity",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "commission",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "TierPriceUpdated",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "tier",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "price",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "TreasuryUpdated",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "treasury",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Unpaused",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Upgraded",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "implementation",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "MAX_PER_WALLET",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "TIERS",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "buy",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "quantity"
+          },
+          {
+            "type": "string",
+            "name": "ref"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "genesis",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "initialize",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "issued",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "liveTier",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "owner",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "pause",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "paused",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "paymentToken",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "pending",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "start"
+          },
+          {
+            "type": "uint256",
+            "name": "limit"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256[]",
+            "name": "indices"
+          },
+          {
+            "type": "address[]",
+            "name": "buyers"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "proxiableUUID",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "bytes32",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "purchased",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "purchases",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "address",
+            "name": "buyer"
+          },
+          {
+            "type": "uint256",
+            "name": "tokenId"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "quote",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "quantity"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": "cost"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "recordTokenIds",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256[]",
+            "name": "indices"
+          },
+          {
+            "type": "uint256[]",
+            "name": "tokenIds"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "redeemClaim",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "claimId"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "remainingInTier",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "tier"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "renounceOwnership",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setGenesis",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "genesis_"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setPaymentToken",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "token"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setTierPrice",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "tier"
+          },
+          {
+            "type": "uint256",
+            "name": "price"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setTreasury",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "treasury_"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "sold",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "sweep",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "token"
+          },
+          {
+            "type": "address",
+            "name": "to"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "tierPrice",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "tierSold",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "tierSupply",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "tiers",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256[5]",
+            "name": "supply"
+          },
+          {
+            "type": "uint256[5]",
+            "name": "price"
+          },
+          {
+            "type": "uint256[5]",
+            "name": "soldPerTier"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "totalSupply",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": "total"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "transferOwnership",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "newOwner"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "treasury",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "unpause",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "upgradeTo",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "newImplementation"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "upgradeToAndCall",
+        "constant": false,
+        "stateMutability": "payable",
+        "payable": true,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "newImplementation"
+          },
+          {
+            "type": "bytes",
+            "name": "data"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "GenesisPass": [
+      {
+        "type": "constructor",
+        "stateMutability": "undefined",
+        "payable": false,
+        "inputs": []
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Activated",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "id",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "AdminChanged",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "previousAdmin",
+            "indexed": false
+          },
+          {
+            "type": "address",
+            "name": "newAdmin",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Approval",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "owner",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "approved",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "tokenId",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "ApprovalForAll",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "owner",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "operator",
+            "indexed": true
+          },
+          {
+            "type": "bool",
+            "name": "approved",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "BeaconUpgraded",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "beacon",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "CodeAssigned",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "referrer",
+            "indexed": true
+          },
+          {
+            "type": "string",
+            "name": "code",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "ConfigUpdated",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "vtru",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "price",
+            "indexed": false
+          },
+          {
+            "type": "address",
+            "name": "treasury",
+            "indexed": false
+          },
+          {
+            "type": "address",
+            "name": "sale",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "threshold",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "commissionBps",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Initialized",
+        "inputs": [
+          {
+            "type": "uint8",
+            "name": "version",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "MintsRecorded",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "referrer",
+            "indexed": true
+          },
+          {
+            "type": "string",
+            "name": "code",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "quantity",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "total",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "OwnershipTransferred",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "previousOwner",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "newOwner",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "PackageBought",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "id",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "buyer",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "activateAt",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "pricePaid",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Paused",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "PayoutUpdated",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "referrer",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "payout",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Redeemed",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "id",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "holder",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Transfer",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "from",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "to",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "tokenId",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Unpaused",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Upgraded",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "implementation",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "approve",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "to"
+          },
+          {
+            "type": "uint256",
+            "name": "tokenId"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "balanceOf",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "owner"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "buy",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": "id"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "codeOf",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "string",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "commissionBps",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "getApproved",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "tokenId"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "initialize",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "isActivated",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "id"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "isApprovedForAll",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "owner"
+          },
+          {
+            "type": "address",
+            "name": "operator"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "isCode",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "string",
+            "name": "code"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "name",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "string",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "owner",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "ownerOf",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "tokenId"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "packages",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "address",
+            "name": "referrer"
+          },
+          {
+            "type": "uint256",
+            "name": "activateAt"
+          },
+          {
+            "type": "bool",
+            "name": "redeemed"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "pause",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "paused",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "payoutOf",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "price",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "proxiableUUID",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "bytes32",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "recordMints",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "string",
+            "name": "code"
+          },
+          {
+            "type": "uint256",
+            "name": "quantity"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "address",
+            "name": "payout"
+          },
+          {
+            "type": "uint256",
+            "name": "bps"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "redeem",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "id"
+          },
+          {
+            "type": "address",
+            "name": "holder"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "referrerMints",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "referrerOf",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "string",
+            "name": "code"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "referrerPackages",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "referrer"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256[]",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "renounceOwnership",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "safeTransferFrom",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "from"
+          },
+          {
+            "type": "address",
+            "name": "to"
+          },
+          {
+            "type": "uint256",
+            "name": "tokenId"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "safeTransferFrom",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "from"
+          },
+          {
+            "type": "address",
+            "name": "to"
+          },
+          {
+            "type": "uint256",
+            "name": "tokenId"
+          },
+          {
+            "type": "bytes",
+            "name": "data"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "sale",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "setApprovalForAll",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "operator"
+          },
+          {
+            "type": "bool",
+            "name": "approved"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setCommissionBps",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "bps"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setPayout",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "payout"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setPrice",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "price_"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setSale",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "sale_"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setThreshold",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "threshold_"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setTreasury",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "treasury_"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setVtru",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "token"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "supportsInterface",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "bytes4",
+            "name": "interfaceId"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "symbol",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "string",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "threshold",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "tokenByIndex",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "index"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "tokenOfOwnerByIndex",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "owner"
+          },
+          {
+            "type": "uint256",
+            "name": "index"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "tokenURI",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "tokenId"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "string",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "totalPackages",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "totalSupply",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "transferFrom",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "from"
+          },
+          {
+            "type": "address",
+            "name": "to"
+          },
+          {
+            "type": "uint256",
+            "name": "tokenId"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "transferOwnership",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "newOwner"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "treasury",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "unpause",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "upgradeTo",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "newImplementation"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "upgradeToAndCall",
+        "constant": false,
+        "stateMutability": "payable",
+        "payable": true,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "newImplementation"
+          },
+          {
+            "type": "bytes",
+            "name": "data"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "vtru",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      }
+    ]
+  }
+}
