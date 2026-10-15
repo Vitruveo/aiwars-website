@@ -1,10 +1,14 @@
+"use client";
+
+import { useSaleOpen } from "@/lib/useSaleOpen";
 import { TIERS, MINTED, TOTAL_SUPPLY, MAX_PER_WALLET, liveTierIndex, fmt } from "@/lib/shards";
 
 export default function MintTicker() {
+  const open = useSaleOpen();
   const i = liveTierIndex();
   const t = TIERS[i];
   const items = [
-    ["MINTING NOW", `TIER ${String(t.n).padStart(2, "0")} ${t.name.toUpperCase()}`],
+    [open ? "MINTING NOW" : "OPENING SOON", `TIER ${String(t.n).padStart(2, "0")} ${t.name.toUpperCase()}`],
     ["PRICE", `$${t.price}`],
     ["LEFT IN TIER", `${fmt(t.supply - MINTED[i])} / ${fmt(t.supply)}`],
     ["TOTAL SUPPLY", `${fmt(TOTAL_SUPPLY)} · FIXED`],
@@ -17,7 +21,7 @@ export default function MintTicker() {
       {items.map(([k, v]) => (
         <span key={k} className="mx-8 inline-flex items-baseline gap-3 whitespace-nowrap">
           <span className="text-faint">{k}</span>
-          <span className={k === "MINTING NOW" || k === "HOLDERS" ? "text-signal" : "text-ink"}>{v}</span>
+          <span className={k === "MINTING NOW" || k === "OPENING SOON" || k === "HOLDERS" ? "text-signal" : "text-ink"}>{v}</span>
         </span>
       ))}
     </>

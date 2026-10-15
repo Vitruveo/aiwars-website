@@ -32,7 +32,7 @@ export default function ShardCard({ tier = 1, size = 320, serial = "001", tokenI
           </div>
           <div className="absolute inset-x-0 bottom-0 flex items-center justify-between border-t border-signal/40 bg-abyss/70 px-4 py-3 font-mono text-sm uppercase tracking-[0.3em]">
             <span className="text-ink">Tier {String(tier).padStart(2, "0")}</span>
-            <span className="text-ember">{tokenId ? `#${tokenId}` : "1 of 100"}</span>
+            <span className="text-ember">{tokenId ? `#${tokenId}` : "1 of 125"}</span>
           </div>
         </div>
       </div>

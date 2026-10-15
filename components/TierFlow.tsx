@@ -1,4 +1,5 @@
 import Shard from "@/components/Shard";
+import SaleLabel from "@/components/SaleLabel";
 import { TIERS, MINTED, TOTAL_SUPPLY, liveTierIndex, actsCount, fmt } from "@/lib/shards";
 
 // Five tier nodes on one energy line. The line flows from 01 to 05; the live node pulses.
@@ -65,7 +66,7 @@ export default function TierFlow() {
                 }`}
               >
                 {isLive && <span className="live-dot inline-block h-2 w-2 rounded-full bg-signal" />}
-                {soldOut ? "Sold out" : isLive ? "Minting now" : `Unlocks when ${String(t.n - 1).padStart(2, "0")} sells out`}
+                {soldOut ? "Sold out" : isLive ? <SaleLabel open="Minting now" closed="Opening soon" /> : `Unlocks when ${String(t.n - 1).padStart(2, "0")} sells out`}
               </p>
             </li>
           );

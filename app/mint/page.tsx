@@ -5,6 +5,7 @@ import Reveal from "@/components/Reveal";
 import Shard from "@/components/Shard";
 import MintTicker from "@/components/MintTicker";
 import ShardMintPanel from "@/components/ShardMintPanel";
+import SaleLabel from "@/components/SaleLabel";
 import world from "@/public/art/world.jpg";
 import { TIERS, MINTED, liveTierIndex, actsCount, fmt } from "@/lib/shards";
 
@@ -43,14 +44,14 @@ export default function Mint() {
             <Kicker n="01">Mint</Kicker>
             <h2 className="display text-4xl text-ink sm:text-6xl">Claim your shard</h2>
             <p className="mt-6 text-xl text-dim">
-              Tier {String(live.n).padStart(2, "0")} is open. When its {fmt(live.supply)} shards are gone, it never comes back.
+              Tier {String(live.n).padStart(2, "0")} <SaleLabel open="is open" closed="mints first" />. When its {fmt(live.supply)} shards are gone, it never comes back.
             </p>
           </Reveal>
           <div className="mt-12 grid gap-6 lg:grid-cols-5">
             <Reveal className="lg:col-span-3">
               <div className="panel panel-flat sweep flex h-full flex-col justify-between p-8 sm:flex-row sm:items-center sm:gap-8">
                 <div>
-                  <p className="font-mono text-base uppercase tracking-[0.35em] text-signal">Minting now</p>
+                  <p className="font-mono text-base uppercase tracking-[0.35em] text-signal"><SaleLabel open="Minting now" closed="Opening soon" /></p>
                   <p className="display mt-4 text-7xl leading-none sm:text-8xl">
                     <span className="grad-text">{String(live.n).padStart(2, "0")}</span>
                   </p>

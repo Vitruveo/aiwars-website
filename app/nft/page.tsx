@@ -8,6 +8,7 @@ import HoldDiagram from "@/components/HoldDiagram";
 import CountUp from "@/components/CountUp";
 import MintTicker from "@/components/MintTicker";
 import MyShards from "@/components/MyShards";
+import SaleLabel from "@/components/SaleLabel";
 import war from "@/public/art/war.jpg";
 import archive from "@/public/art/archive.jpg";
 import beyond from "@/public/art/beyond.jpg";
@@ -102,7 +103,7 @@ export default function Mint() {
             <p className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 border-l-2 border-signal pl-4 font-mono text-base uppercase tracking-[0.25em] text-signal">
               <span className="inline-flex items-center gap-2">
                 <span className="live-dot inline-block h-2 w-2 rounded-full bg-signal" />
-                Minting now
+                <SaleLabel open="Minting now" closed="Opening soon" />
               </span>
               <span className="text-ink">Tier {String(live.n).padStart(2, "0")} {live.name}</span>
               <span className="text-ember">${live.price}</span>
@@ -240,7 +241,7 @@ export default function Mint() {
             <Kicker n="03">Five tiers</Kicker>
             <h2 className="display text-4xl text-ink sm:text-6xl">One line. No skipping.</h2>
             <p className="mt-6 text-xl text-dim">
-              Tier 01 mints first. When its 100 shards are gone, Tier 02 opens. Then 03, 04, 05.
+              Tier 01 mints first. When its 125 shards are gone, Tier 02 opens. Then 03, 04, 05.
               Tiers 01 to 04 cost the same. Only speed decides which one you hold.
             </p>
           </Reveal>
