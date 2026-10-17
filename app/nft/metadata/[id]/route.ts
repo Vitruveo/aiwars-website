@@ -31,7 +31,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
       `Archive Shard ${id} of ${TOTAL_SUPPLY}. Tier ${String(t.tier.n).padStart(2, "0")} ${t.tier.name}. ` +
       `One of ${TOTAL_SUPPLY} shards, five tiers minted strictly in order, ${MAX_PER_WALLET} per wallet. ` +
       "Holders are the exclusive beta testers of AI Wars, a Vertical Foundation project.",
-    image: `${site}/aiwars_nft.jpg`,
+    image: `${site}/aiwars_nft.gif`,
     animation_url: `${site}/aiwars_nft.mp4`,
     external_url: `${site}/nft`,
     background_color: "04070d",
