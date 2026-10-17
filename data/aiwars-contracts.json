@@ -956,6 +956,21 @@
       {
         "type": "event",
         "anonymous": false,
+        "name": "SplitsUpdated",
+        "inputs": [
+          {
+            "type": "address[]",
+            "name": "to"
+          },
+          {
+            "type": "uint256[]",
+            "name": "bps"
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
         "name": "TierPriceUpdated",
         "inputs": [
           {
@@ -1062,6 +1077,24 @@
           {
             "type": "address",
             "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "getSplits",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address[]",
+            "name": "to"
+          },
+          {
+            "type": "uint256[]",
+            "name": "bps"
           }
         ]
       },
@@ -1338,6 +1371,23 @@
       },
       {
         "type": "function",
+        "name": "setSplits",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address[]",
+            "name": "to"
+          },
+          {
+            "type": "uint256[]",
+            "name": "bps"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
         "name": "setTierPrice",
         "constant": false,
         "payable": false,
@@ -1377,6 +1427,29 @@
           {
             "type": "uint256",
             "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "splits",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "address",
+            "name": "to"
+          },
+          {
+            "type": "uint256",
+            "name": "bps"
           }
         ]
       },
