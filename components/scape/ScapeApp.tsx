@@ -65,6 +65,14 @@ export default function ScapeApp() {
     setNote(null);
   }, [selected]);
 
+  const [jump, setJump] = useState("");
+  function go(id: number) {
+    const n = Math.min(Math.max(Math.round(id), 1), 5000);
+    setChosen(true);
+    setSelected(n);
+    setJump("");
+  }
+
   async function saveBeacon() {
     if (!draft || !address) return;
     const name = draft.name.trim();
@@ -103,6 +111,31 @@ export default function ScapeApp() {
             <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.25em] text-faint">
               {BIOME_LABEL[sector.biome]} · Tier {String(sector.tier).padStart(2, "0")} {sector.tierName} · grid {sector.cell.x}, {sector.cell.y}
             </p>
+            <form
+              className="pointer-events-auto mt-3 flex items-center gap-1 font-mono text-xs uppercase tracking-[0.25em]"
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (jump) go(Number(jump));
+              }}
+            >
+              <button type="button" onClick={() => go(selected - 1)} aria-label="Previous sector" className="h-8 w-8 border border-hairline bg-abyss/70 text-faint hover:border-signal hover:text-signal">
+                ‹
+              </button>
+              <input
+                value={jump}
+                onChange={(e) => setJump(e.target.value.replace(/\D/g, "").slice(0, 4))}
+                placeholder={String(selected).padStart(4, "0")}
+                inputMode="numeric"
+                aria-label="Sector number"
+                className="h-8 w-20 border border-hairline bg-abyss/70 text-center text-ink placeholder:text-faint focus:border-signal focus:outline-none"
+              />
+              <button type="button" onClick={() => go(selected + 1)} aria-label="Next sector" className="h-8 w-8 border border-hairline bg-abyss/70 text-faint hover:border-signal hover:text-signal">
+                ›
+              </button>
+              <button type="button" onClick={() => go(1 + Math.floor(Math.random() * 5000))} className="ml-2 h-8 border border-hairline bg-abyss/70 px-3 text-faint hover:border-signal hover:text-signal">
+                Random
+              </button>
+            </form>
           </div>
           <div className="flex items-start gap-4">
             <div className="hidden text-right sm:block">
@@ -180,6 +213,7 @@ export default function ScapeApp() {
       {/* map + my sectors */}
       <div className="grid gap-4 lg:grid-cols-3">
         <div className="panel panel-flat p-3 lg:col-span-2">
+          <p className="px-2 pb-1 font-mono text-[11px] uppercase tracking-[0.3em] text-faint">World map · click any tile to fly that sector</p>
           <WorldMap
             minted={minted}
             mine={tokenIds}
