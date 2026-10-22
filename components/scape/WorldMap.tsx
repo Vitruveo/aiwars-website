@@ -74,10 +74,16 @@ export default function WorldMap({
       g.fillRect(cx + cell.x * cellPx - cellPx * 0.42, cy + cell.y * cellPx - cellPx * 0.42, cellPx * 0.84, cellPx * 0.84);
       g.shadowBlur = 0;
       g.globalAlpha = 1;
-      if (beaconIds.has(id)) {
-        g.fillStyle = "#eef3fb";
-        g.fillRect(cx + cell.x * cellPx - 1, cy + cell.y * cellPx - 1, 2, 2);
-      }
+    }
+    // sectors with a beacon burn white
+    for (const id of beaconIds) {
+      const cell = ALL_CELLS[id - 1];
+      if (!cell) continue;
+      g.fillStyle = "#eef3fb";
+      g.shadowColor = "#ffffff";
+      g.shadowBlur = 16;
+      g.fillRect(cx + cell.x * cellPx - cellPx * 0.42, cy + cell.y * cellPx - cellPx * 0.42, cellPx * 0.84, cellPx * 0.84);
+      g.shadowBlur = 0;
     }
     // the Archive
     const r = cellPx * 1.6 + Math.sin(t * 1.5) * cellPx * 0.2;
@@ -142,7 +148,7 @@ export default function WorldMap({
         {hoverSector ? (
           <>
             <span className="text-ink">{hoverSector.code}</span> · {hoverSector.name} · {hoverSector.tierName}
-            {hover && hover > minted ? <span className="text-faint"> · unlit</span> : <span className="text-signal"> · lit</span>}
+            {beaconIds.has(hover!) ? <span className="text-ink"> · beacon</span> : hover && hover > minted ? <span className="text-faint"> · unlit</span> : <span className="text-signal"> · lit</span>}
           </>
         ) : (
           <>
