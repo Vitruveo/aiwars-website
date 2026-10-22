@@ -9,6 +9,7 @@ import { TIERS, MAX_PER_WALLET, fmt } from "@/lib/shards";
 import { PAY_CHAIN, NFT_CHAIN } from "@/lib/web3";
 import { SALE_ADDRESS, SALE_ABI, NFT_ADDRESS, USDT_BSC, ERC20_ABI, GENESIS_ADDRESS, GENESIS_ABI } from "@/lib/contracts";
 import { useMyShards } from "@/lib/useMyShards";
+import { requestFulfill } from "@/lib/fulfill";
 
 const STAGES = [
   { n: 1, name: "Power + Scape", body: "Stronger, and an easier way through the terrain." },
@@ -16,7 +17,7 @@ const STAGES = [
   { n: 3, name: "Trio wakes", body: "Faction Command, Augment Path, Canon Author, Machine Parley." },
 ];
 
-type Step = "idle" | "switching" | "approving" | "buying" | "done";
+type Step = "idle" | "switching" | "approving" | "buying" | "minting" | "done";
 
 function short(e: unknown) {
   const m = (e as { shortMessage?: string; message?: string })?.shortMessage || (e as Error)?.message || "Transaction failed";
@@ -29,6 +30,7 @@ export default function ShardMintPanel() {
   const [step, setStep] = useState<Step>("idle");
   const [error, setError] = useState<string | null>(null);
   const [lastTx, setLastTx] = useState<string | null>(null);
+  const [mintedIds, setMintedIds] = useState<number[] | null>(null);
   const [ref, setRef] = useState("");
   useEffect(() => {
     setMounted(true);
@@ -122,8 +124,10 @@ export default function ShardMintPanel() {
       const rc = await payClient.waitForTransactionReceipt({ hash: h });
       if (rc.status !== "success") throw new Error("Purchase reverted");
       setLastTx(h);
-      setStep("done");
       sale.refetch();
+      setStep("minting");
+      setMintedIds(address ? await requestFulfill(address) : null);
+      setStep("done");
     } catch (e) {
       setError(short(e));
       setStep("idle");
@@ -153,6 +157,8 @@ export default function ShardMintPanel() {
               ? "Approving USDT…"
               : step === "buying"
                 ? "Confirming purchase…"
+                : step === "minting"
+                  ? "Minting on Vitruveo…"
                 : !onPayChain
                   ? `Switch to BNB Chain · Pay $${fmt(total)}`
                   : `Pay $${fmt(total)} USDT`;
@@ -160,8 +166,12 @@ export default function ShardMintPanel() {
 
   const status = error
     ? error
-    : step === "done"
-      ? "Paid on BNB Chain. Your shard is being minted on Vitruveo."
+    : step === "minting"
+      ? "Paid on BNB Chain. Minting your shard on Vitruveo…"
+      : step === "done"
+        ? mintedIds && mintedIds.length > 0
+          ? `Minted on Vitruveo: Archive Shard ${mintedIds.map((n) => `#${n}`).join(", ")}`
+          : "Paid on BNB Chain. Your shard is being minted on Vitruveo."
       : !mounted || !isConnected
         ? "Pay in USDT on BNB Chain · NFT minted on Vitruveo"
         : !saleLive || paused

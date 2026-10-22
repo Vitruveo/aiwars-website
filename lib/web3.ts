@@ -1,15 +1,9 @@
 import { getDefaultConfig } from "@rainbow-me/rainbowkit";
 import { bsc } from "wagmi/chains";
-import { defineChain } from "viem";
+import { vitruveo } from "@/lib/chains";
 
 // Two networks. Payment (USDT) happens on BNB Smart Chain; the NFT lives on Vitruveo.
-export const vitruveo = defineChain({
-  id: 1490,
-  name: "Vitruveo",
-  nativeCurrency: { name: "Vitruveo", symbol: "VTRU", decimals: 18 },
-  rpcUrls: { default: { http: ["https://rpc.vitruveo.ai"] } },
-  blockExplorers: { default: { name: "Vitruveo Explorer", url: "https://explorer.vitruveo.ai" } },
-});
+export { vitruveo };
 
 export const PAY_CHAIN = bsc;
 export const NFT_CHAIN = vitruveo;

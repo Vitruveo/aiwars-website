@@ -5,11 +5,12 @@ import { useAccount, useChainId, useReadContracts, useSwitchChain, useWriteContr
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { formatUnits, parseUnits } from "viem";
 import { fmt } from "@/lib/shards";
+import { requestFulfill } from "@/lib/fulfill";
 import { PAY_CHAIN } from "@/lib/web3";
 import { GENESIS_ADDRESS, GENESIS_ABI, SALE_ADDRESS, SALE_ABI, VTRU_BSC, VTRU_BRIDGE_URL, ERC20_ABI, GENESIS_PRICE_VTRU, GENESIS_THRESHOLD } from "@/lib/contracts";
 
 const ZERO = "0x0000000000000000000000000000000000000000" as const;
-type Step = "idle" | "switching" | "approving" | "buying" | "redeeming";
+type Step = "idle" | "switching" | "approving" | "buying" | "redeeming" | "minting";
 
 function short(e: unknown) {
   const m = (e as { shortMessage?: string; message?: string })?.shortMessage || (e as Error)?.message || "Transaction failed";
@@ -148,8 +149,10 @@ export default function GenesisPanel() {
       const h = await writeContractAsync({ address: SALE_ADDRESS, abi: SALE_ABI, functionName: "redeemClaim", args: [BigInt(id)], chainId: PAY_CHAIN.id });
       const rc = await payClient.waitForTransactionReceipt({ hash: h });
       if (rc.status !== "success") throw new Error("Redemption reverted");
-      setNotice(`Claim #${id} redeemed. Your shard is being minted on Vitruveo.`);
       base.refetch();
+      setStep("minting");
+      const ids = address ? await requestFulfill(address) : null;
+      setNotice(ids && ids.length > 0 ? `Claim #${id} redeemed. Minted on Vitruveo: Archive Shard ${ids.map((n) => `#${n}`).join(", ")}` : `Claim #${id} redeemed. Your shard is being minted on Vitruveo.`);
     } catch (e) {
       setError(short(e));
     } finally {
@@ -265,7 +268,7 @@ export default function GenesisPanel() {
                       disabled={!p.activated || busy || !SALE_ADDRESS}
                       className="mt-3 w-full border border-signal bg-signal/15 py-3 font-mono text-sm uppercase tracking-[0.3em] text-signal transition-all hover:bg-signal/25 disabled:cursor-not-allowed disabled:opacity-50"
                     >
-                      {step === "redeeming" ? "Redeeming…" : p.activated ? "Redeem Claim · mint a shard" : `Locked until ${p.activateAt} sales`}
+                      {step === "redeeming" ? "Redeeming…" : step === "minting" ? "Minting on Vitruveo…" : p.activated ? "Redeem Claim · mint a shard" : `Locked until ${p.activateAt} sales`}
                     </button>
                   )}
                   {mine && !holdsClaim && !p.redeemed && (
