@@ -3,7 +3,7 @@ import { TIERS, TOTAL_SUPPLY, MAX_PER_WALLET, tierForTokenId } from "@/lib/shard
 
 // ERC-721 metadata. The contract resolves tokenURI as baseURI + tokenId, so the
 // on-chain baseURI is `${SITE}/nft/metadata/` and this route answers for ids 1..TOTAL_SUPPLY.
-// Set NEXT_PUBLIC_SITE_URL in production so image/animation URLs are absolute and stable.
+// Set NEXT_PUBLIC_SITE_URL in production so image URL are absolute and stable.
 
 function siteUrl(req: Request) {
   if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
@@ -32,7 +32,6 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
       `One of ${TOTAL_SUPPLY} shards, five tiers minted strictly in order, ${MAX_PER_WALLET} per wallet. ` +
       "Holders are the exclusive beta testers of AI Wars, a Vertical Foundation project.",
     image: `${site}/aiwars_nft.gif`,
-    animation_url: `${site}/aiwars_nft.mp4`,
     external_url: `${site}/nft`,
     background_color: "04070d",
     attributes: [

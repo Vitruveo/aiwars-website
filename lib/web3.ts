@@ -8,7 +8,7 @@ export const vitruveo = defineChain({
   name: "Vitruveo",
   nativeCurrency: { name: "Vitruveo", symbol: "VTRU", decimals: 18 },
   rpcUrls: { default: { http: ["https://rpc.vitruveo.ai"] } },
-  blockExplorers: { default: { name: "Vitruveo Explorer", url: "https://explorer.vitruveo.xyz" } },
+  blockExplorers: { default: { name: "Vitruveo Explorer", url: "https://explorer.vitruveo.ai" } },
 });
 
 export const PAY_CHAIN = bsc;
