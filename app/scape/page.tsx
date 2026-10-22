@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Nav from "@/components/Nav";
 import ScapeApp from "@/components/scape/ScapeApp";
+import ScapeFaq from "@/components/scape/ScapeFaq";
 
 export const metadata: Metadata = {
   title: "The Scape — AI Wars",
@@ -22,6 +23,7 @@ export default function ScapePage() {
         <div className="mt-8">
           <ScapeApp />
         </div>
+        <ScapeFaq />
       </div>
     </main>
   );
