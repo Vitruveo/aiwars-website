@@ -101,7 +101,7 @@ export default function ScapeApp() {
     <div className="flex flex-col gap-4">
       {/* flyover */}
       <div ref={stage} className="panel panel-flat relative overflow-hidden bg-abyss" style={{ height: full ? "100svh" : "min(78svh, 820px)" }}>
-        {mounted && <ScapeScene sector={sector} beacons={sectorBeacons} draft={draft} placing={placing} onPick={(x, z) => setDraft((d) => ({ x, z, name: d?.name ?? "" }))} onManual={setManual} />}
+        {mounted && <ScapeScene sector={sector} beacons={sectorBeacons} draft={draft} placing={placing} onPick={(x, z) => setDraft((d) => ({ x, z, name: d?.name ?? "" }))} manual={manual} onManual={setManual} />}
 
         {/* HUD */}
         <div className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between p-5 sm:p-6">
@@ -139,7 +139,12 @@ export default function ScapeApp() {
           </div>
           <div className="flex items-start gap-4">
             <div className="hidden text-right sm:block">
-              <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-faint">{manual ? "Manual orbit" : "Auto flight"}</p>
+              <button
+                onClick={() => setManual((m) => !m)}
+                className={`pointer-events-auto h-9 border px-3 font-mono text-[11px] uppercase tracking-[0.3em] transition-colors ${manual ? "border-ember/70 text-ember hover:border-signal hover:text-signal" : "border-signal/70 text-signal"}`}
+              >
+                {manual ? "Manual orbit · resume flight" : "Auto flight"}
+              </button>
               <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.25em] text-faint">Drag to orbit · scroll to zoom</p>
             </div>
             <button

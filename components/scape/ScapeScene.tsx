@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Stars } from "@react-three/drei";
 import * as THREE from "three";
@@ -20,6 +20,7 @@ export default function ScapeScene({
   onPick,
   locked = false,
   onManual,
+  manual,
 }: {
   sector: Sector;
   beacons: BeaconRecord[];
@@ -28,8 +29,8 @@ export default function ScapeScene({
   onPick?: (x: number, z: number) => void;
   locked?: boolean;
   onManual?: (m: boolean) => void;
+  manual: boolean;
 }) {
-  const [manual, setManual] = useState(false);
   const p = sector.palette;
   const fogDensity = locked ? sector.fogDensity * 2.6 : sector.fogDensity;
   return (
@@ -61,9 +62,7 @@ export default function ScapeScene({
         speed={locked ? 0.5 : 1}
         manual={manual && !locked}
         onManual={(m) => {
-          if (locked) return;
-          setManual(m);
-          onManual?.(m);
+          if (!locked) onManual?.(m);
         }}
       />
       <Effects quality={locked ? 0.6 : 1} />

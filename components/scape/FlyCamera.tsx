@@ -18,6 +18,9 @@ export default function FlyCamera({ sector, speed = 1, manual, onManual }: { sec
   const target = useRef(new THREE.Vector3(0, sector.height(0, 0) + 12, 0));
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const controls = useRef<React.ComponentRef<typeof OrbitControls>>(null);
+  // Latest callback without re-subscribing listeners (which would also clear the idle timer).
+  const notify = useRef(onManual);
+  notify.current = onManual;
 
   useEffect(() => {
     t.current = 0;
@@ -28,10 +31,10 @@ export default function FlyCamera({ sector, speed = 1, manual, onManual }: { sec
   useEffect(() => {
     const el = gl.domElement;
     const grab = () => {
-      onManual(true);
+      notify.current(true);
       blend.current = 0;
       if (timer.current) clearTimeout(timer.current);
-      timer.current = setTimeout(() => onManual(false), IDLE_MS);
+      timer.current = setTimeout(() => notify.current(false), IDLE_MS);
     };
     el.addEventListener("pointerdown", grab);
     el.addEventListener("wheel", grab, { passive: true });
@@ -40,7 +43,15 @@ export default function FlyCamera({ sector, speed = 1, manual, onManual }: { sec
       el.removeEventListener("wheel", grab);
       if (timer.current) clearTimeout(timer.current);
     };
-  }, [gl, onManual]);
+  }, [gl]);
+
+  // Parent switched back to auto (button or idle): ease onto the loop from wherever we are.
+  useEffect(() => {
+    if (!manual) {
+      blend.current = 0;
+      if (timer.current) clearTimeout(timer.current);
+    }
+  }, [manual]);
 
   useFrame((_, dt) => {
     if (manual) return;
