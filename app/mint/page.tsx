@@ -5,6 +5,7 @@ import Reveal from "@/components/Reveal";
 import Shard from "@/components/Shard";
 import MintTicker from "@/components/MintTicker";
 import ShardMintPanel from "@/components/ShardMintPanel";
+import BeaconBanner from "@/components/BeaconBanner";
 import SaleLabel from "@/components/SaleLabel";
 import TierLeft from "@/components/TierLeft";
 import world from "@/public/art/world.jpg";
@@ -86,6 +87,8 @@ export default function Mint() {
           </div>
         </div>
       </section>
+
+      <BeaconBanner />
 
       <MintTicker />
 
