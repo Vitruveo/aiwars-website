@@ -1,16 +1,17 @@
 "use client";
 
 import { useSaleOpen } from "@/lib/useSaleOpen";
-import { TIERS, MINTED, TOTAL_SUPPLY, MAX_PER_WALLET, liveTierIndex, fmt } from "@/lib/shards";
+import { TIERS, TOTAL_SUPPLY, MAX_PER_WALLET, fmt } from "@/lib/shards";
+import { useSaleTiers } from "@/lib/useSaleTiers";
 
 export default function MintTicker() {
   const open = useSaleOpen();
-  const i = liveTierIndex();
+  const { live: i, minted } = useSaleTiers();
   const t = TIERS[i];
   const items = [
     [open ? "MINTING NOW" : "OPENING SOON", `TIER ${String(t.n).padStart(2, "0")} ${t.name.toUpperCase()}`],
     ["PRICE", `$${t.price}`],
-    ["LEFT IN TIER", `${fmt(t.supply - MINTED[i])} / ${fmt(t.supply)}`],
+    ["LEFT IN TIER", `${fmt(t.supply - minted[i])} / ${fmt(t.supply)}`],
     ["TOTAL SUPPLY", `${fmt(TOTAL_SUPPLY)} · FIXED`],
     ["PER WALLET", `MAX ${MAX_PER_WALLET}`],
     ["HOLDERS", "EXCLUSIVE BETA ACCESS"],

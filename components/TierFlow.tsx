@@ -1,11 +1,13 @@
+"use client";
+
 import Shard from "@/components/Shard";
 import SaleLabel from "@/components/SaleLabel";
-import { TIERS, MINTED, TOTAL_SUPPLY, liveTierIndex, actsCount, fmt } from "@/lib/shards";
+import { TIERS, TOTAL_SUPPLY, actsCount, fmt } from "@/lib/shards";
+import { useSaleTiers } from "@/lib/useSaleTiers";
 
 // Five tier nodes on one energy line. The line flows from 01 to 05; the live node pulses.
 export default function TierFlow() {
-  const live = liveTierIndex();
-  const mintedTotal = MINTED.reduce((a, b) => a + b, 0);
+  const { live, minted: MINTED, total: mintedTotal } = useSaleTiers();
 
   return (
     <div>

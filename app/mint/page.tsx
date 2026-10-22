@@ -6,8 +6,9 @@ import Shard from "@/components/Shard";
 import MintTicker from "@/components/MintTicker";
 import ShardMintPanel from "@/components/ShardMintPanel";
 import SaleLabel from "@/components/SaleLabel";
+import TierLeft from "@/components/TierLeft";
 import world from "@/public/art/world.jpg";
-import { TIERS, MINTED, liveTierIndex, actsCount, fmt } from "@/lib/shards";
+import { TIERS, liveTierIndex, actsCount, fmt } from "@/lib/shards";
 
 export const metadata: Metadata = {
   title: "Mint — Archive Shard — AI Wars",
@@ -26,7 +27,6 @@ function Kicker({ n, children }: { n: string; children: React.ReactNode }) {
 export default function Mint() {
   const li = liveTierIndex();
   const live = TIERS[li];
-  const left = live.supply - MINTED[li];
 
   return (
     <main className="min-h-svh overflow-x-clip">
@@ -59,10 +59,10 @@ export default function Mint() {
                   <div className="mt-8 grid grid-cols-3 gap-4">
                     {[
                       [`$${live.price}`, "per shard"],
-                      [fmt(left), "left"],
+                      [<TierLeft key="left" />, "left"],
                       [String(actsCount(live)), "activations"],
                     ].map(([n, l]) => (
-                      <div key={l}>
+                      <div key={String(l)}>
                         <p className="display text-2xl text-ember sm:text-3xl">{n}</p>
                         <p className="mt-1 font-mono text-sm uppercase tracking-[0.2em] text-faint">{l}</p>
                       </div>

@@ -4,6 +4,7 @@ import Nav from "@/components/Nav";
 import Reveal from "@/components/Reveal";
 import Shard from "@/components/Shard";
 import TierFlow from "@/components/TierFlow";
+import TierLeft from "@/components/TierLeft";
 import HoldDiagram from "@/components/HoldDiagram";
 import CountUp from "@/components/CountUp";
 import MintTicker from "@/components/MintTicker";
@@ -12,7 +13,7 @@ import SaleLabel from "@/components/SaleLabel";
 import war from "@/public/art/war.jpg";
 import archive from "@/public/art/archive.jpg";
 import beyond from "@/public/art/beyond.jpg";
-import { TIERS, MINTED, POWER, POWER_SLOTS, SCAPE, SCAPE_SLOTS, DUO, TRIO, TOTAL_SUPPLY, MAX_PER_WALLET, liveTierIndex, actsCount, fmt } from "@/lib/shards";
+import { TIERS, POWER, POWER_SLOTS, SCAPE, SCAPE_SLOTS, DUO, TRIO, TOTAL_SUPPLY, MAX_PER_WALLET, liveTierIndex, actsCount, fmt } from "@/lib/shards";
 
 export const metadata: Metadata = {
   title: "Archive Shard — AI Wars",
@@ -68,7 +69,6 @@ function Kicker({ n, children }: { n: string; children: React.ReactNode }) {
 export default function Mint() {
   const li = liveTierIndex();
   const live = TIERS[li];
-  const left = live.supply - MINTED[li];
 
   return (
     <main className="min-h-svh overflow-x-clip">
@@ -107,7 +107,7 @@ export default function Mint() {
               </span>
               <span className="text-ink">Tier {String(live.n).padStart(2, "0")} {live.name}</span>
               <span className="text-ember">${live.price}</span>
-              <span className="text-dim">{fmt(left)} of {fmt(live.supply)} left</span>
+              <span className="text-dim"><TierLeft /> of {fmt(live.supply)} left</span>
             </p>
             <div className="mt-6 flex flex-wrap gap-4">
               <a href="/mint" className="btn-pulse border border-signal bg-signal/15 px-8 py-4 font-mono text-base uppercase tracking-[0.3em] text-signal transition-all hover:bg-signal/25">
