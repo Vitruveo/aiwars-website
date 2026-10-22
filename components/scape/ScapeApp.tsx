@@ -11,11 +11,10 @@ import { useBeacons } from "@/lib/useBeacons";
 import { sectorFor, BIOME_LABEL } from "@/lib/scape/sector";
 import { beaconMessage } from "@/lib/scape/beaconMessage";
 import WorldMap from "@/components/scape/WorldMap";
-import Shard from "@/components/Shard";
 
 const ScapeScene = dynamic(() => import("@/components/scape/ScapeScene"), { ssr: false, loading: () => <div className="h-full w-full bg-abyss" /> });
 
-// /scape: the world map for everyone, the flyover for shard holders.
+// /scape: map and flyover for everyone; beacons for the holder of the sector.
 export default function ScapeApp() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
@@ -27,9 +26,8 @@ export default function ScapeApp() {
   const mintedRead = useReadContract({ address: NFT_ADDRESS, abi: NFT_ABI, functionName: "totalMinted", chainId: NFT_CHAIN.id, query: { enabled: Boolean(NFT_ADDRESS), refetchInterval: 20_000 } });
   const minted = Number((mintedRead.data as bigint | undefined) ?? 0n);
 
-  // ?preview=1 unlocks the flyover on dev builds only, for working on the scene without a wallet.
-  const preview = mounted && process.env.NODE_ENV !== "production" && new URLSearchParams(window.location.search).has("preview");
-  const holder = (mounted && isConnected && tokenIds.length > 0) || preview;
+  // Anyone can fly any sector. Holding the sector's shard is what lets you write its beacon.
+  const holder = mounted && isConnected && tokenIds.length > 0;
   const [selected, setSelected] = useState<number>(1);
   const [chosen, setChosen] = useState(false);
   useEffect(() => {
@@ -95,7 +93,7 @@ export default function ScapeApp() {
     <div className="flex flex-col gap-4">
       {/* flyover */}
       <div ref={stage} className="panel panel-flat relative overflow-hidden bg-abyss" style={{ height: full ? "100svh" : "min(78svh, 820px)" }}>
-        {mounted && <ScapeScene sector={sector} beacons={sectorBeacons} draft={draft} placing={placing} onPick={(x, z) => setDraft((d) => ({ x, z, name: d?.name ?? "" }))} locked={!holder} onManual={setManual} />}
+        {mounted && <ScapeScene sector={sector} beacons={sectorBeacons} draft={draft} placing={placing} onPick={(x, z) => setDraft((d) => ({ x, z, name: d?.name ?? "" }))} onManual={setManual} />}
 
         {/* HUD */}
         <div className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between p-5 sm:p-6">
@@ -109,7 +107,7 @@ export default function ScapeApp() {
           <div className="flex items-start gap-4">
             <div className="hidden text-right sm:block">
               <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-faint">{manual ? "Manual orbit" : "Auto flight"}</p>
-              <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.25em] text-faint">{holder ? "Drag to orbit · scroll to zoom" : ""}</p>
+              <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.25em] text-faint">Drag to orbit · scroll to zoom</p>
             </div>
             <button
               onClick={toggleFull}
@@ -139,10 +137,8 @@ export default function ScapeApp() {
               <>
                 Beacon <span className="text-signal">{sectorBeacons[0].name.toUpperCase()}</span>
               </>
-            ) : holder ? (
-              "No beacon in this sector"
             ) : (
-              ""
+              "No beacon in this sector"
             )}
             {note && <p className="mt-1 text-ember">{note}</p>}
           </div>
@@ -179,30 +175,6 @@ export default function ScapeApp() {
           )}
         </div>
 
-        {/* lock */}
-        {mounted && !holder && (
-          <div className="absolute inset-0 flex items-center justify-center bg-abyss/40 backdrop-blur-[2px]">
-            <div className="panel panel-flat mx-5 max-w-md p-7 text-center">
-              <div className="mx-auto mb-4 w-fit">
-                <Shard tier={1} size={72} float />
-              </div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.35em] text-signal">Sealed</p>
-              <p className="display mt-2 text-2xl text-ink">The Scape opens to shard holders</p>
-              <p className="mt-3 text-base text-dim">Every Archive Shard owns one sector of the world around the Archive. Hold one on Vitruveo to fly it, name a place in it and light it on the map.</p>
-              <div className="mt-5 flex justify-center gap-3">
-                {!isConnected ? (
-                  <button onClick={() => openConnectModal?.()} className="border border-signal bg-signal/15 text-signal transition-all hover:bg-signal/25 h-11 px-5 font-mono text-xs uppercase tracking-[0.25em]">
-                    Connect wallet
-                  </button>
-                ) : (
-                  <a href="/mint" className="border border-signal bg-signal/15 text-signal transition-all hover:bg-signal/25 inline-flex h-11 items-center px-5 font-mono text-xs uppercase tracking-[0.25em]">
-                    Mint a shard
-                  </a>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* map + my sectors */}
@@ -243,7 +215,19 @@ export default function ScapeApp() {
               })}
             </ul>
           ) : (
-            <p className="mt-3 text-sm text-dim">Sectors are assigned by token id. Token 1 sits beside the Archive; the spiral runs outward through every tier.</p>
+            <>
+            <p className="mt-3 text-sm text-dim">Sectors are assigned by token id. Token 1 sits beside the Archive; the spiral runs outward through every tier. Hold a shard to light its sector and name a place in it.</p>
+            <div className="mt-4 flex gap-3">
+              {!isConnected && (
+                <button onClick={() => openConnectModal?.()} className="h-10 border border-hairline px-4 font-mono text-xs uppercase tracking-[0.25em] text-faint hover:text-ink">
+                  Connect
+                </button>
+              )}
+              <a href="/mint" className="inline-flex h-10 items-center border border-signal bg-signal/15 px-4 font-mono text-xs uppercase tracking-[0.25em] text-signal transition-all hover:bg-signal/25">
+                Mint a shard
+              </a>
+            </div>
+            </>
           )}
           <p className="mt-5 font-mono text-[11px] uppercase tracking-[0.25em] text-faint">
             <span className="text-ink">{minted.toLocaleString("en-US")}</span> lit · <span className="text-ink">{beacons.length}</span> beacons

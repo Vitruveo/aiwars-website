@@ -4,7 +4,7 @@ import ScapeApp from "@/components/scape/ScapeApp";
 
 export const metadata: Metadata = {
   title: "The Scape — AI Wars",
-  description: "Fly the sector your Archive Shard owns in the world around the Archive. Holders only.",
+  description: "Fly any of the 5,000 sectors around the Archive. Hold a shard to light yours and name a place in it.",
 };
 
 export default function ScapePage() {
