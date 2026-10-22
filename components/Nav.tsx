@@ -10,7 +10,7 @@ const links = [
   { href: "/nft", label: "Shards" },
   { href: "/mint", label: "Mint" },
   { href: "/genesis", label: "Genesis" },
-  { href: "/scape", label: "Scape" },
+  { href: "/beacon", label: "Beacon" },
   { href: "/whitepaper", label: "Whitepaper" },
 ];
 
