@@ -4,7 +4,7 @@ import ScapeApp from "@/components/scape/ScapeApp";
 import ScapeFaq from "@/components/scape/ScapeFaq";
 
 export const metadata: Metadata = {
-  title: "Beacon — AI Wars",
+  title: "The Scape — AI Wars",
   description: "Fly any of the 5,000 sectors around the Archive. Hold a shard to light yours and name a place in it.",
 };
 
@@ -14,7 +14,7 @@ export default function ScapePage() {
       <Nav />
       <div className="mx-auto max-w-7xl px-5 pb-16 pt-24 sm:px-8">
         <p className="kicker mb-3">
-          <span className="kicker-num">05</span>Beacon
+          <span className="kicker-num">05</span>The Scape
         </p>
         <h1 className="display text-3xl text-ink sm:text-5xl">One sector per shard</h1>
         <p className="mt-3 text-lg text-dim">

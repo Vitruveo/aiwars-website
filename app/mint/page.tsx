@@ -85,10 +85,9 @@ export default function Mint() {
               <ShardMintPanel />
             </Reveal>
           </div>
+          <BeaconBanner />
         </div>
       </section>
-
-      <BeaconBanner />
 
       <MintTicker />
 

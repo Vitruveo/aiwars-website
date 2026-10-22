@@ -4,10 +4,9 @@ import Shard from "@/components/Shard";
 // Mint page banner: every shard owns a sector of the Scape and its holder can plant a beacon there.
 export default function BeaconBanner() {
   return (
-    <section className="relative py-10">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+    <div className="mt-6">
         <Reveal>
-          <a href="/beacon" className="panel panel-flat sweep group flex flex-col items-start gap-6 p-7 sm:flex-row sm:items-center sm:gap-8 sm:p-8">
+          <a href="/scape" className="panel panel-flat sweep group flex flex-col items-start gap-6 p-7 sm:flex-row sm:items-center sm:gap-8 sm:p-8">
             <div className="shrink-0">
               <Shard tier={1} size={84} float />
             </div>
@@ -23,7 +22,6 @@ export default function BeaconBanner() {
             </span>
           </a>
         </Reveal>
-      </div>
-    </section>
+    </div>
   );
 }
