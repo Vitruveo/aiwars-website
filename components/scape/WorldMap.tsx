@@ -1,0 +1,155 @@
+"use client";
+
+import { useEffect, useMemo, useRef, useState } from "react";
+import { ALL_CELLS, WORLD_RADIUS, cellForToken } from "@/lib/scape/layout";
+import { tierForTokenId } from "@/lib/shards";
+import { sectorFor } from "@/lib/scape/sector";
+
+const TIER_COLOR = ["#f0954f", "#5aa6ff", "#2d8cff", "#1b5fd6", "#8fa0ba"];
+
+// The whole Scape from orbit: 5,000 sectors spiralling out from the Archive. Minted sectors are lit.
+export default function WorldMap({
+  minted,
+  mine,
+  selected,
+  onSelect,
+  beaconIds,
+  height = 320,
+}: {
+  minted: number;
+  mine: number[];
+  selected: number;
+  onSelect: (id: number) => void;
+  beaconIds: Set<number>;
+  height?: number;
+}) {
+  const canvas = useRef<HTMLCanvasElement>(null);
+  const [hover, setHover] = useState<number | null>(null);
+  const [size, setSize] = useState({ w: 600, h: height });
+  const byCell = useMemo(() => {
+    const m = new Map<string, number>();
+    ALL_CELLS.forEach((c, i) => m.set(`${c.x},${c.y}`, i + 1));
+    return m;
+  }, []);
+
+  useEffect(() => {
+    const el = canvas.current?.parentElement;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setSize({ w: el.clientWidth, h: height }));
+    ro.observe(el);
+    setSize({ w: el.clientWidth, h: height });
+    return () => ro.disconnect();
+  }, [height]);
+
+  const cellPx = Math.min(size.w, size.h) / (WORLD_RADIUS * 2 + 3);
+  const cx = size.w / 2;
+  const cy = size.h / 2;
+
+  useEffect(() => {
+    const c = canvas.current;
+    if (!c) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    c.width = size.w * dpr;
+    c.height = size.h * dpr;
+    const g = c.getContext("2d");
+    if (!g) return;
+    g.scale(dpr, dpr);
+    g.clearRect(0, 0, size.w, size.h);
+    const t = performance.now() / 1000;
+    // dark cells
+    g.fillStyle = "#15223a";
+    for (const cell of ALL_CELLS) {
+      g.fillRect(cx + cell.x * cellPx - cellPx * 0.4, cy + cell.y * cellPx - cellPx * 0.4, cellPx * 0.8, cellPx * 0.8);
+    }
+    // lit cells
+    for (let id = 1; id <= Math.min(minted, ALL_CELLS.length); id++) {
+      const cell = ALL_CELLS[id - 1];
+      const tier = tierForTokenId(id)?.index ?? 4;
+      const own = mine.includes(id);
+      const pulse = 0.75 + 0.25 * Math.sin(t * 2 + id);
+      g.fillStyle = TIER_COLOR[tier];
+      g.globalAlpha = own ? 1 : 0.85 * pulse;
+      g.shadowColor = TIER_COLOR[tier];
+      g.shadowBlur = own ? 18 : 10;
+      g.fillRect(cx + cell.x * cellPx - cellPx * 0.42, cy + cell.y * cellPx - cellPx * 0.42, cellPx * 0.84, cellPx * 0.84);
+      g.shadowBlur = 0;
+      g.globalAlpha = 1;
+      if (beaconIds.has(id)) {
+        g.fillStyle = "#eef3fb";
+        g.fillRect(cx + cell.x * cellPx - 1, cy + cell.y * cellPx - 1, 2, 2);
+      }
+    }
+    // the Archive
+    const r = cellPx * 1.6 + Math.sin(t * 1.5) * cellPx * 0.2;
+    const grad = g.createRadialGradient(cx, cy, 0, cx, cy, r * 3);
+    grad.addColorStop(0, "rgba(240,149,79,0.9)");
+    grad.addColorStop(0.4, "rgba(240,149,79,0.25)");
+    grad.addColorStop(1, "rgba(240,149,79,0)");
+    g.fillStyle = grad;
+    g.fillRect(cx - r * 3, cy - r * 3, r * 6, r * 6);
+    g.fillStyle = "#f0954f";
+    g.beginPath();
+    g.moveTo(cx, cy - r);
+    g.lineTo(cx + r * 0.7, cy);
+    g.lineTo(cx, cy + r);
+    g.lineTo(cx - r * 0.7, cy);
+    g.closePath();
+    g.fill();
+    // selection + hover
+    for (const [id, stroke] of [[selected, "#eef3fb"], [hover, "#f0954f"]] as [number | null, string][]) {
+      if (!id) continue;
+      const cell = cellForToken(id);
+      g.strokeStyle = stroke;
+      g.lineWidth = 1.5;
+      g.strokeRect(cx + cell.x * cellPx - cellPx * 0.7, cy + cell.y * cellPx - cellPx * 0.7, cellPx * 1.4, cellPx * 1.4);
+    }
+  });
+
+  // repaint for the pulse
+  const [, tick] = useState(0);
+  useEffect(() => {
+    let raf = 0;
+    const loop = () => {
+      tick((n) => n + 1);
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  function idAt(e: React.MouseEvent) {
+    const rect = canvas.current!.getBoundingClientRect();
+    const x = Math.round((e.clientX - rect.left - cx) / cellPx);
+    const y = Math.round((e.clientY - rect.top - cy) / cellPx);
+    return byCell.get(`${x},${y}`) ?? null;
+  }
+
+  const hoverSector = hover ? sectorFor(hover) : null;
+  return (
+    <div className="relative w-full" style={{ height }}>
+      <canvas
+        ref={canvas}
+        style={{ width: size.w, height: size.h }}
+        className="block cursor-crosshair"
+        onMouseMove={(e) => setHover(idAt(e))}
+        onMouseLeave={() => setHover(null)}
+        onClick={(e) => {
+          const id = idAt(e);
+          if (id) onSelect(id);
+        }}
+      />
+      <div className="pointer-events-none absolute left-3 top-3 font-mono text-[11px] uppercase tracking-[0.25em] text-faint">
+        {hoverSector ? (
+          <>
+            <span className="text-ink">{hoverSector.code}</span> · {hoverSector.name} · {hoverSector.tierName}
+            {hover && hover > minted ? <span className="text-faint"> · unlit</span> : <span className="text-signal"> · lit</span>}
+          </>
+        ) : (
+          <>
+            <span className="text-ember">◆</span> the Archive · <span className="text-ink">{minted.toLocaleString("en-US")}</span> of 5,000 sectors lit
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
