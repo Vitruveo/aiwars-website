@@ -11,7 +11,7 @@ const links: Link[] = [
   { href: "/nft", label: "Shards" },
   { href: "/mint", label: "Mint", children: [{ href: "/genesis", label: "Genesis" }] },
   { href: "/scape", label: "Scape" },
-  // Roadmap and Cost join Whitepaper here as their pages land.
+  // Roadmap (/roadmap, built but hidden) and Cost join Whitepaper here when they go live.
   { href: "/whitepaper", label: "Blueprint", children: [{ href: "/whitepaper", label: "Whitepaper" }] },
 ];
 
