@@ -14,12 +14,12 @@ export const metadata: Metadata = {
 
 type Sprint = { n: string; title: string; dates: string; scope: string; gate: string; total: number; d: number; m: number; o: number; s: number };
 
-const s1Deliverables: [string, string][] = [
-  ["Genesis", "The Genesis package on BNB Smart Chain: 45,000 VTRU buys a transferable Claim, a referral code pays 10% on every referred shard, and the Claim activates at 20 referred shards for a free live-tier shard on Vitruveo."],
-  ["Shard minting", "Archive Shard sale live: five tiers sold strictly in order, three per wallet, paid in USDT on BNB Smart Chain and minted as an upgradeable ERC-721 on Vitruveo, with metadata served from the site."],
-  ["Beacon activation", "The Scape: 5,000 procedurally generated sectors around the Archive, one per shard, with a browser flyover of every sector and a holder-signed beacon that names a place and lights the sector on the world map."],
-  ["Battle Momentum oracle feed", "The TrendPulse oracle publishes AI Wars Battle Momentum, a 0 to 100 composite read every two seconds, with history, live websocket ticks and a public status page, and resolves five-minute windows by ordinary least squares trend."],
-  ["AIWars Trends game", "The first shard activation on pretrend.ai: a new five-minute market on every five-minute mark, five outcome buckets calibrated from the feed, VTRU stakes and 1.5x payouts settled by the shard contract on Vitruveo, and a live on-chain leaderboard. Shard holders only."],
+const s1Deliverables: [string, string, boolean][] = [
+  ["Genesis", "The Genesis package on BNB Smart Chain: 45,000 VTRU buys a transferable Claim, a referral code pays 10% on every referred shard, and the Claim activates at 20 referred shards for a free live-tier shard on Vitruveo.", true],
+  ["Shard minting", "Archive Shard sale live: five tiers sold strictly in order, three per wallet, paid in USDT on BNB Smart Chain and minted as an upgradeable ERC-721 on Vitruveo, with metadata served from the site.", true],
+  ["Beacon activation", "The Scape: 5,000 procedurally generated sectors around the Archive, one per shard, with a browser flyover of every sector and a holder-signed beacon that names a place and lights the sector on the world map.", true],
+  ["Battle Momentum oracle feed", "The TrendPulse oracle publishes AI Wars Battle Momentum, a 0 to 100 composite read every two seconds, with history, live websocket ticks and a public status page, and resolves five-minute windows by ordinary least squares trend.", true],
+  ["AIWars Trends game", "The first shard activation on pretrend.ai: a new five-minute market on every five-minute mark, five outcome buckets calibrated from the feed, VTRU stakes and 1.5x payouts settled by the shard contract on Vitruveo, and a live on-chain leaderboard. Shard holders only. In progress, ETA 26 Oct.", false],
 ];
 
 const sprints: Sprint[] = [
@@ -309,6 +309,15 @@ const escrow: [string, string, string][] = [
 ];
 
 const usd = (n: number) => `$${n.toLocaleString("en-US")}`;
+// Coins are allocated at a fixed accounting price, whatever the market price: escrow = sprint cost / price.
+// $0.50 per coin through S8, $1.00 from S9 on.
+const coinPrice = (sprint: number) => (sprint <= 8 ? 0.5 : 1);
+const RELEASE_AT_END = 0.2;
+const coins = (cost: number, sprint: number) => Math.round(cost / coinPrice(sprint));
+const sprintNo = (n: string) => parseInt(n.slice(1), 10);
+const num = (n: number) => n.toLocaleString("en-US");
+const S1_COST = 25000;
+const planCoins = sprints.reduce((sum, sp) => sum + coins(sp.total, sprintNo(sp.n)), 0);
 
 function Kicker({ num, children }: { num: string; children: React.ReactNode }) {
   return (
@@ -397,6 +406,12 @@ export default function RoadmapPage() {
             carrying that risk. Coins are a bonus, not a substitute: when the round funds, the team receives all agreed outstanding cash
             pay and keeps any coins already released.
           </p>
+          <p className="mt-4 max-w-3xl text-lg text-dim">
+            <b className="text-ink">Allocation.</b> Every sprint&rsquo;s escrow is sized at a fixed accounting price per coin,
+            regardless of market price: $0.50 through S8, $1.00 from S9 on. Escrow coins equal the sprint&rsquo;s approximate cost
+            divided by that price, so a $100,000 sprint escrows 200,000 coins before S9 and 100,000 after, releasing 20% at a funded
+            sprint end. Coins are paid from the treasury. Whatever is not released stays there; nothing is returned anywhere.
+          </p>
           <div className="mt-6 overflow-x-auto">
             <table className="w-full min-w-[640px] border-collapse">
               <thead><tr><th className={th}>Funding outcome</th><th className={th}>Coin distribution</th><th className={th}>Cash compensation</th></tr></thead>
@@ -421,30 +436,38 @@ export default function RoadmapPage() {
           <p className="mt-6 max-w-3xl text-lg text-dim">
             Every sprint is three weeks, demonstrated at its end and released once funded. Costs are approximate, in thousands of dollars
             by slot: <b className="text-ink">D</b>evelopment, <b className="text-ink">M</b>arketing, <b className="text-ink">O</b>perations,{" "}
-            <b className="text-ink">S</b>pecial. Dates assume each sprint funds by its end; an unfunded sprint pauses the clock for
-            everything after it.
+            <b className="text-ink">S</b>pecial. Coin escrow is the cost at $0.50 per coin through S8 and $1.00 from S9; 20% is released at a funded sprint end, the remaining 80% only if the sprint is still unfunded three weeks later.
+            Dates assume each sprint funds by its end; an unfunded sprint pauses the clock for everything after it.
           </p>
           <div className="mt-8 overflow-x-auto">
-            <table className="w-full min-w-[760px] border-collapse">
-              <thead><tr><th className={th}>Sprint</th><th className={th}>Scope</th><th className={`${th} text-right`}>Approx. cost</th></tr></thead>
+            <table className="w-full min-w-[900px] border-collapse">
+              <thead><tr><th className={th}>Sprint</th><th className={th}>Scope</th><th className={`${th} text-right`}>Approx. cost</th><th className={`${th} text-right`}>Coin escrow</th></tr></thead>
               <tbody>
                 <tr>
                   <td className={`${td} w-56`}>
                     <b className="block text-ink">S1 · Foundations</b>
                     <span className="mt-1 block font-mono text-sm uppercase tracking-[0.15em] text-signal">4 Oct to 31 Oct 2026</span>
-                    <span className="mt-3 inline-block border border-[#4fd08a] px-3 py-1 font-mono text-xs uppercase tracking-[0.2em] text-[#4fd08a]">Complete</span>
+                    <span className="mt-3 inline-block border border-ember px-3 py-1 font-mono text-xs uppercase tracking-[0.2em] text-ember">ETA 26 Oct 2026</span>
                   </td>
                   <td className={td}>
-                    <ul className="list-disc space-y-2 pl-5">
-                      {s1Deliverables.map(([k, v]) => (
-                        <li key={k}><b className="text-ink">{k}.</b> {v}</li>
+                    <ul className="space-y-2">
+                      {s1Deliverables.map(([k, v, done]) => (
+                        <li key={k}>
+                          <span className="mr-2 inline-block w-5 text-center" aria-label={done ? "done" : "in progress"}>{done ? "\u2705" : "\u23F3"}</span>
+                          <b className="text-ink">{k}.</b> {v}
+                        </li>
                       ))}
                     </ul>
-                    <span className="mt-3 block text-base text-[#4fd08a]">Demonstrated 24 Oct 2026. Already in production: the only sprint released ahead of funding.</span>
+                    <span className="mt-3 block text-base text-[#4fd08a]">Four of five already in production; AIWars Trends lands 26 Oct. The only sprint released ahead of funding.</span>
                   </td>
                   <td className={`${td} w-40 whitespace-nowrap text-right`}>
-                    <b className="text-ink">$25,000</b>
+                    <b className="text-ink">{usd(S1_COST)}</b>
                     <span className="mt-1 block font-mono text-xs tracking-[0.1em] text-faint">fixed</span>
+                  </td>
+                  <td className={`${td} w-40 whitespace-nowrap text-right`}>
+                    <b className="text-ink">{num(coins(S1_COST, 1))}</b>
+                    <span className="mt-1 block font-mono text-xs tracking-[0.1em] text-faint">20% {num(coins(S1_COST, 1) * RELEASE_AT_END)} · 80% {num(coins(S1_COST, 1) * (1 - RELEASE_AT_END))}</span>
+                    <span className="mt-1 block font-mono text-xs tracking-[0.1em] text-faint">at $0.50</span>
                   </td>
                 </tr>
                 {sprints.map((sp, i) => (
@@ -462,6 +485,11 @@ export default function RoadmapPage() {
                       <b className="text-ink">{usd(sp.total)}</b>
                       <span className="mt-1 block font-mono text-xs tracking-[0.1em] text-faint">D {sp.d} · M {sp.m} · O {sp.o} · S {sp.s}</span>
                     </td>
+                    <td className={`${td} w-40 whitespace-nowrap text-right`}>
+                      <b className="text-ink">{num(coins(sp.total, sprintNo(sp.n)))}</b>
+                      <span className="mt-1 block font-mono text-xs tracking-[0.1em] text-faint">20% {num(coins(sp.total, sprintNo(sp.n)) * RELEASE_AT_END)} · 80% {num(coins(sp.total, sprintNo(sp.n)) * (1 - RELEASE_AT_END))}</span>
+                      <span className="mt-1 block font-mono text-xs tracking-[0.1em] text-faint">at ${coinPrice(sprintNo(sp.n)).toFixed(2)}</span>
+                    </td>
                   </tr>
                 ))}
                 <tr className="bg-void">
@@ -470,6 +498,10 @@ export default function RoadmapPage() {
                   <td className="border-t-2 border-signal px-4 py-5 text-right text-xl font-semibold text-ink">
                     {usd(planTotal)}
                     <span className="mt-1 block font-mono text-xs font-normal tracking-[0.1em] text-faint">D {planSlots[0].toLocaleString("en-US")} · M {planSlots[1]} · O {planSlots[2]} · S {planSlots[3]}</span>
+                  </td>
+                  <td className="border-t-2 border-signal px-4 py-5 text-right text-xl font-semibold text-ink">
+                    {num(planCoins)}
+                    <span className="mt-1 block font-mono text-xs font-normal tracking-[0.1em] text-faint">20% {num(planCoins * RELEASE_AT_END)} · 80% {num(planCoins * (1 - RELEASE_AT_END))}</span>
                   </td>
                 </tr>
               </tbody>
