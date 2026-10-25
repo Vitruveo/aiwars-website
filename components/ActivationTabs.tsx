@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Shard from "@/components/Shard";
 import ActivationScape from "@/components/ActivationScape";
 import TrendsChart from "@/components/TrendsChart";
@@ -11,6 +11,15 @@ const TABS = ["Beacon", "Trends", "Unknown", "Unknown"];
 
 export default function ActivationTabs() {
   const [tab, setTab] = useState(0);
+  // The flyover and the live chart are desktop only; on phones they are not mounted at all.
+  const [wide, setWide] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const update = () => setWide(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   return (
     <div className="panel panel-flat sweep p-7 sm:p-8">
@@ -97,12 +106,12 @@ export default function ActivationTabs() {
         </div>
       )}
 
-      {tab === 0 && (
+      {wide && tab === 0 && (
         <div className="mt-6">
           <ActivationScape />
         </div>
       )}
-      {tab === 1 && (
+      {wide && tab === 1 && (
         <div className="mt-6">
           <TrendsChart />
         </div>
