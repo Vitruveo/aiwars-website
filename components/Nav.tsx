@@ -6,7 +6,6 @@ import WalletButton from "@/components/WalletButton";
 
 const links = [
   { href: "/#universe", label: "Universe" },
-  { href: "/#prologue", label: "Prologue" },
   { href: "/nft", label: "Shards" },
   { href: "/mint", label: "Mint" },
   { href: "/genesis", label: "Genesis" },

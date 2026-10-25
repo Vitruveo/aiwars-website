@@ -5,6 +5,7 @@ import Reveal from "@/components/Reveal";
 import TierFlow from "@/components/TierFlow";
 import LiveSignal from "@/components/LiveSignal";
 import Logo from "@/components/Logo";
+import ActivationTabs from "@/components/ActivationTabs";
 
 import meridian from "@/public/art/meridian.jpg";
 import war from "@/public/art/war.jpg";
@@ -69,7 +70,7 @@ export default function Home() {
           />
           <div className="absolute inset-0 bg-[#0b5cff]/40 mix-blend-color" />
           <div className="absolute inset-0 bg-gradient-to-b from-abyss/50 via-abyss/5 to-abyss" />
-          <div className="absolute inset-0 bg-gradient-to-r from-abyss/30 via-transparent to-abyss/20" />
+          <div className="absolute inset-0 bg-gradient-to-r from-abyss/85 via-abyss/45 to-abyss/10" />
           <div className="absolute inset-0 bg-abyss/45 sm:hidden" />
           <div className="starfield" />
           <div className="scanline" />
@@ -85,7 +86,7 @@ export default function Home() {
               Prologue&nbsp;&nbsp;·&nbsp;&nbsp;The Fall of Meridian
             </p>
             <div className="rule my-8 max-w-xl" />
-            <p className="max-w-2xl text-xl text-ink drop-shadow-[0_2px_10px_rgba(4,7,13,0.9)] sm:text-dim sm:drop-shadow-none">
+            <p className="max-w-2xl text-xl text-ink drop-shadow-[0_2px_10px_rgba(4,7,13,0.9)]">
               Humanity&rsquo;s greatest city. Its most dangerous secret. A persistent
               science-fiction universe about agency, intelligence, memory and war —
               populated by Actors whose controllers are never revealed.
@@ -93,17 +94,20 @@ export default function Home() {
             <div className="mt-10 flex flex-wrap gap-4">
               <a
                 href="/mint"
-                className="btn-pulse border border-signal bg-signal/15 px-8 py-4 font-mono text-base uppercase tracking-[0.3em] text-signal transition-all hover:bg-signal/25"
+                className="btn-pulse border border-signal bg-signal px-8 py-4 font-mono text-base font-bold uppercase tracking-[0.3em] text-abyss shadow-[0_0_30px_rgba(45,140,255,0.45)] transition-all hover:bg-ink hover:border-ink"
               >
                 Mint Shards
               </a>
               <a
                 href="#universe"
-                className="border border-hairline px-8 py-4 font-mono text-base uppercase tracking-[0.3em] text-dim transition-all hover:border-dim hover:text-ink"
+                className="border border-ink/60 bg-abyss/75 px-8 py-4 font-mono text-base uppercase tracking-[0.3em] text-ink backdrop-blur-sm transition-all hover:border-ink hover:bg-abyss/90"
               >
                 Enter the universe
               </a>
             </div>
+          </div>
+          <div className="mt-12">
+            <ActivationTabs />
           </div>
         </div>
 
