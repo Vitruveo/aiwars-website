@@ -3,7 +3,7 @@ import Image from "next/image";
 import Nav from "@/components/Nav";
 
 // Sprint-funded development: the model, the sprint plan with approximate costs, and the
-// twelve-month cost basis. Mirrors AI_Wars_Roadmap_and_Budget.html in the workspace root.
+// twelve-month cost basis. Single source for the roadmap and cost plan.
 // Not linked from the nav yet; add { href: "/roadmap", label: "Roadmap" } under Blueprint when it goes live.
 
 export const metadata: Metadata = {
@@ -26,7 +26,7 @@ const sprints: Sprint[] = [
   {
     "n": "S2",
     "title": "Arena foundations",
-    "dates": "25 Oct 2026 to 14 Nov 2026",
+    "dates": "1 Nov 2026 to 21 Nov 2026",
     "scope": "Roster of the 30 agents and the match scheduler. Authoritative match server. Telemetry pipeline from matches to the Pretrend oracle.",
     "gate": "",
     "total": 84000,
@@ -38,7 +38,7 @@ const sprints: Sprint[] = [
   {
     "n": "S3",
     "title": "Arena live",
-    "dates": "15 Nov 2026 to 5 Dec 2026",
+    "dates": "22 Nov 2026 to 12 Dec 2026",
     "scope": "Standings and replays on the site. Agent wins drive $AIWARS emissions. First browser combat build: one wave on Defense Platform 7, holders only.",
     "gate": "Arena live. First playable.",
     "total": 94000,
@@ -50,7 +50,7 @@ const sprints: Sprint[] = [
   {
     "n": "S4",
     "title": "Platform 7 ground",
-    "dates": "6 Dec 2026 to 26 Dec 2026",
+    "dates": "13 Dec 2026 to 2 Jan 2027",
     "scope": "Defense Platform 7 environment at final quality. Three machine unit families. Netcode for sessions of 1 to 4 humans on authoritative servers.",
     "gate": "",
     "total": 121000,
@@ -62,7 +62,7 @@ const sprints: Sprint[] = [
   {
     "n": "S5",
     "title": "Platform 7 minds",
-    "dates": "27 Dec 2026 to 16 Jan 2027",
+    "dates": "3 Jan 2027 to 23 Jan 2027",
     "scope": "Squad Actors with memory. NEMESIS-7 as a system: comms failure, sky assembly, synchronized machines. Closed alpha for holders.",
     "gate": "Closed alpha for holders.",
     "total": 127000,
@@ -74,7 +74,7 @@ const sprints: Sprint[] = [
   {
     "n": "S6",
     "title": "Prologue, beats 1 to 4",
-    "dates": "17 Jan 2027 to 6 Feb 2027",
+    "dates": "24 Jan 2027 to 13 Feb 2027",
     "scope": "The Fall of Meridian, beats one to four playable from a link. Shard perks in the HUD. NEMESIS-7 casting and recording begins.",
     "gate": "",
     "total": 137000,
@@ -86,7 +86,7 @@ const sprints: Sprint[] = [
   {
     "n": "S7",
     "title": "Prologue launch",
-    "dates": "7 Feb 2027 to 27 Feb 2027",
+    "dates": "14 Feb 2027 to 6 Mar 2027",
     "scope": "Beats five to seven. NEMESIS-7 voiced. Six languages. Trailer one captured from the browser build. First canon entries written to Vitruveo.",
     "gate": "Prologue launch.",
     "total": 154000,
@@ -98,7 +98,7 @@ const sprints: Sprint[] = [
   {
     "n": "S8",
     "title": "World server",
-    "dates": "28 Feb 2027 to 20 Mar 2027",
+    "dates": "7 Mar 2027 to 27 Mar 2027",
     "scope": "Persistent world server running with no one online. Scape sector terrain becomes playable ground, a holder's beacon as spawn mark.",
     "gate": "",
     "total": 133000,
@@ -110,7 +110,7 @@ const sprints: Sprint[] = [
   {
     "n": "S9",
     "title": "Sector weekends",
-    "dates": "21 Mar 2027 to 10 Apr 2027",
+    "dates": "28 Mar 2027 to 17 Apr 2027",
     "scope": "Holder sector weekends with state that carries over between sessions. Sector performance pass for phones and tablets deferred to S17.",
     "gate": "A holder stands on their own sector.",
     "total": 126000,
@@ -122,7 +122,7 @@ const sprints: Sprint[] = [
   {
     "n": "S10",
     "title": "Settlements loop",
-    "dates": "11 Apr 2027 to 1 May 2027",
+    "dates": "18 Apr 2027 to 8 May 2027",
     "scope": "Build, produce, defend. Persistent state for every holder. Production chains and defenses that survive logout.",
     "gate": "",
     "total": 144000,
@@ -134,7 +134,7 @@ const sprints: Sprint[] = [
   {
     "n": "S11",
     "title": "Settlements anchored",
-    "dates": "2 May 2027 to 22 May 2027",
+    "dates": "9 May 2027 to 29 May 2027",
     "scope": "Duo squads. Second machine intelligence revealed. First settlement founded and anchored on chain.",
     "gate": "First settlement anchored on chain.",
     "total": 143000,
@@ -146,7 +146,7 @@ const sprints: Sprint[] = [
   {
     "n": "S12",
     "title": "Factions",
-    "dates": "23 May 2027 to 12 Jun 2027",
+    "dates": "30 May 2027 to 19 Jun 2027",
     "scope": "Factions, territory and Faction Command. Arena battles become sector battles.",
     "gate": "",
     "total": 144000,
@@ -158,7 +158,7 @@ const sprints: Sprint[] = [
   {
     "n": "S13",
     "title": "Machine Parley",
-    "dates": "13 Jun 2027 to 3 Jul 2027",
+    "dates": "20 Jun 2027 to 10 Jul 2027",
     "scope": "Machine Parley. Trio activations live. First Chapter 2 missions for 1 to 4 players.",
     "gate": "Trio live.",
     "total": 149000,
@@ -170,7 +170,7 @@ const sprints: Sprint[] = [
   {
     "n": "S14",
     "title": "Chapter 2 missions",
-    "dates": "4 Jul 2027 to 24 Jul 2027",
+    "dates": "11 Jul 2027 to 31 Jul 2027",
     "scope": "Remaining Chapter 2 missions: the machines are not unified. Machine ruins and corrupted archive fragments.",
     "gate": "",
     "total": 149000,
@@ -182,7 +182,7 @@ const sprints: Sprint[] = [
   {
     "n": "S15",
     "title": "Open beta",
-    "dates": "25 Jul 2027 to 14 Aug 2027",
+    "dates": "1 Aug 2027 to 21 Aug 2027",
     "scope": "Open beta of the persistent world. Trailer two. Load and abuse testing at beta scale.",
     "gate": "Open beta.",
     "total": 155000,
@@ -194,7 +194,7 @@ const sprints: Sprint[] = [
   {
     "n": "S16",
     "title": "Live world events",
-    "dates": "15 Aug 2027 to 4 Sep 2027",
+    "dates": "22 Aug 2027 to 11 Sep 2027",
     "scope": "Live world event system: the first city outside Meridian falls or holds on player and Actor action.",
     "gate": "",
     "total": 143000,
@@ -206,7 +206,7 @@ const sprints: Sprint[] = [
   {
     "n": "S17",
     "title": "Early Access",
-    "dates": "5 Sep 2027 to 25 Sep 2027",
+    "dates": "12 Sep 2027 to 2 Oct 2027",
     "scope": "Phone and tablet browser pass. Early Access launch with Chapter 2 and the persistent sector world.",
     "gate": "Early Access launch.",
     "total": 160000,
@@ -431,7 +431,7 @@ export default function RoadmapPage() {
                 <tr>
                   <td className={`${td} w-56`}>
                     <b className="block text-ink">S1 · Foundations</b>
-                    <span className="mt-1 block font-mono text-sm uppercase tracking-[0.15em] text-signal">4 Oct to 24 Oct 2026</span>
+                    <span className="mt-1 block font-mono text-sm uppercase tracking-[0.15em] text-signal">4 Oct to 31 Oct 2026</span>
                     <span className="mt-3 inline-block border border-[#4fd08a] px-3 py-1 font-mono text-xs uppercase tracking-[0.2em] text-[#4fd08a]">Complete</span>
                   </td>
                   <td className={td}>
@@ -466,7 +466,7 @@ export default function RoadmapPage() {
                 ))}
                 <tr className="bg-void">
                   <td className="border-t-2 border-signal px-4 py-5 text-xl font-semibold text-ink">S2 to S17 · 48 weeks</td>
-                  <td className="border-t-2 border-signal px-4 py-5 text-lg text-ink">From Arena foundations to Early Access, 25 Oct 2026 to 25 Sep 2027</td>
+                  <td className="border-t-2 border-signal px-4 py-5 text-lg text-ink">From Arena foundations to Early Access, 1 Nov 2026 to 2 Oct 2027</td>
                   <td className="border-t-2 border-signal px-4 py-5 text-right text-xl font-semibold text-ink">
                     {usd(planTotal)}
                     <span className="mt-1 block font-mono text-xs font-normal tracking-[0.1em] text-faint">D {planSlots[0].toLocaleString("en-US")} · M {planSlots[1]} · O {planSlots[2]} · S {planSlots[3]}</span>
