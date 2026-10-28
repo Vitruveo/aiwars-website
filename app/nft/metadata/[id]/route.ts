@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { TIERS, TOTAL_SUPPLY, MAX_PER_WALLET, tierForTokenId } from "@/lib/shards";
+import { givenSerial } from "@/lib/mystery/db";
 
 // ERC-721 metadata. The contract resolves tokenURI as baseURI + tokenId, so the
 // on-chain baseURI is `${SITE}/nft/metadata/` and this route answers for ids 1..TOTAL_SUPPLY.
@@ -17,7 +18,13 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
   const id = Number(raw);
   if (id < 1 || id > TOTAL_SUPPLY) return NextResponse.json({ error: "token id out of range" }, { status: 404 });
 
-  const t = tierForTokenId(id);
+  // Shards given through the Archive (/mystery) are Tier 5 Survivor regardless of id; everything else
+  // follows the sale order.
+  let given: number | null = null;
+  try {
+    given = await givenSerial(id);
+  } catch {}
+  const t = given ? { index: TIERS.length - 1, tier: TIERS[TIERS.length - 1], serial: given } : tierForTokenId(id);
   if (!t) return NextResponse.json({ error: "token id out of range" }, { status: 404 });
 
   const site = siteUrl(req);
@@ -39,7 +46,8 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
       { trait_type: "Tier Name", value: t.tier.name },
       { trait_type: "Tier Serial", value: t.serial, display_type: "number", max_value: t.tier.supply },
       { trait_type: "Activations", value: acts.join(" · ") },
-      { trait_type: "Mint Price (USD)", value: t.tier.price, display_type: "number" },
+      { trait_type: "Mint Price (USD)", value: given ? 0 : t.tier.price, display_type: "number" },
+      { trait_type: "Origin", value: given ? "Given by the Archive" : "Sale" },
     ],
   };
 

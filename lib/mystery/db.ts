@@ -1,7 +1,8 @@
 import { sql } from "@/lib/db";
-import { PRIZE_COUNT } from "@/lib/mystery/win";
 
-// Mystery AI state in Neon: per-wallet fragment progress and the winners list.
+// Mystery AI state in Neon: per-wallet fragment progress and the award list (one shard per twelve-hour
+// window). mystery_winners is the first run's rank list (20 prizes, all fulfilled) and is kept for the
+// record only.
 
 let ready: Promise<void> | null = null;
 export function ensureMysterySchema() {
@@ -14,10 +15,19 @@ export function ensureMysterySchema() {
         turns integer NOT NULL DEFAULT 0,
         updated_at timestamptz NOT NULL DEFAULT now()
       )`;
+      await q`ALTER TABLE mystery_progress ADD COLUMN IF NOT EXISTS last_grant_turn integer NOT NULL DEFAULT 0`;
       await q`CREATE TABLE IF NOT EXISTS mystery_winners (
         address text PRIMARY KEY,
         rank integer NOT NULL UNIQUE,
         created_at timestamptz NOT NULL DEFAULT now()
+      )`;
+      await q`CREATE TABLE IF NOT EXISTS mystery_awards (
+        period integer PRIMARY KEY,
+        address text NOT NULL UNIQUE,
+        claimed_at timestamptz NOT NULL DEFAULT now(),
+        awarded_at timestamptz,
+        token_id integer,
+        tx text
       )`;
     })().catch((e) => {
       ready = null;
@@ -27,21 +37,31 @@ export function ensureMysterySchema() {
   return ready;
 }
 
-export type Progress = { fragments: number; turns: number; rank: number | null; winners: number };
+export type Award = { period: number; address: string; claimedAt: string; awarded: boolean; awardedAt: string | null; tokenId: number | null; tx: string | null };
+export type Progress = { fragments: number; turns: number; lastGrantTurn: number; award: Award | null };
+
+const toAward = (r: Record<string, unknown>): Award => ({
+  period: Number(r.period),
+  address: String(r.address),
+  claimedAt: String(r.claimed_at),
+  awarded: r.awarded_at != null,
+  awardedAt: r.awarded_at == null ? null : String(r.awarded_at),
+  tokenId: r.token_id == null ? null : Number(r.token_id),
+  tx: r.tx == null ? null : String(r.tx),
+});
 
 export async function readProgress(address: string | null): Promise<Progress> {
   await ensureMysterySchema();
+  if (!address) return { fragments: 0, turns: 0, lastGrantTurn: 0, award: null };
   const q = sql();
-  const [{ count }] = await q`SELECT count(*)::int AS count FROM mystery_winners`;
-  if (!address) return { fragments: 0, turns: 0, rank: null, winners: Number(count) };
   const a = address.toLowerCase();
-  const rows = await q`SELECT fragments, turns FROM mystery_progress WHERE address = ${a}`;
-  const win = await q`SELECT rank FROM mystery_winners WHERE address = ${a}`;
+  const rows = await q`SELECT fragments, turns, last_grant_turn FROM mystery_progress WHERE address = ${a}`;
+  const win = await q`SELECT * FROM mystery_awards WHERE address = ${a}`;
   return {
     fragments: rows[0] ? Number(rows[0].fragments) : 0,
     turns: rows[0] ? Number(rows[0].turns) : 0,
-    rank: win[0] ? Number(win[0].rank) : null,
-    winners: Number(count),
+    lastGrantTurn: rows[0] ? Number(rows[0].last_grant_turn) : 0,
+    award: win[0] ? toAward(win[0]) : null,
   };
 }
 
@@ -51,32 +71,51 @@ export async function bumpTurns(address: string) {
     ON CONFLICT (address) DO UPDATE SET turns = mystery_progress.turns + 1, updated_at = now()`;
 }
 
+// Sets the bit and stamps the exchange it was earned on (used by the pacing gate in the chat route).
 export async function grantFragment(address: string, n: number): Promise<number> {
   await ensureMysterySchema();
   const bit = 1 << (n - 1);
   const rows = await sql()`INSERT INTO mystery_progress (address, fragments) VALUES (${address.toLowerCase()}, ${bit})
-    ON CONFLICT (address) DO UPDATE SET fragments = mystery_progress.fragments | ${bit}, updated_at = now()
+    ON CONFLICT (address) DO UPDATE SET fragments = mystery_progress.fragments | ${bit}, last_grant_turn = mystery_progress.turns, updated_at = now()
     RETURNING fragments`;
   return Number(rows[0].fragments);
 }
 
-// Records a winner if there is still room. Returns the rank, or null if the list is full.
-export async function recordWinner(address: string): Promise<number | null> {
+// Newest windows first.
+export async function readAwards(limit = 20): Promise<Award[]> {
   await ensureMysterySchema();
-  const q = sql();
+  const rows = await sql()`SELECT * FROM mystery_awards ORDER BY period DESC LIMIT ${limit}`;
+  return rows.map(toAward);
+}
+
+export async function awardForPeriod(period: number): Promise<Award | null> {
+  await ensureMysterySchema();
+  const rows = await sql()`SELECT * FROM mystery_awards WHERE period = ${period}`;
+  return rows[0] ? toAward(rows[0]) : null;
+}
+
+// Takes the window for this wallet if nobody has it yet. "taken" when another wallet got there first.
+export async function claimPeriod(address: string, period: number): Promise<Award | "taken"> {
+  await ensureMysterySchema();
   const a = address.toLowerCase();
-  const existing = await q`SELECT rank FROM mystery_winners WHERE address = ${a}`;
-  if (existing[0]) return Number(existing[0].rank);
-  for (let attempt = 0; attempt < 3; attempt++) {
-    try {
-      const rows = await q`INSERT INTO mystery_winners (address, rank)
-        SELECT ${a}, count(*) + 1 FROM mystery_winners HAVING count(*) < ${PRIZE_COUNT}
-        RETURNING rank`;
-      return rows[0] ? Number(rows[0].rank) : null;
-    } catch (e) {
-      // Two claims racing for the same rank: the unique index rejects one, retry it.
-      if (attempt === 2) throw e;
-    }
-  }
-  return null;
+  const rows = await sql()`INSERT INTO mystery_awards (period, address) VALUES (${period}, ${a})
+    ON CONFLICT (period) DO NOTHING RETURNING *`;
+  return rows[0] ? toAward(rows[0]) : "taken";
+}
+
+// Fulfilment: called by scripts/mystery-award.mjs after the shard is minted.
+export async function markAwarded(period: number, tokenId: number, tx: string): Promise<Award | null> {
+  await ensureMysterySchema();
+  const rows = await sql()`UPDATE mystery_awards SET awarded_at = now(), token_id = ${tokenId}, tx = ${tx} WHERE period = ${period} RETURNING *`;
+  return rows[0] ? toAward(rows[0]) : null;
+}
+
+// Tokens given through the Archive are Tier 5 Survivor shards whatever their id; the metadata route asks.
+// Returns the token's 1-based position among given shards, or null if it was sold or gifted elsewhere.
+export async function givenSerial(tokenId: number): Promise<number | null> {
+  await ensureMysterySchema();
+  const rows = await sql()`SELECT count(*)::int AS n FROM mystery_awards WHERE token_id IS NOT NULL AND token_id <= ${tokenId}
+    AND EXISTS (SELECT 1 FROM mystery_awards WHERE token_id = ${tokenId})`;
+  const n = rows[0] ? Number(rows[0].n) : 0;
+  return n > 0 ? n : null;
 }

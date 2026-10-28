@@ -3,16 +3,27 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useAccount, useSignMessage } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { claimMessage } from "@/lib/mystery/win";
+import { claimMessage, countdown, utcClock } from "@/lib/mystery/win";
 
 // The mystery AI page: a dark field, one line of input, and whatever the Archive says back.
-// Chat goes through /api/mystery/chat (streamed text); progress comes from /api/mystery/state.
+// Chat goes through /api/mystery/chat (streamed text); progress, the current twelve-hour window and the
+// award list come from /api/mystery/state. The clock is UTC and counts down to the next window.
 
 type Msg = { role: "user" | "assistant"; content: string };
-type State = { fragments: number[]; total: number; complete: boolean; rank: number | null; winners: number; prizes: number; prize: "shard" | "vtru" | null; vtruAmount: number };
+type Award = { period: number; label: string; address: string; awarded: boolean; tokenId: number | null; tx: string | null };
+type State = {
+  now: number;
+  fragments: number[];
+  total: number;
+  complete: boolean;
+  period: { index: number; open: boolean; startsAt: number; endsAt: number; label: string; taken: string | null; ms: number };
+  award: Award | null;
+  awards: Award[];
+};
 
 const STORE = "aw:mystery";
 const SILENT = "…";
+const short = (a: string) => `${a.slice(0, 6)}…${a.slice(-4)}`;
 
 export default function MysteryTerminal() {
   const { address } = useAccount();
@@ -23,6 +34,8 @@ export default function MysteryTerminal() {
   const [state, setState] = useState<State | null>(null);
   const [claiming, setClaiming] = useState(false);
   const [claimNote, setClaimNote] = useState<string | null>(null);
+  const [now, setNow] = useState<number | null>(null);
+  const skew = useRef(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const endRef = useRef<HTMLDivElement>(null);
 
@@ -43,12 +56,27 @@ export default function MysteryTerminal() {
   const refresh = useCallback(async () => {
     try {
       const r = await fetch(`/api/mystery/state${address ? `?address=${address}` : ""}`, { cache: "no-store" });
-      if (r.ok) setState(await r.json());
+      if (r.ok) {
+        const s: State = await r.json();
+        skew.current = s.now - Date.now();
+        setState(s);
+      }
     } catch {}
   }, [address]);
   useEffect(() => {
     void refresh();
   }, [refresh]);
+
+  // Server-corrected clock, one tick a second. Re-read state when a window boundary passes.
+  useEffect(() => {
+    const t = setInterval(() => setNow(Date.now() + skew.current), 1000);
+    return () => clearInterval(t);
+  }, []);
+  useEffect(() => {
+    if (!state || now === null) return;
+    const edge = state.period.open ? state.period.endsAt : state.period.startsAt;
+    if (now >= edge) void refresh();
+  }, [now, state, refresh]);
 
   const send = async () => {
     const text = input.trim();
@@ -97,8 +125,10 @@ export default function MysteryTerminal() {
         body: JSON.stringify({ address, ts, signature }),
       });
       const j = await r.json();
-      if (!r.ok) setClaimNote(j.error === "all gone" ? "Everything is gone. The record keeps your name." : "The Archive did not accept that.");
-      else setClaimNote(`Recorded. You are ${j.rank} of ${j.prizes}. ${j.prize === "shard" ? "Your shard" : "Your VTRU"} reaches this wallet within 72 hours.`);
+      if (r.ok) setClaimNote(`Recorded. The shard for ${j.label} is yours. It reaches this wallet within 72 hours.`);
+      else if (j.error === "taken") setClaimNote(`This window's shard is already taken. The next opens ${j.next}. What you hold does not expire.`);
+      else if (j.error === "not open") setClaimNote(`The first window opens ${j.opensAt}. What you hold does not expire.`);
+      else setClaimNote("The Archive did not accept that.");
       void refresh();
     } catch {
       setClaimNote("Nothing was signed.");
@@ -107,7 +137,9 @@ export default function MysteryTerminal() {
     }
   };
 
-  const showProgress = !!address && !!state && (state.fragments.length > 0 || state.rank);
+  const showProgress = !!address && !!state && (state.fragments.length > 0 || state.award);
+  const clock = now === null ? null : utcClock(now);
+  const untilNext = state && now !== null ? countdown((state.period.open ? state.period.endsAt : state.period.startsAt) - now) : null;
 
   return (
     <main className="relative min-h-svh bg-abyss text-ink">
@@ -116,7 +148,17 @@ export default function MysteryTerminal() {
         <ConnectButton label="·" chainStatus="none" showBalance={false} accountStatus="avatar" />
       </div>
 
-      <div className="relative mx-auto flex min-h-svh w-full max-w-2xl flex-col justify-end px-5 pb-10 pt-20 sm:px-8">
+      <div className="absolute left-5 top-5 z-10 font-mono text-sm tracking-[0.25em] text-faint sm:left-8" aria-live="off">
+        <div className="text-base text-dim tabular-nums">{clock ?? "--:--:--"} UTC</div>
+        {state && untilNext && (
+          <div className="mt-1 text-xs tracking-[0.2em] text-faint">
+            {state.period.open ? (state.period.taken ? "WINDOW TAKEN · NEXT IN " : "SHARD OPEN · CLOSES IN ") : "FIRST SHARD IN "}
+            <span className="tabular-nums text-ember">{untilNext}</span>
+          </div>
+        )}
+      </div>
+
+      <div className="relative mx-auto flex min-h-svh w-full max-w-2xl flex-col justify-end px-5 pb-10 pt-24 sm:px-8">
         <div className="space-y-6">
           {messages.map((m, i) => (
             <p
@@ -166,19 +208,37 @@ export default function MysteryTerminal() {
                 />
               ))}
             </span>
-            {state.rank ? (
-              <span className="text-ember">{state.rank} OF {state.prizes} · {state.prize === "shard" ? "SHARD" : `${state.vtruAmount.toLocaleString("en-US")} VTRU`}</span>
+            {state.award ? (
+              <span className="text-ember">TIER 5 SHARD · {state.award.label.toUpperCase()} · {state.award.awarded ? `DELIVERED #${state.award.tokenId}` : "ON ITS WAY"}</span>
             ) : state.complete ? (
               <button
                 type="button"
                 onClick={claim}
-                disabled={claiming}
+                disabled={claiming || !state.period.open || !!state.period.taken}
                 className="border border-ember/70 bg-ember/10 px-5 py-2 uppercase text-ember transition-colors hover:bg-ember/20 disabled:opacity-50"
               >
-                {claiming ? "Signing" : "Claim"}
+                {claiming ? "Signing" : !state.period.open ? "Not yet open" : state.period.taken ? "Window taken" : "Claim"}
               </button>
             ) : null}
             {claimNote && <span className="normal-case tracking-normal text-dim">{claimNote}</span>}
+          </div>
+        )}
+
+        {state && (
+          <div className="mt-12 border-t border-hairline/60 pt-5 font-mono text-xs tracking-[0.2em] text-faint">
+            <div className="mb-3 text-dim">GIVEN</div>
+            {state.awards.length === 0 && <div>NOTHING YET · FIRST WINDOW {state.period.label.toUpperCase()}</div>}
+            <ul className="space-y-1.5">
+              {state.awards.map((w) => (
+                <li key={w.period} className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                  <span className="w-36 shrink-0 tabular-nums">{w.label}</span>
+                  <span className="tabular-nums text-dim" title={w.address}>
+                    {short(w.address)}
+                  </span>
+                  <span className={w.awarded ? "text-ember" : "text-faint"}>{w.awarded ? `DELIVERED${w.tokenId ? ` #${w.tokenId}` : ""}` : "PENDING"}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         )}
       </div>
