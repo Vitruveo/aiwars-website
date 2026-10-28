@@ -1,4 +1,4 @@
-const FAQ: { q: string; a: string }[] = [
+export const FAQ: { q: string; a: string }[] = [
   {
     q: "What is the Scape?",
     a: "The land around the Archive, cut into 5,000 sectors. One sector per Archive Shard. It is a window on the world, not the game itself: the game runs on its own engine, and the Scape is where holders can already see and mark the ground their shard is tied to.",
