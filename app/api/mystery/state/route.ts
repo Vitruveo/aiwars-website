@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { isAddress } from "viem";
 import { readProgress } from "@/lib/mystery/db";
-import { PRIZE_COUNT, heldFragments, isComplete, FRAGMENTS } from "@/lib/mystery/win";
+import { PRIZE_COUNT, SHARD_PRIZES, VTRU_AMOUNT, heldFragments, isComplete, FRAGMENTS, prizeFor } from "@/lib/mystery/win";
 
 export const dynamic = "force-dynamic";
 
@@ -17,6 +17,9 @@ export async function GET(req: Request) {
       rank: p.rank,
       winners: p.winners,
       prizes: PRIZE_COUNT,
+      shardPrizes: SHARD_PRIZES,
+      vtruAmount: VTRU_AMOUNT,
+      prize: p.rank ? prizeFor(p.rank) : null,
     });
   } catch (e) {
     return NextResponse.json({ error: (e as Error).message }, { status: 500 });

@@ -9,7 +9,7 @@ import { claimMessage } from "@/lib/mystery/win";
 // Chat goes through /api/mystery/chat (streamed text); progress comes from /api/mystery/state.
 
 type Msg = { role: "user" | "assistant"; content: string };
-type State = { fragments: number[]; total: number; complete: boolean; rank: number | null; winners: number; prizes: number };
+type State = { fragments: number[]; total: number; complete: boolean; rank: number | null; winners: number; prizes: number; prize: "shard" | "vtru" | null; vtruAmount: number };
 
 const STORE = "aw:mystery";
 const SILENT = "…";
@@ -97,8 +97,8 @@ export default function MysteryTerminal() {
         body: JSON.stringify({ address, ts, signature }),
       });
       const j = await r.json();
-      if (!r.ok) setClaimNote(j.error === "all ten are gone" ? "The ten are gone. The record keeps your name." : "The Archive did not accept that.");
-      else setClaimNote(`Recorded. You are ${j.rank} of ${j.prizes}.`);
+      if (!r.ok) setClaimNote(j.error === "all gone" ? "Everything is gone. The record keeps your name." : "The Archive did not accept that.");
+      else setClaimNote(`Recorded. You are ${j.rank} of ${j.prizes}. ${j.prize === "shard" ? "Your shard" : "Your VTRU"} reaches this wallet within 72 hours.`);
       void refresh();
     } catch {
       setClaimNote("Nothing was signed.");
@@ -167,7 +167,7 @@ export default function MysteryTerminal() {
               ))}
             </span>
             {state.rank ? (
-              <span className="text-ember">{state.rank} OF {state.prizes}</span>
+              <span className="text-ember">{state.rank} OF {state.prizes} · {state.prize === "shard" ? "SHARD" : `${state.vtruAmount.toLocaleString("en-US")} VTRU`}</span>
             ) : state.complete ? (
               <button
                 type="button"

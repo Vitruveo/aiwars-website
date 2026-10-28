@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 import { isAddress, verifyMessage, type Address } from "viem";
 import { readProgress, recordWinner } from "@/lib/mystery/db";
-import { PRIZE_COUNT, claimMessage, isComplete } from "@/lib/mystery/win";
+import { PRIZE_COUNT, claimMessage, isComplete, prizeFor } from "@/lib/mystery/win";
 
 // Claim: a wallet holding all fragments signs claimMessage(address, ts); the first PRIZE_COUNT
-// distinct wallets are recorded. Delivery of the shard itself is manual (owner mint on Vitruveo).
+// distinct wallets are recorded (shards first, then VTRU awards). Delivery is manual.
 
 export const dynamic = "force-dynamic";
 const WINDOW_MS = 10 * 60 * 1000;
@@ -19,11 +19,11 @@ export async function POST(req: Request) {
     if (!ok) return NextResponse.json({ error: "bad signature" }, { status: 401 });
 
     const p = await readProgress(body.address);
-    if (p.rank) return NextResponse.json({ rank: p.rank, prizes: PRIZE_COUNT });
+    if (p.rank) return NextResponse.json({ rank: p.rank, prizes: PRIZE_COUNT, prize: prizeFor(p.rank) });
     if (!isComplete(p.fragments)) return NextResponse.json({ error: "not yet" }, { status: 403 });
     const rank = await recordWinner(body.address);
-    if (!rank) return NextResponse.json({ error: "all ten are gone" }, { status: 409 });
-    return NextResponse.json({ rank, prizes: PRIZE_COUNT });
+    if (!rank) return NextResponse.json({ error: "all gone" }, { status: 409 });
+    return NextResponse.json({ rank, prizes: PRIZE_COUNT, prize: prizeFor(rank) });
   } catch (e) {
     return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }

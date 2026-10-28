@@ -4,7 +4,16 @@
 // the claim rule in app/api/mystery/claim) when the final mechanic is decided. Nothing else depends on
 // the fragment texts.
 
-export const PRIZE_COUNT = 10;
+// Prizes by claim rank: the first SHARD_PRIZES winners get an Archive Shard, the next VTRU_PRIZES get
+// VTRU_AMOUNT VTRU each. Both delivered by hand within 72 hours.
+export const SHARD_PRIZES = 10;
+export const VTRU_PRIZES = 10;
+export const VTRU_AMOUNT = 50000;
+export const PRIZE_COUNT = SHARD_PRIZES + VTRU_PRIZES;
+
+export type PrizeKind = "shard" | "vtru";
+export const prizeFor = (rank: number): PrizeKind | null => (rank <= SHARD_PRIZES ? "shard" : rank <= PRIZE_COUNT ? "vtru" : null);
+export const prizeLabel = (rank: number) => (prizeFor(rank) === "shard" ? "an Archive Shard" : `${VTRU_AMOUNT.toLocaleString("en-US")} VTRU`);
 
 export type Fragment = { n: number; name: string; test: string };
 
