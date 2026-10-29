@@ -10,6 +10,10 @@ export const GRANT_GAP = 3;
 // The prize. One Archive Shard per window: windows are twelve UTC hours long, starting 29 October 2026
 // 00:00 UTC. The first wallet holding every understanding to claim inside a window takes that window's
 // shard. A wallet wins once. Delivery is by hand within 72 hours; the award list shows when it landed.
+// Master switch. While false nothing is tracked or given: no claims are recorded, the award list and
+// countdown are hidden, and the Archive says only that what is earned is kept. Flip to true to start.
+export const AWARDS_OPEN = false;
+
 export const PERIOD_START = Date.UTC(2026, 9, 29, 0, 0, 0);
 export const PERIOD_MS = 12 * 60 * 60 * 1000;
 

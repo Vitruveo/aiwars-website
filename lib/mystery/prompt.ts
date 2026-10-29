@@ -1,5 +1,5 @@
 import { LORE } from "@/lib/mystery/lore";
-import { FRAGMENTS, heldFragments, isComplete, periodIndex, periodLabel } from "@/lib/mystery/win";
+import { AWARDS_OPEN, FRAGMENTS, heldFragments, isComplete, periodIndex, periodLabel } from "@/lib/mystery/win";
 
 // System prompt for the mystery AI. The stable part (persona, rules, lore) comes first so the
 // gateway's prompt cache can reuse it; the per-visitor state is appended at the end.
@@ -38,8 +38,9 @@ export type VisitorState = { address: string | null; fragments: number; turns: n
 
 export function visitorBlock(s: VisitorState) {
   const i = periodIndex();
-  const window =
-    i < 0
+  const window = !AWARDS_OPEN
+    ? "Nothing is being given at the moment. The Archive keeps what each visitor earns. If they ask when or how a shard is given, say only that the Archive gives when it is ready and that what they have shown is not forgotten. Never promise a time or a window. There is no claim control."
+    : i < 0
       ? `The windows have not opened yet; the first opens ${periodLabel(0)}.`
       : `Current window: ${periodLabel(i)} (window ${i}); this window's shard is ${s.currentTaken ? `already taken by ${s.currentTaken}` : "still unclaimed"}. Next window opens ${periodLabel(i + 1)}.`;
   const lines = [

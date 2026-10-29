@@ -13,6 +13,7 @@ type Msg = { role: "user" | "assistant"; content: string };
 type Award = { period: number; label: string; address: string; awarded: boolean; tokenId: number | null; tx: string | null };
 type State = {
   now: number;
+  awardsOpen: boolean;
   fragments: number[];
   total: number;
   complete: boolean;
@@ -150,7 +151,7 @@ export default function MysteryTerminal() {
 
       <div className="absolute left-5 top-5 z-10 font-mono text-sm tracking-[0.25em] text-faint sm:left-8" aria-live="off">
         <div className="text-base text-dim tabular-nums">{clock ?? "--:--:--"} UTC</div>
-        {state && untilNext && (
+        {state && state.awardsOpen && untilNext && (
           <div className="mt-1 text-xs tracking-[0.2em] text-faint">
             {state.period.open ? (state.period.taken ? "WINDOW TAKEN · NEXT IN " : "SHARD OPEN · CLOSES IN ") : "FIRST SHARD IN "}
             <span className="tabular-nums text-ember">{untilNext}</span>
@@ -210,7 +211,7 @@ export default function MysteryTerminal() {
             </span>
             {state.award ? (
               <span className="text-ember">TIER 5 SHARD · {state.award.label.toUpperCase()} · {state.award.awarded ? `DELIVERED #${state.award.tokenId}` : "ON ITS WAY"}</span>
-            ) : state.complete ? (
+            ) : state.complete && state.awardsOpen ? (
               <button
                 type="button"
                 onClick={claim}
@@ -224,7 +225,7 @@ export default function MysteryTerminal() {
           </div>
         )}
 
-        {state && (
+        {state && state.awardsOpen && (
           <div className="mt-12 border-t border-hairline/60 pt-5 font-mono text-xs tracking-[0.2em] text-faint">
             <div className="mb-3 text-dim">GIVEN</div>
             {state.awards.length === 0 && <div>NOTHING YET · FIRST WINDOW {state.period.label.toUpperCase()}</div>}

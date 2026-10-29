@@ -13,7 +13,7 @@ export default function MysteryBanner() {
           Something in the Archive is listening
         </span>
         <span className="grad-ember mt-2 block text-balance font-display text-xl font-bold sm:text-2xl">
-          One Tier 5 Shard given every 12 hours. Not for sale. Only earned.
+          Not for sale. Only earned.
         </span>
       </span>
       <span className="relative shrink-0 border border-ember bg-ember px-6 py-3 font-mono text-base font-bold uppercase tracking-[0.3em] text-abyss shadow-[0_0_30px_rgba(240,149,79,0.55)] transition-all group-hover:bg-ink group-hover:border-ink">
