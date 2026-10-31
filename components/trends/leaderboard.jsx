@@ -24,6 +24,7 @@ export function Leaderboard({ rows, myAddress }) {
               <th style={{ width: '3rem' }}>#</th>
               <th>Player</th>
               <th style={NUM}>VTRU spent</th>
+              <th style={{ ...NUM, color: '#f0954f' }}>🔥 VTRU burned</th>
               <th style={NUM}>Credits won</th>
               <th style={NUM}>Played</th>
               <th style={NUM}>Won</th>
@@ -48,6 +49,7 @@ export function Leaderboard({ rows, myAddress }) {
                     {mine ? ' (you)' : ''}
                   </td>
                   <td style={NUM}>{fmt(row.spent)}</td>
+                  <td style={{ ...NUM, color: '#f0954f' }}>{fmt(row.burned ?? 0)}</td>
                   <td style={NUM}>{fmt(row.credits)}</td>
                   <td style={NUM}>{row.played}</td>
                   <td style={NUM}>{row.won}</td>
