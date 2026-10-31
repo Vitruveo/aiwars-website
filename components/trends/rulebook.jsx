@@ -30,7 +30,7 @@ export function Rulebook({ game }) {
     ['The cap', `At most ${n(cap)} Tier 5 shards can ever be won. ${n(minted)} won so far. After the last one, credits still count on the leaderboard but mint nothing.`],
     ['Voids and delays', 'If the oracle stores too few points, the game is voided and every stake is returned. If no result lands within 24 hours, every stake can be claimed back.'],
     ['Settlement', 'Everything settles on chain in the AIWarsNFT contract on Vitruveo. The AI Wars service posts each result from the TrendPulse oracle; the contract burns, returns and mints.'],
-    ['Leaderboard', 'VTRU spent is every VTRU staked. 🔥 VTRU is stake burned on misses. Credits won is every credit ever earned. Tier 1 is shards held now; Tier 5 won is shards minted from credits.'],
+    ['Leaderboard', 'VTRU spent is every VTRU staked. VTRU 🔥 is stake burned on misses. Credits won is every credit ever earned. Tier 1 is shards held now; Tier 5 won is shards minted from credits.'],
   ];
 
   return (

@@ -24,7 +24,7 @@ export function Leaderboard({ rows, myAddress }) {
               <th style={{ width: '3rem' }}>#</th>
               <th>Player</th>
               <th style={NUM}>VTRU spent</th>
-              <th style={{ ...NUM, color: '#f0954f' }}>🔥 VTRU</th>
+              <th style={{ ...NUM, color: '#f0954f' }}>VTRU 🔥</th>
               <th style={NUM}>Credits won</th>
               <th style={NUM}>Played</th>
               <th style={NUM}>Won</th>
