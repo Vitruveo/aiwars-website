@@ -549,7 +549,7 @@ html:has(.aw-page) { scroll-behavior: smooth; }
 .aw-page .aw-access-unit { font-family: var(--aw-mono), monospace; font-size: 1rem; font-weight: 400; color: #b9c5da; letter-spacing: 0.08em; }
 .aw-page .aw-access-net { display: flex; align-items: center; gap: 0.6rem; font-family: var(--aw-mono), monospace; font-size: 1.15rem; color: #eef3fb; letter-spacing: 0.06em; }
 .aw-page .aw-access-label { margin-top: 0.4rem; font-family: var(--aw-mono), monospace; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.16em; color: #8fa0ba; }
-.aw-page .aw-access-action { justify-self: end; text-align: right; }
+.aw-page .aw-access-action { justify-self: end; display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap; justify-content: flex-end; }
 .aw-page .aw-access-err { grid-column: 1 / -1; }
 .aw-page .aw-gate-embedded .aw-gate-title { font-size: 1.15rem; }
 .aw-page .aw-gate-embedded .aw-gate-sub { font-family: var(--aw-body), sans-serif; font-size: 1rem; letter-spacing: 0; margin-top: 0.35rem; }
@@ -572,3 +572,23 @@ html:has(.aw-page) { scroll-behavior: smooth; }
   text-decoration: none; box-shadow: 0 0 18px rgba(45, 140, 255, 0.25);
 }
 .aw-page .aw-btn.aw-rulebook-link:hover { background: rgba(45, 140, 255, 0.28) !important; color: #eef3fb !important; }
+
+/* Stake and bet row spans the panel: the stake slider takes the free width, the bet button is wide. */
+.aw-page .aw-ticket { width: 100%; }
+.aw-page .aw-ticket > .aw-stake { flex: 1 1 22rem; min-width: 0; flex-wrap: nowrap !important; }
+.aw-page .aw-stake .aw-range { flex: 1 1 auto; width: auto !important; min-width: 6rem; }
+.aw-page .aw-ticket > .aw-btn { flex: 0 1 20rem; }
+@media (max-width: 767.98px) {
+  .aw-page .aw-ticket > .aw-stake, .aw-page .aw-ticket > .aw-btn { flex: 1 1 100%; }
+}
+.aw-page .aw-ticket > .aw-btn { flex: 0 0 auto; white-space: nowrap; min-width: 17rem; }
+@media (max-width: 767.98px) {
+  .aw-page .aw-ticket > .aw-btn { flex: 1 1 100%; min-width: 0; letter-spacing: 0.12em; }
+  .aw-page .aw-access-action { justify-self: start; justify-content: flex-start; }
+}
+/* Access row in every state: text on the left, actions on the right, one line on wide screens. */
+@media (min-width: 768px) {
+  .aw-page .aw-gate-embedded > .d-flex { flex-wrap: nowrap !important; }
+  .aw-page .aw-gate-embedded > .d-flex > :first-child { flex: 1 1 auto; min-width: 0; }
+  .aw-page .aw-gate-embedded > .d-flex > :last-child { flex: 0 0 auto; }
+}

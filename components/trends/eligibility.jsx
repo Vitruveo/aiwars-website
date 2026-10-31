@@ -32,7 +32,7 @@ function short(e) {
 // Tier 1 Archive Shard; after that the contract requires one. States: connect a
 // wallet; plays left without a shard; those used and no Tier 1 shard (mini mint
 // one here, or go to /mint); holding a Tier 1 shard (unlimited play).
-export function Eligibility({ onChange, embedded = false }) {
+export function Eligibility({ onChange, embedded = false, actions = null }) {
   const { address, isConnected } = useAccount();
   const chainId = useChainId();
   const { switchChainAsync } = useSwitchChain();
@@ -182,7 +182,10 @@ export function Eligibility({ onChange, embedded = false }) {
           <div className="aw-gate-title">Connect your wallet</div>
           <div className="aw-gate-sub">You can play five times without holding a Tier 1 Archive Shard. After that, a Tier 1 shard keeps you playing.</div>
         </div>
-        <button type="button" className="aw-btn" onClick={() => openConnectModal?.()}>Connect</button>
+        <div className="aw-access-action d-flex align-items-center gap-3 flex-wrap">
+          <button type="button" className="aw-btn" onClick={() => openConnectModal?.()}>Connect</button>
+          {actions}
+        </div>
       </div>
     );
   } else if (elig === null) {
@@ -196,7 +199,6 @@ export function Eligibility({ onChange, embedded = false }) {
             Mint a Tier 1 Archive Shard to keep playing
             {price !== null ? <> &middot; {price.toFixed(0)} USDT on BNB Chain</> : null}
           </div>
-          <NetworkLine />
           <div className="aw-gate-sub aw-faint" style={{ fontSize: '0.8rem' }}>
             Minting switches your wallet to BNB Smart Chain and returns it to Vitruveo when the shard lands.
           </div>
@@ -207,7 +209,7 @@ export function Eligibility({ onChange, embedded = false }) {
           <button type="button" className="aw-btn" onClick={mint} disabled={!canMint}>
             {busy ? STEP_LABEL[step] : !loaded ? 'Checking balances…' : paused ? 'Mint opens soon' : 'Mint'}
           </button>
-          <a href="/mint" className="aw-btn aw-btn-ghost">main mint page</a>
+          {actions}
         </div>
       </div>
     );
@@ -236,13 +238,6 @@ export function Eligibility({ onChange, embedded = false }) {
             </>
           )}
         </div>
-        <div className="aw-access-cell">
-          <div className="aw-access-net">
-            <span className={`aw-net-dot ${onVitruveo ? 'is-game' : onBsc ? 'is-mint' : 'is-other'}`} aria-hidden="true" />
-            <span>{netName}</span>
-          </div>
-          <div className="aw-access-label">{onVitruveo ? 'ready to bet' : 'bets are placed on Vitruveo'}</div>
-        </div>
         {waitPrize && (
           <div className="aw-access-cell">
             <div className="aw-access-net aw-ember">{prizeAt.toISOString().slice(11, 16)} UTC</div>
@@ -252,13 +247,8 @@ export function Eligibility({ onChange, embedded = false }) {
           </div>
         )}
         <div className="aw-access-cell aw-access-action">
-          {!onVitruveo ? (
-            <button type="button" className="aw-btn" onClick={toVitruveo} disabled={switching}>
-              {switching ? 'Switching…' : 'Switch to Vitruveo'}
-            </button>
-          ) : !unlimited ? (
-            <a href="/mint" className="aw-btn aw-btn-ghost" style={{ textDecoration: 'none' }}>Get a Tier 1 shard</a>
-          ) : null}
+          <a href="/mint" className="aw-btn" style={{ textDecoration: 'none' }}>Mint</a>
+          {actions}
         </div>
         {error && <div className="aw-gate-err aw-access-err">{error}</div>}
       </div>
