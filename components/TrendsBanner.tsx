@@ -1,6 +1,6 @@
 // Home hero call to action for AI Wars Trends on pretrend.ai. Same ember treatment as the hero promos.
 
-export const TRENDS_URL = "https://www.pretrend.ai/market/aiwars/";
+export const TRENDS_URL = "/trends";
 
 export default function TrendsBanner() {
   return (
