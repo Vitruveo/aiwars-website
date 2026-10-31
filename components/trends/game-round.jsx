@@ -57,8 +57,10 @@ export function GameRound({
   onClaim,
   fmtVtru,
   onDismiss,
+  stakeControl = null,
 }) {
   const [bState, setB] = useState(0);
+  const [pick, setPick] = useState(null); // bucket the player has chosen, before betting
   // With a bet on the ticket the slider is frozen at the slope it was placed
   // with (remembered by the browser); otherwise it is the player's aim.
   const b = entry && Number.isFinite(entry.b) ? entry.b : bState;
@@ -122,9 +124,9 @@ export function GameRound({
   // User line pivots through the mean point of the visible series.
   const userA = ybar - b * xbar;
   const userTrend = trendAbsOf(b);
-  // The bucket on the ticket is what the contract holds; the slider is only
-  // how the player picks it before betting.
-  const aimBucket = entry ? entry.bucket : bucketOf(userTrend, thresholds);
+  // The bucket on the ticket is what the contract holds. Before betting, the
+  // player picks a bucket directly; their line is drawn through its middle.
+  const aimBucket = entry ? entry.bucket : pick === null ? -1 : pick;
   // Live reading = where the window settles if the current slope holds, i.e.
   // the slope projected over the full window (the settled fit's trendAbs
   // already spans the window).
@@ -175,7 +177,14 @@ export function GameRound({
     return [top, bottom];
   });
 
-  const showAim = inGame || settled || canBet;
+  const canPick = !settled && !inGame && canBet && !betting && phase === 'open';
+  const showAim = inGame || settled || (canBet && aimBucket >= 0);
+  const choose = (i) => {
+    if (!canPick) return;
+    const e = stripEdges(thresholds);
+    setPick(i);
+    setB((e[i] + e[i + 1]) / 2 / (GAME_S - 1)); // slope whose window trend is the bucket's middle
+  };
   const highlight = (i) => (settled ? i === trueBucket || (i === aimBucket && showAim) : i === liveBucket || (showAim && i === aimBucket));
   const boxFill = (i) => bucketRgba(i, highlight(i) ? 0.3 : 0.08);
   const boxStroke = (i) => bucketRgba(i, highlight(i) ? 1 : 0.45);
@@ -183,7 +192,6 @@ export function GameRound({
 
   const progress = settled ? 1 : Math.max(0, Math.min(1, elapsed / n));
   const lockFrac = lockS / n;
-  const sliderDisabled = settled || inGame || !canBet || betting || phase !== 'open';
   const lastPt = shownPoints.length ? shownPoints[shownPoints.length - 1] : null;
 
   const liveLineColor = liveBucket >= 0 ? bucketRgba(liveBucket, 0.95) : '#8fa0ba';
@@ -278,8 +286,15 @@ export function GameRound({
             if (h < 1) return null;
             const fs = h >= 26 ? 19 : h >= 14 ? 12 : 0;
             return (
-              <g key={name}>
-                <rect x={BX0} y={top} width={BX1 - BX0} height={h} rx={h >= 12 ? 6 : 2} fill={boxFill(i)} stroke={boxStroke(i)} strokeWidth="1.5" />
+              <g
+                key={name}
+                className={canPick ? 'aw-bucket-pick' : undefined}
+                onClick={() => choose(i)}
+                role={canPick ? 'button' : undefined}
+                aria-label={canPick ? `Pick ${name}` : undefined}
+                aria-pressed={canPick ? pick === i : undefined}
+              >
+                <rect x={BX0} y={top} width={BX1 - BX0} height={h} rx={h >= 12 ? 6 : 2} fill={boxFill(i)} stroke={boxStroke(i)} strokeWidth={!settled && !inGame && pick === i ? 3 : 1.5} />
                 {fs > 0 && (
                   <text x={(BX0 + BX1) / 2} y={(top + bottom) / 2 + fs * 0.35} textAnchor="middle" fill={boxText(i)} fontSize={fs} fontWeight="600" fontFamily={FONT}>
                     {name}
@@ -397,12 +412,16 @@ export function GameRound({
         </svg>
       ))}
 
-      {/* buckets as a full-width row on small screens */}
+      {/* buckets as a full-width row on small screens; tap to pick */}
       <div className="d-md-none d-flex gap-1 mt-2">
         {BUCKET_NAMES.map((name, i) => (
-          <div
+          <button
+            type="button"
             key={name}
-            className="flex-fill text-center"
+            className="flex-fill text-center aw-bucket-btn"
+            onClick={() => choose(i)}
+            disabled={!canPick}
+            aria-pressed={pick === i}
             style={{
               background: boxFill(i),
               border: `1.5px solid ${boxStroke(i)}`,
@@ -415,23 +434,14 @@ export function GameRound({
             }}
           >
             {name}
-          </div>
+          </button>
         ))}
       </div>
 
-      <div className="d-flex align-items-center justify-content-center gap-3 flex-wrap mt-2">
-        <input
-          type="range"
-          className="form-range ptg-slope-range flex-grow-1"
-          style={{ minWidth: '200px', maxWidth: '480px', visibility: showAim ? 'visible' : 'hidden' }}
-          min={-bLimit}
-          max={bLimit}
-          step={bLimit / 200}
-          value={b}
-          disabled={sliderDisabled}
-          onChange={(e) => setB(parseFloat(e.target.value))}
-          aria-label="Candidate slope in transactions per second per second"
-        />
+      {/* Stake and bet, directly under the chart and buckets. The stake stays in place (locked) while a
+          bet is live, so the button never jumps. */}
+      <div className="aw-ticket d-flex align-items-center justify-content-center gap-3 flex-wrap mt-3">
+        {!settled && stakeControl}
         {settled ? (
           <>
             {result.win && !result.claimed && (
@@ -450,8 +460,14 @@ export function GameRound({
               : 'Settling…'}
           </button>
         ) : (
-          <button type="button" className="aw-btn" onClick={() => onBet(b, aimBucket)} disabled={!canBet || betting || phase !== 'open'}>
-            {betting ? betting : phase === 'open' ? `${betLabel} on ${BUCKET_NAMES[aimBucket]}` : `Next game in ${fmtClock(GAME_S - elapsed)}`}
+          <button type="button" className="aw-btn" onClick={() => onBet(b, aimBucket)} disabled={!canBet || betting || phase !== 'open' || aimBucket < 0}>
+            {betting
+              ? betting
+              : phase !== 'open'
+                ? `Next game in ${fmtClock(GAME_S - elapsed)}`
+                : aimBucket < 0
+                  ? 'Pick a bucket'
+                  : `${betLabel} on ${BUCKET_NAMES[aimBucket]}`}
           </button>
         )}
       </div>
@@ -483,7 +499,9 @@ export function GameRound({
             {inGame ? (
               <> &middot; your bet <span style={{ color: EMBER }}>{fmtVtru(entry.amount)} VTRU</span> on {BUCKET_NAMES[entry.bucket]}</>
             ) : showAim ? (
-              <> &middot; your line <span style={{ color: EMBER }}>{fmtAbs(userTrend)}</span> aiming at {BUCKET_NAMES[aimBucket]}</>
+              <> &middot; your pick <span style={{ color: EMBER, fontWeight: 600 }}>{BUCKET_NAMES[aimBucket]}</span></>
+            ) : canBet && phase === 'open' ? (
+              <> &middot; pick the bucket the trend will settle in</>
             ) : (
               <> &middot; {betHint}</>
             )}

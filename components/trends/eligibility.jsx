@@ -32,7 +32,7 @@ function short(e) {
 // Tier 1 Archive Shard; after that the contract requires one. States: connect a
 // wallet; plays left without a shard; those used and no Tier 1 shard (mini mint
 // one here, or go to /mint); holding a Tier 1 shard (unlimited play).
-export function Eligibility({ onChange }) {
+export function Eligibility({ onChange, embedded = false }) {
   const { address, isConnected } = useAccount();
   const chainId = useChainId();
   const { switchChainAsync } = useSwitchChain();
@@ -246,6 +246,13 @@ export function Eligibility({ onChange }) {
     );
   }
 
+  if (embedded) {
+    return (
+      <div className="aw-gate aw-play-section">
+        <div style={{ fontFamily: MONO }}>{body}</div>
+      </div>
+    );
+  }
   return (
     <div className="aw-panel aw-gate p-3 p-md-4 mt-4">
       <p className="aw-kicker mb-2" style={{ fontSize: '0.75rem' }}>Access</p>

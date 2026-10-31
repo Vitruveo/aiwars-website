@@ -490,78 +490,8 @@ export function GameApp({ about = null }) {
     <div className="aw" style={{ maxWidth: '1100px', margin: '0 auto' }}>
       <Ticker win={win} thresholds={thresholds} calibration={live?.calibration} burned={game ? game.totalBurned : null} creditBps={creditBps} />
 
-      <div className="aw-panel p-3 p-md-4 mb-4 mt-4">
-        <div className="d-flex align-items-center gap-3 flex-wrap">
-          <div className="aw-stat">
-            <div className="aw-stat-label">Stake</div>
-            <div className="aw-stat-value aw-ink">{stake === null ? '…' : stake.toLocaleString('en-US')} <span className="aw-faint" style={{ fontSize: '0.9rem' }}>VTRU</span></div>
-          </div>
-          <div className="d-flex align-items-center gap-2 flex-wrap">
-            <input
-              type="range"
-              className="form-range aw-range"
-              style={{ width: '160px' }}
-              min={Math.ceil(minVtru)}
-              max={Math.floor(maxVtru)}
-              step={1}
-              value={stake ?? minVtru}
-              disabled={!gameLive || !!entry}
-              onChange={(e) => setStake(parseInt(e.target.value, 10))}
-              aria-label="Stake in VTRU"
-            />
-            <input
-              type="number"
-              className="aw-input"
-              min={Math.ceil(minVtru)}
-              max={Math.floor(maxVtru)}
-              step={1}
-              value={stake ?? ''}
-              disabled={!gameLive || !!entry}
-              onChange={(e) => setStake(e.target.value === '' ? 0 : Math.max(0, parseInt(e.target.value, 10) || 0))}
-              aria-label="Stake in VTRU"
-            />
-          </div>
-          <div className="aw-stat">
-            <div className="aw-stat-label">A hit earns</div>
-            <div className="aw-stat-value aw-signal">{gameLive ? `${fmtVtru(creditWei)}` : '…'} <span className="aw-faint" style={{ fontSize: '0.9rem' }}>credits</span></div>
-          </div>
-          <div className="aw-stat ms-md-auto">
-            <div className="aw-stat-label">Wallet</div>
-            <div className="aw-stat-value">{isConnected && balance ? fmtVtru(balance.value) : '…'}</div>
-          </div>
-          <div className="aw-stat">
-            <div className="aw-stat-label">Credits</div>
-            <div className="aw-stat-value" style={{ color: '#f0954f' }}>
-              {isConnected && player ? fmtVtru(player.credits) : '…'}
-              <span className="aw-faint" style={{ fontSize: '0.9rem' }}> / {gameLive ? fmtVtru(creditsPerNft) : '5,000'}</span>
-            </div>
-          </div>
-          <div className="aw-stat">
-            <div className="aw-stat-label">Tier 5 won</div>
-            <div className="aw-stat-value" style={{ color: '#f0954f' }}>{isConnected && player ? String(player.tier5Won) : '…'}</div>
-          </div>
-        </div>
-        <div className="mt-2 aw-dim" style={{ fontFamily: MONO, fontSize: '0.95rem', letterSpacing: '0.04em' }}>
-          Stake <span className="aw-ink">{minVtru.toLocaleString('en-US')}&ndash;{maxVtru.toLocaleString('en-US')} VTRU</span> on one bucket per game
-          {' '}&middot; a hit returns your stake plus <span className="aw-ink">{creditBps ? `${(creditBps / 10000).toFixed(2).replace(/\.?0+$/, '')}x` : '…'}</span> in credits
-          {' '}&middot; every <span className="aw-ink">{gameLive ? fmtVtru(creditsPerNft) : '5,000'}</span> credits mint you a Tier 5 shard, one per 24 hours
-          {' '}&middot; a miss is burned &middot; bets close four minutes in
-        </div>
-        {(error || cfgError || (cfg && !gameLive) || (cfg && !cfg.game?.serviceConfigured)) && (
-          <div className="mt-2" style={{ fontFamily: MONO, fontSize: '0.85rem', color: '#f87171' }}>
-            {cfgError
-              ? `Game service unreachable: ${cfgError}`
-              : error
-                ? error
-                : !gameLive
-                  ? 'The AIWarsNFT game contract has not been upgraded to the v3 rules yet.'
-                  : 'Results are not being posted: AIWARS_SERVICE_PRIVATE_KEY is not configured on the server.'}
-          </div>
-        )}
-      </div>
-
-      {/* The live window */}
-      <div className="aw-panel p-3 p-md-4">
+      {/* The play area: chart, aim, stake and bet, your numbers, the rules line and access, in one frame. */}
+      <div className="aw-panel aw-play p-3 p-md-4 mt-4">
         {win ? (
           <>
             <GameRound
@@ -580,6 +510,36 @@ export function GameApp({ about = null }) {
               onClaim={() => result && claim(result.start)}
               fmtVtru={fmtVtru}
               onDismiss={dismiss}
+              stakeControl={
+                <div className="aw-stake d-flex align-items-center gap-2 flex-wrap">
+                  <span className="aw-stat-label mb-0">Stake</span>
+                  <input
+                    type="range"
+                    className="form-range aw-range"
+                    style={{ width: '170px' }}
+                    min={Math.ceil(minVtru)}
+                    max={Math.floor(maxVtru)}
+                    step={1}
+                    value={stake ?? minVtru}
+                    disabled={!gameLive || !!entry}
+                    onChange={(e) => setStake(parseInt(e.target.value, 10))}
+                    aria-label="Stake in VTRU"
+                  />
+                  <input
+                    type="number"
+                    className="aw-input"
+                    style={{ width: '6.5rem' }}
+                    min={Math.ceil(minVtru)}
+                    max={Math.floor(maxVtru)}
+                    step={1}
+                    value={stake ?? ''}
+                    disabled={!gameLive || !!entry}
+                    onChange={(e) => setStake(e.target.value === '' ? 0 : Math.max(0, parseInt(e.target.value, 10) || 0))}
+                    aria-label="Stake in VTRU"
+                  />
+                  <span className="aw-faint">VTRU</span>
+                </div>
+              }
             />
             {entry && !entryIsCurrent && !result && (
               <p className="text-center mt-2 mb-0 aw-faint" style={{ fontFamily: MONO, fontSize: '0.85rem', letterSpacing: '0.1em' }}>
@@ -598,13 +558,54 @@ export function GameApp({ about = null }) {
             </span>
           </div>
         )}
+
+        <div className="aw-play-section">
+          <div className="aw-play-stats">
+            <div className="aw-stat">
+              <div className="aw-stat-label">A hit earns</div>
+              <div className="aw-stat-value aw-signal">{gameLive ? fmtVtru(creditWei) : '…'} <span className="aw-faint" style={{ fontSize: '0.9rem' }}>credits</span></div>
+            </div>
+            <div className="aw-stat">
+              <div className="aw-stat-label">Wallet</div>
+              <div className="aw-stat-value">{isConnected && balance ? fmtVtru(balance.value) : '…'} <span className="aw-faint" style={{ fontSize: '0.9rem' }}>VTRU</span></div>
+            </div>
+            <div className="aw-stat">
+              <div className="aw-stat-label">Credits</div>
+              <div className="aw-stat-value" style={{ color: '#f0954f' }}>
+                {isConnected && player ? fmtVtru(player.credits) : '…'}
+                <span className="aw-faint" style={{ fontSize: '0.9rem' }}> / {gameLive ? fmtVtru(creditsPerNft) : '5,000'}</span>
+              </div>
+            </div>
+            <div className="aw-stat">
+              <div className="aw-stat-label">Tier 5 won</div>
+              <div className="aw-stat-value" style={{ color: '#f0954f' }}>{isConnected && player ? String(player.tier5Won) : '…'}</div>
+            </div>
+          </div>
+          <div className="mt-2 aw-dim" style={{ fontFamily: MONO, fontSize: '0.9rem', letterSpacing: '0.04em' }}>
+            Stake <span className="aw-ink">{minVtru.toLocaleString('en-US')}&ndash;{maxVtru.toLocaleString('en-US')} VTRU</span> on one bucket per game
+            {' '}&middot; a hit returns your stake plus <span className="aw-ink">{creditBps ? `${(creditBps / 10000).toFixed(2).replace(/\.?0+$/, '')}x` : '…'}</span> in credits
+            {' '}&middot; every <span className="aw-ink">{gameLive ? fmtVtru(creditsPerNft) : '5,000'}</span> credits mint you a Tier 5 shard, one per 24 hours
+            {' '}&middot; a miss is burned &middot; bets close four minutes in
+          </div>
+          {(error || cfgError || (cfg && !gameLive) || (cfg && !cfg.game?.serviceConfigured)) && (
+            <div className="mt-2" style={{ fontFamily: MONO, fontSize: '0.85rem', color: '#f87171' }}>
+              {cfgError
+                ? `Game service unreachable: ${cfgError}`
+                : error
+                  ? error
+                  : !gameLive
+                    ? 'The AIWarsNFT game contract has not been upgraded to the v3 rules yet.'
+                    : 'Results are not being posted: no result signer is configured on the server.'}
+            </div>
+          )}
+        </div>
+
+        <Eligibility onChange={onEligibility} embedded />
       </div>
 
       <p className="aw-faint mt-3 mb-0" style={{ fontFamily: MONO, fontSize: '0.8rem', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
         {FEED.note}
       </p>
-
-      <Eligibility onChange={onEligibility} />
 
       {isConnected && <PastBets bets={pastBets} statuses={pastStatuses} claimingStart={claimingStart} onClaim={claim} />}
 
