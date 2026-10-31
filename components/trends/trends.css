@@ -1,0 +1,504 @@
+/* AI Wars Trends game styles, ported from pretrend.ai and scoped to .aw-page. Fonts map to the site's. */
+.aw-page {
+  --aw-display: var(--font-display);
+  --aw-mono: var(--font-mono);
+  --aw-logo: var(--font-logo);
+  --aw-body: var(--font-body);
+}
+
+/* Bootstrap utilities the game markup uses, scoped so they never touch the rest of the site. */
+.aw-page .container { width: 100%; margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem; max-width: 100%; }
+.aw-page .row { display: flex; flex-wrap: wrap; margin-left: -0.75rem; margin-right: -0.75rem; }
+.aw-page .row > * { padding-left: 0.75rem; padding-right: 0.75rem; width: 100%; max-width: 100%; flex-shrink: 0; }
+.aw-page .row.g-4 { margin-top: -1.5rem; }
+.aw-page .row.g-4 > * { margin-top: 1.5rem; }
+@media (min-width: 992px) {
+  .aw-page .col-lg-8 { flex: 0 0 auto; width: 66.6667%; }
+  .aw-page .col-lg-4 { flex: 0 0 auto; width: 33.3333%; }
+}
+.aw-page .d-flex { display: flex !important; }
+.aw-page .d-block { display: block !important; }
+.aw-page .d-none { display: none !important; }
+@media (min-width: 768px) {
+  .aw-page .d-md-block { display: block !important; }
+  .aw-page .d-md-none { display: none !important; }
+  .aw-page .p-md-4 { padding: 1.5rem !important; }
+  .aw-page .ms-md-auto { margin-left: auto !important; }
+}
+.aw-page .flex-wrap { flex-wrap: wrap !important; }
+.aw-page .flex-grow-1 { flex-grow: 1 !important; }
+.aw-page .flex-fill { flex: 1 1 auto !important; }
+.aw-page .align-items-center { align-items: center !important; }
+.aw-page .align-items-stretch { align-items: stretch !important; }
+.aw-page .align-items-baseline { align-items: baseline !important; }
+.aw-page .justify-content-between { justify-content: space-between !important; }
+.aw-page .justify-content-center { justify-content: center !important; }
+.aw-page .gap-1 { gap: 0.25rem !important; }
+.aw-page .gap-2 { gap: 0.5rem !important; }
+.aw-page .gap-3 { gap: 1rem !important; }
+.aw-page .text-center { text-align: center !important; }
+.aw-page .text-white { color: #fff !important; }
+.aw-page .position-relative { position: relative !important; }
+.aw-page .h-100 { height: 100% !important; }
+.aw-page .p-3 { padding: 1rem !important; }
+.aw-page .ps-0 { padding-left: 0 !important; }
+.aw-page .py-2 { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
+.aw-page .mb-0 { margin-bottom: 0 !important; }
+.aw-page .mb-1 { margin-bottom: 0.25rem !important; }
+.aw-page .mb-2 { margin-bottom: 0.5rem !important; }
+.aw-page .mb-3 { margin-bottom: 1rem !important; }
+.aw-page .mb-4 { margin-bottom: 1.5rem !important; }
+.aw-page .mt-1 { margin-top: 0.25rem !important; }
+.aw-page .mt-2 { margin-top: 0.5rem !important; }
+.aw-page .mt-3 { margin-top: 1rem !important; }
+.aw-page .mt-4 { margin-top: 1.5rem !important; }
+.aw-page .my-4 { margin-top: 1.5rem !important; margin-bottom: 1.5rem !important; }
+.aw-page .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.aw-page p { margin-top: 0; margin-bottom: 1rem; }
+.aw-page h1, .aw-page h2 { margin-top: 0; }
+.aw-page .form-range { width: 100%; height: 1.5rem; padding: 0; background: transparent; -webkit-appearance: none; appearance: none; }
+.aw-page .form-range:focus { outline: 0; }
+.aw-page .form-range::-webkit-slider-runnable-track { width: 100%; height: 0.5rem; cursor: pointer; border-radius: 1rem; }
+.aw-page .form-range::-webkit-slider-thumb { width: 1rem; height: 1rem; margin-top: -0.25rem; border: 0; border-radius: 1rem; -webkit-appearance: none; appearance: none; }
+.aw-page .form-range::-moz-range-track { width: 100%; height: 0.5rem; cursor: pointer; border-radius: 1rem; }
+.aw-page .form-range::-moz-range-thumb { width: 1rem; height: 1rem; border: 0; border-radius: 1rem; }
+.aw-page .form-range:disabled { pointer-events: none; opacity: 0.6; }
+
+/* Tables */
+.aw-page .ols-table { width: 100%; margin: 1.25rem 0; border-collapse: collapse; font-size: 0.95rem; font-variant-numeric: tabular-nums; }
+.aw-page .ols-table th { background: rgba(45, 140, 255, 0.08); font-weight: 600; text-align: left; padding: 0.6rem 0.8rem; border: 1px solid rgba(255, 255, 255, 0.1); }
+.aw-page .ols-table td { padding: 0.6rem 0.8rem; border: 1px solid rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.65); }
+
+/* Game slope slider: oversized thumb — it is the primary control. */
+.aw-page .ptg-slope-range {
+  height: 2.75rem;
+}
+.aw-page .ptg-slope-range::-webkit-slider-runnable-track {
+  height: 8px;
+}
+.aw-page .ptg-slope-range::-webkit-slider-thumb,
+.aw-page .ptg-slope-range::-webkit-slider-thumb:active {
+  width: 34px;
+  height: 34px;
+  margin-top: -13px;
+  background-color: #2f8fd6 !important;
+  background-image: none !important;
+  opacity: 1;
+  border: 3px solid #fff;
+  box-shadow: 0 0 10px rgba(47, 143, 214, 0.6);
+}
+.aw-page .ptg-slope-range::-moz-range-track {
+  height: 8px;
+}
+.aw-page .ptg-slope-range::-moz-range-thumb,
+.aw-page .ptg-slope-range::-moz-range-thumb:active {
+  width: 34px;
+  height: 34px;
+  background-color: #2f8fd6 !important;
+  background-image: none !important;
+  opacity: 1;
+  border: 3px solid #fff;
+  box-shadow: 0 0 10px rgba(47, 143, 214, 0.6);
+}
+
+
+.aw-page {
+  --aw-abyss: #04070d;
+  --aw-void: #060b14;
+  --aw-panel: #0a1120;
+  --aw-hairline: #1b2a44;
+  --aw-ink: #eef3fb;
+  --aw-dim: #b9c5da;
+  --aw-faint: #8fa0ba;
+  --aw-signal: #2d8cff;
+  --aw-signal-deep: #0b5cff;
+  --aw-ember: #f0954f;
+  background: var(--aw-abyss);
+  color: var(--aw-ink);
+  font-family: var(--aw-body), system-ui, sans-serif;
+}
+.aw-ink { color: var(--aw-ink); }
+.aw-dim { color: var(--aw-dim); }
+.aw-faint { color: var(--aw-faint); }
+.aw-signal { color: var(--aw-signal); }
+.aw-ember { color: var(--aw-ember); }
+
+.aw-kicker {
+  font-family: var(--aw-mono), monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--aw-signal);
+}
+.aw-kicker-ink { color: var(--aw-ink); font-weight: 700; }
+.aw-kicker-ember { color: var(--aw-ember); font-weight: 700; letter-spacing: 0.5em; }
+
+.aw-logo {
+  font-family: var(--aw-logo), sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  white-space: nowrap;
+  font-size: clamp(2.6rem, 9vw, 6rem);
+  color: var(--aw-ink);
+}
+.aw-logo-i {
+  display: inline-block;
+  color: var(--aw-signal-deep);
+  transform: skewX(17deg) scaleX(1.25);
+  transform-origin: center center;
+  margin: 0 0.06em;
+}
+.aw-display {
+  font-family: var(--aw-display), sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.aw-trends {
+  font-size: clamp(1.6rem, 5.5vw, 3.6rem);
+  background: linear-gradient(90deg, #0b5cff, #eef3fb, #2d8cff, #0b5cff);
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: aw-gradshift 5s ease-in-out infinite;
+  vertical-align: 0.35em;
+}
+@keyframes aw-gradshift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.aw-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(45, 140, 255, 0.4), transparent);
+}
+
+/* hero */
+.aw-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--aw-abyss);
+}
+.aw-hero-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  animation: aw-heropan 14s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes aw-heropan {
+  from { transform: scale(1.08); }
+  to { transform: scale(1); }
+}
+.aw-hero-tint {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 92, 255, 0.4);
+  mix-blend-mode: color;
+}
+.aw-hero-fade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(4, 7, 13, 0.75), rgba(4, 7, 13, 0.25) 40%, var(--aw-abyss)),
+    linear-gradient(90deg, rgba(4, 7, 13, 0.35), transparent, rgba(4, 7, 13, 0.2));
+}
+.aw-starfield {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image:
+    radial-gradient(1.5px 1.5px at 40px 60px, rgba(45, 140, 255, 0.9), transparent 60%),
+    radial-gradient(1px 1px at 180px 220px, rgba(238, 243, 251, 0.7), transparent 60%);
+  background-size: 560px 560px, 420px 420px;
+  animation: aw-stardrift 90s linear infinite;
+}
+@keyframes aw-stardrift {
+  from { background-position: 0 0, 240px 160px; }
+  to { background-position: -560px -840px, -320px -680px; }
+}
+.aw-scanline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(45, 140, 255, 0.8), transparent);
+  animation: aw-scanmove 10s linear infinite;
+  pointer-events: none;
+}
+@keyframes aw-scanmove {
+  0% { top: -4%; opacity: 0; }
+  8% { opacity: 0.55; }
+  60% { opacity: 0.2; }
+  100% { top: 104%; opacity: 0; }
+}
+@keyframes aw-glitchshift {
+  0%, 34%, 42%, 78%, 90%, 100% { filter: none; transform: none; opacity: 1; }
+  35% { filter: drop-shadow(-8px 0 rgba(11, 92, 255, 0.95)) drop-shadow(8px 0 rgba(240, 90, 79, 0.8)); transform: translate(4px, -3px) skewX(-4deg); }
+  36.5% { filter: drop-shadow(7px 0 rgba(11, 92, 255, 0.95)) drop-shadow(-7px 0 rgba(240, 90, 79, 0.8)); transform: translate(-6px, 2px) skewX(3deg); opacity: 0.85; }
+  38% { filter: drop-shadow(-4px 0 rgba(45, 140, 255, 0.9)) drop-shadow(4px 0 rgba(240, 149, 79, 0.7)); transform: translateX(3px) scaleY(1.02); }
+  40% { filter: drop-shadow(2px 0 rgba(11, 92, 255, 0.8)); transform: translateX(-1px); }
+  79% { filter: drop-shadow(9px 0 rgba(11, 92, 255, 0.95)) drop-shadow(-9px 0 rgba(240, 90, 79, 0.85)); transform: translate(-5px, 3px) skewX(5deg); opacity: 0.8; }
+  81% { filter: drop-shadow(-6px 0 rgba(45, 140, 255, 0.9)) drop-shadow(6px 0 rgba(240, 149, 79, 0.75)); transform: translate(5px, -2px) skewX(-3deg); }
+  83.5% { filter: drop-shadow(3px 0 rgba(11, 92, 255, 0.85)); transform: translateX(2px) scaleY(0.99); }
+  86% { filter: none; transform: none; }
+}
+.aw-glitch { animation: aw-glitchshift 5s steps(1, end) infinite; }
+
+.aw-body-band {
+  background: var(--aw-abyss);
+}
+
+/* ticker */
+.aw-ticker {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--aw-hairline);
+  border-bottom: 1px solid var(--aw-hairline);
+  background: rgba(6, 11, 20, 0.9);
+}
+.aw-marquee {
+  display: flex;
+  width: max-content;
+  padding: 0.7rem 0;
+  font-family: var(--aw-mono), monospace;
+  font-size: 0.95rem;
+  letter-spacing: 0.2em;
+  animation: aw-marquee 48s linear infinite;
+}
+@keyframes aw-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.aw-tick {
+  margin: 0 1.5rem;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+/* HUD panel with corner brackets */
+.aw-panel {
+  position: relative;
+  background: linear-gradient(160deg, rgba(13, 21, 38, 0.92), rgba(7, 12, 22, 0.88));
+  border: 1px solid var(--aw-hairline);
+  border-radius: 0.375rem;
+}
+.aw-panel::before,
+.aw-panel::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: rgba(45, 140, 255, 0.45);
+  border-style: solid;
+  pointer-events: none;
+}
+.aw-panel::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+.aw-panel::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+.aw-stat { min-width: 64px; }
+.aw-stat-label {
+  font-family: var(--aw-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--aw-faint);
+}
+.aw-stat-value {
+  font-family: var(--aw-mono), monospace;
+  font-size: 1.5rem;
+  line-height: 1.1;
+  color: var(--aw-dim);
+}
+
+/* buttons */
+.aw-btn {
+  display: inline-block;
+  border: 1px solid var(--aw-signal);
+  background: rgba(45, 140, 255, 0.15);
+  color: var(--aw-signal);
+  padding: 0.85rem 2rem;
+  font-family: var(--aw-mono), monospace;
+  font-size: 0.95rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 24px rgba(11, 92, 255, 0.12);
+}
+.aw-btn:hover:not(:disabled) {
+  background: rgba(45, 140, 255, 0.25);
+  box-shadow: 0 0 44px rgba(11, 92, 255, 0.3);
+}
+.aw-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.aw-btn-sm {
+  padding: 0.45rem 1.1rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+}
+
+/* range sliders in signal blue */
+.aw-page .form-range::-webkit-slider-thumb { background: var(--aw-signal); }
+.aw-page .form-range::-moz-range-thumb { background: var(--aw-signal); }
+.aw-page .form-range::-webkit-slider-runnable-track { background: rgba(45, 140, 255, 0.25); }
+.aw-page .form-range::-moz-range-track { background: rgba(45, 140, 255, 0.25); }
+
+/* site nav: AIWars Trends button */
+.btn-signal {
+  border: 1px solid #2d8cff;
+  background: rgba(45, 140, 255, 0.15);
+  color: #2d8cff;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.btn-signal:hover,
+.btn-signal:focus {
+  background: rgba(45, 140, 255, 0.3);
+  border-color: #2d8cff;
+  color: #ffffff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aw-glitch, .aw-scanline, .aw-starfield, .aw-marquee, .aw-trends, .aw-hero-art { animation: none; }
+  .aw-scanline { display: none; }
+}
+.aw-page .ols-table th { color: #2d8cff; font-family: var(--aw-mono), monospace; letter-spacing: 0.15em; text-transform: uppercase; font-size: 0.8rem; }
+.aw-page .ols-table td { font-family: var(--aw-mono), monospace; }
+
+/* -- electric Coming Soon banner -- */
+.aw-electric {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(45, 140, 255, 0.55);
+  border-radius: 0.375rem;
+  background: #060b14;
+  animation: aw-electric-edge 2.2s ease-in-out infinite;
+}
+@keyframes aw-electric-edge {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(45, 140, 255, 0.25), 0 0 28px rgba(11, 92, 255, 0.35), inset 0 0 24px rgba(11, 92, 255, 0.1); border-color: rgba(45, 140, 255, 0.55); }
+  45% { box-shadow: 0 0 0 1px rgba(45, 140, 255, 0.6), 0 0 70px rgba(45, 140, 255, 0.7), inset 0 0 40px rgba(45, 140, 255, 0.22); border-color: #8fc6f5; }
+  52% { box-shadow: 0 0 0 1px rgba(45, 140, 255, 0.3), 0 0 36px rgba(11, 92, 255, 0.4), inset 0 0 24px rgba(11, 92, 255, 0.12); border-color: rgba(45, 140, 255, 0.6); }
+  58% { box-shadow: 0 0 0 1px rgba(238, 243, 251, 0.6), 0 0 90px rgba(45, 140, 255, 0.85), inset 0 0 48px rgba(45, 140, 255, 0.3); border-color: #ffffff; }
+}
+.aw-electric-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.85;
+  filter: saturate(1.4) contrast(1.15) brightness(1.1);
+}
+.aw-electric-veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(6, 11, 20, 0.88), rgba(6, 11, 20, 0.35) 50%, rgba(6, 11, 20, 0.1)),
+    linear-gradient(180deg, rgba(6, 11, 20, 0.1), rgba(6, 11, 20, 0.45));
+}
+.aw-electric-bolt {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 38%;
+  left: -40%;
+  background: linear-gradient(105deg, transparent, rgba(45, 140, 255, 0.35) 45%, rgba(238, 243, 251, 0.6) 50%, rgba(45, 140, 255, 0.35) 55%, transparent);
+  transform: skewX(-18deg);
+  animation: aw-electric-sweep 3.4s cubic-bezier(0.6, 0, 0.2, 1) infinite;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+@keyframes aw-electric-sweep {
+  0% { left: -40%; opacity: 0; }
+  10% { opacity: 1; }
+  55% { left: 110%; opacity: 1; }
+  56%, 100% { left: 110%; opacity: 0; }
+}
+.aw-electric-inner {
+  position: relative;
+  padding: 1.75rem 1.5rem;
+}
+@media (min-width: 768px) {
+  .aw-electric-inner { padding: 2.25rem 2.5rem; }
+}
+.aw-electric-title {
+  font-size: clamp(1.5rem, 4.2vw, 2.8rem);
+  color: #eef3fb;
+  text-shadow: 0 0 8px rgba(45, 140, 255, 0.9), 0 0 22px rgba(11, 92, 255, 0.7), 0 0 46px rgba(11, 92, 255, 0.45);
+  animation: aw-electric-flicker 4s linear infinite;
+}
+@keyframes aw-electric-flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; text-shadow: 0 0 8px rgba(45, 140, 255, 0.9), 0 0 22px rgba(11, 92, 255, 0.7), 0 0 46px rgba(11, 92, 255, 0.45); }
+  20%, 24%, 55% { opacity: 0.55; text-shadow: 0 0 2px rgba(45, 140, 255, 0.4); }
+  56% { opacity: 1; text-shadow: 0 0 14px #ffffff, 0 0 40px rgba(45, 140, 255, 1), 0 0 80px rgba(11, 92, 255, 0.8); }
+}
+.aw-electric-sub {
+  font-family: var(--aw-mono), monospace;
+  letter-spacing: 0.08em;
+  color: #b9c5da;
+  max-width: 960px;
+  margin-top: 0.75rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .aw-electric, .aw-electric-bolt, .aw-electric-title { animation: none; }
+}
+
+
+/* coming-soon tile as a hero side column */
+.aw-electric.h-100 { width: 100%; display: flex; }
+.aw-electric.h-100 .aw-electric-inner { display: flex; flex-direction: column; justify-content: flex-start; padding: 1.5rem 1.4rem; }
+.aw-electric.h-100 .aw-kicker { margin-bottom: 0.5rem; }
+.aw-intro-col { padding-top: 1.5rem; }
+@media (min-width: 992px) { .aw-intro-col { padding-top: calc(1.5rem + 1px); } }
+.aw-electric.h-100 .aw-electric-title { font-size: clamp(1.4rem, 2.4vw, 2rem); }
+.aw-electric.h-100 .aw-electric-sub { font-size: 0.85rem; }
+@media (max-width: 991.98px) {
+  .aw-electric.h-100 .aw-electric-inner { min-height: 220px; }
+}
+
+/* -- access gate under the game -- */
+.aw-gate-title { font-size: 1.25rem; color: #eef3fb; letter-spacing: 0.04em; }
+.aw-gate-sub { font-size: 0.9rem; color: #b9c5da; letter-spacing: 0.06em; margin-top: 0.2rem; }
+.aw-gate-err { font-size: 0.85rem; color: #f87171; margin-top: 0.35rem; }
+.aw-btn-ghost { border-color: #1b2a44; background: transparent; color: #b9c5da; box-shadow: none; }
+.aw-btn-ghost:hover:not(:disabled) { border-color: #b9c5da; color: #eef3fb; background: transparent; box-shadow: none; }
+.aw-check {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: #4ade80; color: #04070d;
+  box-shadow: 0 0 18px rgba(74, 222, 128, 0.55);
+}
+.aw-gate-net { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; font-size: 0.82rem; letter-spacing: 0.06em; color: #b9c5da; }
+.aw-net-dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #8fa0ba; }
+.aw-net-dot.is-game { background: #8b5cf6; box-shadow: 0 0 10px rgba(139, 92, 246, 0.75); }
+.aw-net-dot.is-mint { background: #f0b90b; box-shadow: 0 0 10px rgba(240, 185, 11, 0.6); }
+.aw-net-dot.is-other { background: #f87171; box-shadow: 0 0 10px rgba(248, 113, 113, 0.6); }
+
+/* AIWars Trends: stake amount field next to the range */
+.aw-page .aw-input {
+  width: 6.5rem;
+  background: rgba(6, 11, 20, 0.9);
+  border: 1px solid var(--aw-hairline);
+  color: var(--aw-ink, #eef3fb);
+  font-family: var(--aw-mono), monospace;
+  font-size: 1rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 0.25rem;
+}
+.aw-page .aw-input:focus { outline: none; border-color: var(--aw-signal); }
+.aw-page .aw-input:disabled { opacity: 0.45; }
