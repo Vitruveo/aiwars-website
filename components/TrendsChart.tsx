@@ -255,7 +255,7 @@ export default function TrendsChart() {
       <p className="mt-3 text-center font-mono text-base" style={{ color: "#8fa0ba" }}>
         Live OLS <span style={{ color: lineColor, fontWeight: 600 }}>{liveTrend === null ? "…" : fmtAbs(liveTrend)}</span>
         {liveBucket >= 0 && <> · in <span style={{ color: lineColor, fontWeight: 600 }}>{BUCKET_NAMES[liveBucket]}</span></>}
-        {" "}· stake VTRU on the bucket at pretrend.ai
+        {" "}· stake VTRU on the bucket in AIWars Trends
       </p>
     </div>
   );

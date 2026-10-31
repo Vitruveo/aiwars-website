@@ -1,4 +1,4 @@
-// Home hero call to action for AI Wars Trends on pretrend.ai. Same ember treatment as the hero promos.
+// Home hero call to action for AI Wars Trends at /trends. Same ember treatment as the hero promos.
 
 export const TRENDS_URL = "/trends";
 
