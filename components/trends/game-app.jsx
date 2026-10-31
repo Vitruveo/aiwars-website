@@ -511,7 +511,15 @@ export function GameApp({ about = null }) {
               fmtVtru={fmtVtru}
               onDismiss={dismiss}
               hitCredits={gameLive ? fmtVtru(creditWei) : null}
-              actionsEnd={<a href="#rulebook" className="aw-btn aw-btn-ghost aw-btn-sm aw-rulebook-link">Rulebook</a>}
+              actionsEnd={
+                <a href="#rulebook" className="aw-btn aw-rulebook-link">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                  </svg>
+                  Rulebook
+                </a>
+              }
               stakeControl={
                 <div className="aw-stake d-flex align-items-center gap-2 flex-wrap">
                   <span className="aw-stat-label mb-0">Stake</span>
@@ -582,9 +590,9 @@ export function GameApp({ about = null }) {
 
       {isConnected && <PastBets bets={pastBets} statuses={pastStatuses} claimingStart={claimingStart} onClaim={claim} />}
 
-      {about}
-
       <Leaderboard rows={lbRows} myAddress={address} />
+
+      {about}
 
       <Rulebook game={gameLive ? game : null} />
     </div>

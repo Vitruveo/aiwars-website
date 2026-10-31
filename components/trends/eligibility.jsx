@@ -212,46 +212,61 @@ export function Eligibility({ onChange, embedded = false }) {
       </div>
     );
   } else {
+    // Ready to play: a three-part status bar. Access on the left, network in the middle, action on the right.
+    const unlimited = elig.legacy || elig.tier1Count > 0;
+    const waitPrize = elig.nextPrizeAt > Date.now() / 1000;
+    const prizeAt = waitPrize ? new Date(elig.nextPrizeAt * 1000) : null;
     body = (
-      <div className="d-flex align-items-center gap-3 flex-wrap">
-        <span className="aw-check" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-        </span>
-        <div className="flex-grow-1">
-          <div className="aw-gate-title">
-            {elig.legacy
-              ? elig.tokenId !== null ? `Token #${elig.tokenId} detected.` : 'Archive Shard detected.'
-              : elig.tier1Count > 0
-                ? `Tier 1 Archive Shard detected${elig.tier1Count > 1 ? ` (${elig.tier1Count})` : ''}. Unlimited play.`
-                : `${elig.freePlaysLeft} play${elig.freePlaysLeft === 1 ? '' : 's'} left without a Tier 1 shard.`}
-          </div>
-          <div className="aw-gate-sub aw-signal">
-            {elig.legacy || elig.tier1Count > 0 ? 'AIWars Trends access confirmed.' : 'After that, a Tier 1 Archive Shard keeps you playing.'}
-          </div>
-          {elig.nextPrizeAt > Date.now() / 1000 && (
-            <div className="aw-gate-sub aw-ember">
-              Next Tier 5 shard can mint after {new Date(elig.nextPrizeAt * 1000).toISOString().slice(11, 16)} UTC
-              {new Date(elig.nextPrizeAt * 1000).toISOString().slice(0, 10) !== new Date().toISOString().slice(0, 10) ? ' tomorrow' : ''}. Credits keep counting.
-            </div>
+      <div className="aw-access">
+        <div className="aw-access-cell">
+          {unlimited ? (
+            <>
+              <div className="aw-access-big aw-signal">Unlimited</div>
+              <div className="aw-access-label">
+                {elig.legacy ? 'Archive Shard held' : `Tier 1 shard held${elig.tier1Count > 1 ? ` · ${elig.tier1Count}` : ''}`}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="aw-access-big">
+                {elig.freePlaysLeft}
+                <span className="aw-access-unit"> play{elig.freePlaysLeft === 1 ? '' : 's'} left</span>
+              </div>
+              <div className="aw-access-label">without a Tier 1 shard</div>
+            </>
           )}
-          <NetworkLine />
-          {error && <div className="aw-gate-err">{error}</div>}
         </div>
-        {!onVitruveo && (
-          <button type="button" className="aw-btn" onClick={toVitruveo} disabled={switching}>
-            {switching ? 'Switching…' : 'Switch to Vitruveo to play'}
-          </button>
+        <div className="aw-access-cell">
+          <div className="aw-access-net">
+            <span className={`aw-net-dot ${onVitruveo ? 'is-game' : onBsc ? 'is-mint' : 'is-other'}`} aria-hidden="true" />
+            <span>{netName}</span>
+          </div>
+          <div className="aw-access-label">{onVitruveo ? 'ready to bet' : 'bets are placed on Vitruveo'}</div>
+        </div>
+        {waitPrize && (
+          <div className="aw-access-cell">
+            <div className="aw-access-net aw-ember">{prizeAt.toISOString().slice(11, 16)} UTC</div>
+            <div className="aw-access-label">
+              next Tier 5 shard{prizeAt.toISOString().slice(0, 10) !== new Date().toISOString().slice(0, 10) ? ' (tomorrow)' : ''}
+            </div>
+          </div>
         )}
+        <div className="aw-access-cell aw-access-action">
+          {!onVitruveo ? (
+            <button type="button" className="aw-btn" onClick={toVitruveo} disabled={switching}>
+              {switching ? 'Switching…' : 'Switch to Vitruveo'}
+            </button>
+          ) : !unlimited ? (
+            <a href="/mint" className="aw-btn aw-btn-ghost" style={{ textDecoration: 'none' }}>Get a Tier 1 shard</a>
+          ) : null}
+        </div>
+        {error && <div className="aw-gate-err aw-access-err">{error}</div>}
       </div>
     );
   }
 
   if (embedded) {
-    return (
-      <div className="aw-gate aw-play-section">
-        <div style={{ fontFamily: MONO }}>{body}</div>
-      </div>
-    );
+    return <div className="aw-gate aw-play-section aw-gate-embedded">{body}</div>;
   }
   return (
     <div className="aw-panel aw-gate p-3 p-md-4 mt-4">

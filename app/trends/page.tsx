@@ -22,7 +22,7 @@ export default function Trends() {
           <div className="aw-hero-fade" />
           <div className="aw-starfield" />
           <div className="aw-scanline" />
-          <div className="container position-relative" style={{ maxWidth: "1100px", paddingTop: "110px", paddingBottom: "20px" }}>
+          <div className="container position-relative" style={{ maxWidth: "1100px", paddingTop: "110px", paddingBottom: "40px" }}>
             <p className="aw-kicker aw-kicker-ink mb-3">Shard activation &middot; The Fall of Meridian</p>
             <h1 className="aw-glitch mb-2" style={{ lineHeight: 1 }}>
               <span aria-label="AI WARS" role="img" className="aw-logo">

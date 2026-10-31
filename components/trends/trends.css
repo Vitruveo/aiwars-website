@@ -521,3 +521,54 @@
 html:has(.aw-page) { scroll-behavior: smooth; }
 .aw-page .ms-auto { margin-left: auto !important; }
 .aw-page .aw-pick-row .aw-bucket-btn { padding: 10px 0 !important; font-size: 0.95rem !important; }
+
+/* ---- breathing room ---- */
+/* Page sections: the play area, the about block, the leaderboard and the rulebook sit well apart. */
+.aw-page .aw > .aw-play { margin-top: 2rem !important; }
+.aw-page .aw > .aw-play + p { margin-top: 0.9rem !important; }
+.aw-page .aw > * + .row,
+.aw-page .aw > * + .aw-panel:not(.aw-play) { margin-top: 4.5rem !important; }
+.aw-page .aw > .row + .aw-panel { margin-top: 4.5rem !important; }
+/* Inside the play panel: chart, buckets, ticket, status and access each get their own space. */
+@media (min-width: 768px) { .aw-page .aw-play { padding: 2.25rem !important; } }
+.aw-page .aw-play .aw-pick-row { margin-top: 1.75rem !important; }
+.aw-page .aw-play .aw-ticket { margin-top: 1.5rem !important; }
+.aw-page .aw-play .aw-ticket + .text-center { margin-top: 1.25rem !important; }
+.aw-page .aw-play-section { margin-top: 2rem; padding-top: 1.75rem; }
+/* Leaderboard and rulebook panels. */
+@media (min-width: 768px) { .aw-page .aw > .aw-panel:not(.aw-play) { padding: 2.25rem !important; } }
+.aw-page .aw > .aw-panel h2.aw-kicker { margin-bottom: 1.5rem !important; }
+.aw-page #rulebook li { padding-top: 1.05rem !important; padding-bottom: 1.05rem !important; }
+.aw-page #rulebook li .d-block { margin-top: 0.35rem; }
+.aw-page .aw > .aw-panel + .row { margin-top: 4.5rem !important; }
+
+/* Access status bar inside the play panel */
+.aw-page .aw-access { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; align-items: center; }
+@media (min-width: 768px) { .aw-page .aw-access { grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); grid-auto-flow: column; } }
+.aw-page .aw-access-big { font-family: var(--aw-display), sans-serif; font-size: 1.9rem; font-weight: 700; color: #eef3fb; line-height: 1.1; }
+.aw-page .aw-access-unit { font-family: var(--aw-mono), monospace; font-size: 1rem; font-weight: 400; color: #b9c5da; letter-spacing: 0.08em; }
+.aw-page .aw-access-net { display: flex; align-items: center; gap: 0.6rem; font-family: var(--aw-mono), monospace; font-size: 1.15rem; color: #eef3fb; letter-spacing: 0.06em; }
+.aw-page .aw-access-label { margin-top: 0.4rem; font-family: var(--aw-mono), monospace; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.16em; color: #8fa0ba; }
+.aw-page .aw-access-action { justify-self: end; text-align: right; }
+.aw-page .aw-access-err { grid-column: 1 / -1; }
+.aw-page .aw-gate-embedded .aw-gate-title { font-size: 1.15rem; }
+.aw-page .aw-gate-embedded .aw-gate-sub { font-family: var(--aw-body), sans-serif; font-size: 1rem; letter-spacing: 0; margin-top: 0.35rem; }
+
+/* Section titles: Your recent games, Leaderboard, Rulebook. Big display type, like the site's headings. */
+.aw-page .aw > .aw-panel h2.aw-kicker {
+  font-family: var(--aw-display), sans-serif !important;
+  font-size: clamp(1.9rem, 3.2vw, 2.75rem) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase;
+  color: #eef3fb !important;
+  line-height: 1.1;
+  margin-bottom: 1.75rem !important;
+  text-shadow: 0 0 24px rgba(45, 140, 255, 0.35);
+}
+.aw-page .aw-btn.aw-rulebook-link {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  border: 1px solid #2d8cff !important; color: #8fc6f5 !important; background: rgba(45, 140, 255, 0.14) !important;
+  text-decoration: none; box-shadow: 0 0 18px rgba(45, 140, 255, 0.25);
+}
+.aw-page .aw-btn.aw-rulebook-link:hover { background: rgba(45, 140, 255, 0.28) !important; color: #eef3fb !important; }
