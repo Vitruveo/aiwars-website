@@ -119,6 +119,17 @@
       {
         "type": "event",
         "anonymous": false,
+        "name": "BetCapsUpdated",
+        "inputs": [
+          {
+            "type": "uint256[4]",
+            "name": "caps"
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
         "name": "BetPlaced",
         "inputs": [
           {
@@ -609,6 +620,20 @@
       },
       {
         "type": "function",
+        "name": "betCaps",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256[4]",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
         "name": "burn",
         "constant": false,
         "payable": false,
@@ -1061,6 +1086,25 @@
       },
       {
         "type": "function",
+        "name": "maxBet",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "gameSerial"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
         "name": "mint",
         "constant": false,
         "payable": false,
@@ -1462,6 +1506,19 @@
           {
             "type": "string",
             "name": "baseURI_"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setBetCaps",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256[4]",
+            "name": "caps"
           }
         ],
         "outputs": []
