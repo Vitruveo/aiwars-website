@@ -82,7 +82,7 @@ export default function ActivationTabs() {
             <p className="font-mono text-base uppercase tracking-[0.35em] text-ember">Trade the battle</p>
             <p className="display mt-2 text-2xl text-ink sm:text-3xl">AIWars Trends on Pretrend</p>
             <p className="mt-2 max-w-2xl text-lg text-dim">
-              Pretrend reads live Battle Momentum from the Fall of Meridian and opens a new five-minute trend market on every five-minute mark. Stake 100 to 10,000 VTRU on which of five buckets the trend settles in. Hit and your stake comes back with 0.5x in credits; every 5,000 credits mints you a Tier 5 shard. Miss and the stake is burned. Five free plays for anyone, then a Tier 1 shard keeps you in.
+              Pretrend reads live Battle Momentum from the Fall of Meridian and opens a new five-minute trend market on every five-minute mark. Stake 100 to 1,000 VTRU on which of five buckets the trend settles in. Hit and your stake comes back with 0.5x in credits; every 5,000 credits mints you a Tier 5 shard. Miss and the stake is burned. Five free plays for anyone, then a Tier 1 shard keeps you in.
             </p>
           </div>
           <span className="shrink-0 border border-signal bg-signal/15 px-6 py-4 font-mono text-base uppercase tracking-[0.3em] text-signal transition-all group-hover:bg-signal/25">
