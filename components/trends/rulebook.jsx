@@ -12,7 +12,7 @@ export function Rulebook({ game }) {
   const min = game ? vtru(game.gameMin) : '100';
   const max = game ? vtru(game.gameMax) : '1,000';
   const credit = game ? n(game.creditBps / 10000) : '0.5';
-  const perNft = game ? vtru(game.creditsPerNft) : '500';
+  const perNft = game ? vtru(game.creditsPerNft) : '100';
   const free = game?.freePlays ?? 5;
   const lock = game?.lockSeconds ?? 240;
   const cap = game?.prizeCap ?? 750;
