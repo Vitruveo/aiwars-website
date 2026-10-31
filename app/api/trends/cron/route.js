@@ -3,8 +3,8 @@ import { handleSettleLatest } from '@/lib/trends/core';
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
-// Settles the last closed window. Hit it every minute from any external pinger as a backstop for
-// windows no player's page polled.
+// Settles the last three closed windows. Called every minute by the Vercel cron in vercel.json, as the
+// backstop for windows no player's page polled.
 export async function GET() {
   try {
     const [status, body] = await handleSettleLatest();
