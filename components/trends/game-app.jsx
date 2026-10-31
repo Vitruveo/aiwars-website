@@ -18,7 +18,6 @@ const NFT = aiwars.vitruveo.AIWarsNFT;
 const NFT_ABI = aiwars.abi.AIWarsNFT;
 const GAS_RESERVE = parseEther('0.05'); // VTRU kept back for the bet and claim transactions
 const REMEMBERED_BETS = 12;
-const CAP_LEAD_S = 5; // switch to the next minute's cap this early, so a bet never lands past the boundary
 
 const BET_LABELS = {
   switching: 'Switching to Vitruveo…',
@@ -152,7 +151,7 @@ function TickerRow({ items }) {
 }
 
 // Live telemetry strip in the AI Wars ticker style, fed by the real window.
-function Ticker({ win, thresholds, calibration, burned, creditBps, capVtru }) {
+function Ticker({ win, thresholds, calibration, burned, creditBps }) {
   const last = win?.points.length ? win.points[win.points.length - 1][1] : null;
   const fit = win?.liveFit;
   const projected = fit ? trendAbsOf(fit.b) : null;
@@ -163,7 +162,6 @@ function Ticker({ win, thresholds, calibration, burned, creditBps, capVtru }) {
     ['BUCKET', bucket >= 0 ? BUCKET_NAMES[bucket].toUpperCase() : '…', 'ink'],
     ['PHASE', win ? win.phase.toUpperCase() : '…', win?.phase === 'open' ? 'signal' : 'ember'],
     [win?.phase === 'open' ? 'BETTING CLOSES' : 'NEXT GAME', win ? fmtClock((win.phase === 'open' ? win.lockS : GAME_S) - win.elapsed) : '…', 'ink'],
-    ['MAX BET NOW', capVtru ? `${capVtru.toLocaleString('en-US')} VTRU` : '…', 'ink'],
     ['A HIT PAYS', creditBps ? `STAKE + ${(creditBps / 10000).toFixed(2).replace(/\.?0+$/, '')}X CREDITS` : '…', 'signal'],
     ['BURNED', burned === null ? '…' : `${fmtVtru(burned)} VTRU`, 'ember'],
     ['SIGNAL CADENCE', `${FEED.cadenceS}S`, 'ink'],
@@ -265,7 +263,6 @@ export function GameApp({ about = null }) {
   const minVtru = gameLive ? Number(formatEther(gameMin)) : 100;
   const maxVtru = gameLive ? Number(formatEther(gameMax)) : 1000;
   const freePlays = game?.freePlays ?? 5;
-  const caps = game?.betCaps?.length === 4 ? game.betCaps.map((c) => Number(formatEther(BigInt(c)))) : [1000, 700, 400, 100];
 
   useEffect(() => {
     getGameConfig().then(setCfg).catch((e) => setCfgError(e.message));
@@ -285,18 +282,10 @@ export function GameApp({ about = null }) {
     getWindow(win.start).then(setWindowInfo).catch(() => {});
   }, [win?.start]);
 
-  // Max bet for the minute the bet would land in, never above gameMax.
-  const capMinute = win ? Math.min(3, Math.max(0, Math.floor((win.elapsed + CAP_LEAD_S) / 60))) : 0;
-  const capVtru = Math.min(maxVtru, caps[capMinute]);
-
   useEffect(() => {
     if (stake === null && gameLive) setStake(Math.ceil(minVtru));
   }, [gameLive, minVtru, stake]);
 
-  // The ceiling steps down each minute; pull the stake down with it.
-  useEffect(() => {
-    if (stake !== null && stake > capVtru) setStake(Math.floor(capVtru));
-  }, [capVtru, stake]);
 
   const stakeWei = stake !== null ? parseEther(String(stake)) : 0n;
   const creditWei = (stakeWei * BigInt(creditBps || 0)) / 10000n;
@@ -476,7 +465,7 @@ export function GameApp({ about = null }) {
   };
 
   const balanceWei = balance?.value ?? 0n;
-  const stakeInRange = stakeWei >= gameMin && stakeWei <= gameMax && stake <= capVtru;
+  const stakeInRange = stakeWei >= gameMin && stakeWei <= gameMax;
   const canAfford = balanceWei >= stakeWei + GAS_RESERVE;
   const canBet = isConnected && eligible && gameLive && !!win && !entry && stakeInRange && canAfford && !betStatus;
   const betHint = !isConnected
@@ -486,7 +475,7 @@ export function GameApp({ about = null }) {
       : !gameLive
         ? 'the game contract is not live yet'
         : !stakeInRange
-          ? `stake must be ${minVtru}–${capVtru} VTRU this minute`
+          ? `stake must be ${minVtru}–${maxVtru} VTRU`
           : !canAfford
             ? `you need ${fmtVtru(stakeWei + GAS_RESERVE)} VTRU in this wallet`
             : !onVitruveo
@@ -499,7 +488,7 @@ export function GameApp({ about = null }) {
 
   return (
     <div className="aw" style={{ maxWidth: '1100px', margin: '0 auto' }}>
-      <Ticker win={win} thresholds={thresholds} calibration={live?.calibration} burned={game ? game.totalBurned : null} creditBps={creditBps} capVtru={gameLive ? capVtru : null} />
+      <Ticker win={win} thresholds={thresholds} calibration={live?.calibration} burned={game ? game.totalBurned : null} creditBps={creditBps} />
 
       <div className="aw-panel p-3 p-md-4 mb-4 mt-4">
         <div className="d-flex align-items-center gap-3 flex-wrap">
@@ -513,7 +502,7 @@ export function GameApp({ about = null }) {
               className="form-range aw-range"
               style={{ width: '160px' }}
               min={Math.ceil(minVtru)}
-              max={Math.floor(capVtru)}
+              max={Math.floor(maxVtru)}
               step={1}
               value={stake ?? minVtru}
               disabled={!gameLive || !!entry}
@@ -524,7 +513,7 @@ export function GameApp({ about = null }) {
               type="number"
               className="aw-input"
               min={Math.ceil(minVtru)}
-              max={Math.floor(capVtru)}
+              max={Math.floor(maxVtru)}
               step={1}
               value={stake ?? ''}
               disabled={!gameLive || !!entry}
@@ -553,9 +542,9 @@ export function GameApp({ about = null }) {
           </div>
         </div>
         <div className="mt-2 aw-dim" style={{ fontFamily: MONO, fontSize: '0.95rem', letterSpacing: '0.04em' }}>
-          Stake from <span className="aw-ink">{minVtru.toLocaleString('en-US')} VTRU</span> up to <span className="aw-ink">{caps.map((c) => c.toLocaleString('en-US')).join(' / ')}</span> in minutes 1 to 4, on one bucket per game
+          Stake <span className="aw-ink">{minVtru.toLocaleString('en-US')}&ndash;{maxVtru.toLocaleString('en-US')} VTRU</span> on one bucket per game
           {' '}&middot; a hit returns your stake plus <span className="aw-ink">{creditBps ? `${(creditBps / 10000).toFixed(2).replace(/\.?0+$/, '')}x` : '…'}</span> in credits
-          {' '}&middot; every <span className="aw-ink">{gameLive ? fmtVtru(creditsPerNft) : '5,000'}</span> credits mint you a Tier 5 shard
+          {' '}&middot; every <span className="aw-ink">{gameLive ? fmtVtru(creditsPerNft) : '5,000'}</span> credits mint you a Tier 5 shard, one per 24 hours
           {' '}&middot; a miss is burned &middot; bets close four minutes in
         </div>
         {(error || cfgError || (cfg && !gameLive) || (cfg && !cfg.game?.serviceConfigured)) && (

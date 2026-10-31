@@ -228,6 +228,12 @@ export function Eligibility({ onChange }) {
           <div className="aw-gate-sub aw-signal">
             {elig.legacy || elig.tier1Count > 0 ? 'AIWars Trends access confirmed.' : 'After that, a Tier 1 Archive Shard keeps you playing.'}
           </div>
+          {elig.nextPrizeAt > Date.now() / 1000 && (
+            <div className="aw-gate-sub aw-ember">
+              Next Tier 5 shard can mint after {new Date(elig.nextPrizeAt * 1000).toISOString().slice(11, 16)} UTC
+              {new Date(elig.nextPrizeAt * 1000).toISOString().slice(0, 10) !== new Date().toISOString().slice(0, 10) ? ' tomorrow' : ''}. Credits keep counting.
+            </div>
+          )}
           <NetworkLine />
           {error && <div className="aw-gate-err">{error}</div>}
         </div>

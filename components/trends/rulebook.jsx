@@ -10,7 +10,7 @@ const vtru = (wei) => n(formatEther(BigInt(wei)));
 // the game is live, else the launch defaults.
 export function Rulebook({ game }) {
   const min = game ? vtru(game.gameMin) : '100';
-  const caps = game?.betCaps?.length === 4 ? game.betCaps.map(vtru) : ['1,000', '700', '400', '100'];
+  const max = game ? vtru(game.gameMax) : '1,000';
   const credit = game ? n(game.creditBps / 10000) : '0.5';
   const perNft = game ? vtru(game.creditsPerNft) : '5,000';
   const free = game?.freePlays ?? 5;
@@ -21,11 +21,11 @@ export function Rulebook({ game }) {
   const rules = [
     ['The game', `A new five-minute game opens on every five-minute mark, on the AI Wars Battle Momentum feed from the TrendPulse oracle. Bets close ${lock / 60 === Math.floor(lock / 60) ? `${lock / 60} minutes` : `${lock} seconds`} in; the rest of the window is a locked runout.`],
     ['The call', 'Pick one of five buckets, Crash, Bear, Flat, Bull or Moon, for where the window’s ordinary least squares trend settles. Bucket edges are frozen when the window opens.'],
-    ['The stake', `Stake from ${min} VTRU on Vitruveo. The most you can stake drops each minute: ${caps[0]} VTRU in minute 1, ${caps[1]} in minute 2, ${caps[2]} in minute 3, ${caps[3]} in minute 4. One bet per wallet per game.`],
+    ['The stake', `Stake ${min} to ${max} VTRU on Vitruveo. One bet per wallet per game.`],
     ['Who can play', `You can play ${free} times without holding a Tier 1 Archive Shard. Every play stakes VTRU. From play ${free + 1} on, the wallet must hold a Tier 1 shard.`],
     ['A miss', 'Your stake is burned: sent to 0x…dEaD when the result is posted, gone for good.'],
     ['A hit', `Your stake comes back to your wallet automatically, plus ${credit}x of it in credits. Credits are not VTRU; they count toward shards.`],
-    ['Credits to shards', `Every ${perNft} credits mint a Tier 5 Archive Shard straight to your wallet and are deducted from your balance. Extra credits carry over.`],
+    ['Credits to shards', `Every ${perNft} credits mint a Tier 5 Archive Shard straight to your wallet and are deducted from your balance. At most one shard per wallet in any 24 hours; credits beyond that carry over and mint on a later win. At the ${max} VTRU maximum stake, a shard takes at least ${Math.ceil(Number(perNft.replace(/,/g, '')) / (Number(max.replace(/,/g, '')) * Number(credit)))} wins.`],
     ['The cap', `At most ${n(cap)} Tier 5 shards can ever be won. ${n(minted)} won so far. After the last one, credits still count on the leaderboard but mint nothing.`],
     ['Voids and delays', 'If the oracle stores too few points, the game is voided and every stake is returned. If no result lands within 24 hours, every stake can be claimed back.'],
     ['Settlement', 'Everything settles on chain in the AIWarsNFT contract on Vitruveo. The AI Wars service posts each result from the TrendPulse oracle; the contract burns, returns and mints.'],

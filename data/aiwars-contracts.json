@@ -119,17 +119,6 @@
       {
         "type": "event",
         "anonymous": false,
-        "name": "BetCapsUpdated",
-        "inputs": [
-          {
-            "type": "uint256[4]",
-            "name": "caps"
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
         "name": "BetPlaced",
         "inputs": [
           {
@@ -542,6 +531,20 @@
       },
       {
         "type": "function",
+        "name": "PRIZE_COOLDOWN",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
         "name": "PRIZE_TIER",
         "constant": true,
         "stateMutability": "view",
@@ -614,20 +617,6 @@
         "outputs": [
           {
             "type": "string",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "betCaps",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "uint256[4]",
             "name": ""
           }
         ]
@@ -1086,25 +1075,6 @@
       },
       {
         "type": "function",
-        "name": "maxBet",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "gameSerial"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
         "name": "mint",
         "constant": false,
         "payable": false,
@@ -1291,6 +1261,10 @@
                 "name": "tier5Won"
               },
               {
+                "type": "uint64",
+                "name": "lastPrizeAt"
+              },
+              {
                 "type": "uint128",
                 "name": "staked"
               },
@@ -1346,6 +1320,10 @@
               {
                 "type": "uint32",
                 "name": "tier5Won"
+              },
+              {
+                "type": "uint64",
+                "name": "lastPrizeAt"
               },
               {
                 "type": "uint128",
@@ -1506,19 +1484,6 @@
           {
             "type": "string",
             "name": "baseURI_"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "setBetCaps",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256[4]",
-            "name": "caps"
           }
         ],
         "outputs": []
