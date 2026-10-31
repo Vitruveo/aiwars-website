@@ -510,10 +510,15 @@
 .aw-page .aw-ticket { row-gap: 0.75rem; }
 .aw-page .aw-stake .aw-stat-label { margin: 0; }
 .aw-page .aw-play .aw-gate-title { font-size: 1rem; }
-.aw-page .aw-play-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.aw-page .aw-play-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; align-items: center; }
 @media (min-width: 768px) { .aw-page .aw-play-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 /* Buckets are the control: click (desktop strip) or tap (phone row) to pick. */
 .aw-page .aw-bucket-pick { cursor: pointer; }
 .aw-page .aw-bucket-pick:hover rect { stroke-width: 2.5; }
 .aw-page .aw-bucket-btn { cursor: pointer; }
 .aw-page .aw-bucket-btn:disabled { cursor: default; }
+.aw-page .aw-rulebook-link { text-decoration: none; display: inline-block; }
+html:has(.aw-page) { scroll-behavior: smooth; }
+.aw-page .ms-auto { margin-left: auto !important; }
+.aw-page .aw-pick-row .aw-bucket-btn { padding: 10px 0 !important; font-size: 0.95rem !important; }
+.aw-page .aw-bucket-btn[aria-pressed="true"] { box-shadow: 0 0 0 2px #eef3fb inset; }

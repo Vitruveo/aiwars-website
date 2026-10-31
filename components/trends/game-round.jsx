@@ -58,6 +58,8 @@ export function GameRound({
   fmtVtru,
   onDismiss,
   stakeControl = null,
+  hitCredits = null,
+  actionsEnd = null,
 }) {
   const [bState, setB] = useState(0);
   const [pick, setPick] = useState(null); // bucket the player has chosen, before betting
@@ -170,15 +172,35 @@ export function GameRound({
   // the strip, so the dashed line runs straight into its bucket.
   const tsAtX = (x) => viewStart + ((x - PX0) / (PX1 - PX0)) * (n - 1);
   const clampY = (y) => Math.max(PY0, Math.min(PY1, y));
-  const stripBoxes = BUCKET_NAMES.map((_, i) => {
+  const rawStrip = BUCKET_NAMES.map((_, i) => {
     if (!fit) return boxes[i];
     const top = i === 4 ? PY0 : clampY(rayY(thresholds[i], tsAtX(BX0)));
     const bottom = i === 0 ? PY1 : clampY(rayY(thresholds[i - 1], tsAtX(BX0)));
     return [top, bottom];
   });
+  // Every bucket keeps a clickable box: each gets at least MIN_BOX px, taken from the taller ones, then
+  // they are stacked bottom (Crash) to top (Moon) in their original proportions.
+  const MIN_BOX = 28;
+  const stripBoxes = (() => {
+    const avail = PY1 - PY0;
+    const h = rawStrip.map(([t, b]) => Math.max(MIN_BOX, b - t));
+    const excess = h.reduce((a, x) => a + x, 0) - avail;
+    if (excess > 0) {
+      const room = h.reduce((a, x) => a + (x - MIN_BOX), 0);
+      const k = room > 0 ? Math.max(0, 1 - excess / room) : 0;
+      for (let i = 0; i < h.length; i++) h[i] = MIN_BOX + (h[i] - MIN_BOX) * k;
+    }
+    const out = [];
+    let y = PY1;
+    for (let i = 0; i < h.length; i++) {
+      out[i] = [y - h[i], y];
+      y -= h[i];
+    }
+    return out;
+  })();
 
-  const canPick = !settled && !inGame && canBet && !betting && phase === 'open';
-  const showAim = inGame || settled || (canBet && aimBucket >= 0);
+  const canPick = !settled && !inGame && !betting && phase === 'open';
+  const showAim = inGame || settled || aimBucket >= 0;
   const choose = (i) => {
     if (!canPick) return;
     const e = stripEdges(thresholds);
@@ -412,8 +434,8 @@ export function GameRound({
         </svg>
       ))}
 
-      {/* buckets as a full-width row on small screens; tap to pick */}
-      <div className="d-md-none d-flex gap-1 mt-2">
+      {/* The pick: five bucket buttons, on every screen size (the strip beside the chart is clickable too). */}
+      <div className="aw-pick-row d-flex gap-1 mt-3">
         {BUCKET_NAMES.map((name, i) => (
           <button
             type="button"
@@ -440,7 +462,7 @@ export function GameRound({
 
       {/* Stake and bet, directly under the chart and buckets. The stake stays in place (locked) while a
           bet is live, so the button never jumps. */}
-      <div className="aw-ticket d-flex align-items-center justify-content-center gap-3 flex-wrap mt-3">
+      <div className="aw-ticket d-flex align-items-center gap-3 flex-wrap mt-3">
         {!settled && stakeControl}
         {settled ? (
           <>
@@ -470,6 +492,7 @@ export function GameRound({
                   : `${betLabel} on ${BUCKET_NAMES[aimBucket]}`}
           </button>
         )}
+        {actionsEnd && <span className="ms-auto">{actionsEnd}</span>}
       </div>
 
       <div className="text-center mt-3" style={{ fontFamily: FONT, minHeight: '1.6em' }}>
@@ -499,7 +522,10 @@ export function GameRound({
             {inGame ? (
               <> &middot; your bet <span style={{ color: EMBER }}>{fmtVtru(entry.amount)} VTRU</span> on {BUCKET_NAMES[entry.bucket]}</>
             ) : showAim ? (
-              <> &middot; your pick <span style={{ color: EMBER, fontWeight: 600 }}>{BUCKET_NAMES[aimBucket]}</span></>
+              <>
+                {' '}&middot; your pick <span style={{ color: EMBER, fontWeight: 600 }}>{BUCKET_NAMES[aimBucket]}</span>
+                {hitCredits ? <> &middot; a hit earns <span style={{ color: '#eef3fb' }}>{hitCredits}</span> credits</> : null}
+              </>
             ) : canBet && phase === 'open' ? (
               <> &middot; pick the bucket the trend will settle in</>
             ) : (

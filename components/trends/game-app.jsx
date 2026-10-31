@@ -510,6 +510,8 @@ export function GameApp({ about = null }) {
               onClaim={() => result && claim(result.start)}
               fmtVtru={fmtVtru}
               onDismiss={dismiss}
+              hitCredits={gameLive ? fmtVtru(creditWei) : null}
+              actionsEnd={<a href="#rulebook" className="aw-btn aw-btn-ghost aw-btn-sm aw-rulebook-link">Rulebook</a>}
               stakeControl={
                 <div className="aw-stake d-flex align-items-center gap-2 flex-wrap">
                   <span className="aw-stat-label mb-0">Stake</span>
@@ -559,46 +561,17 @@ export function GameApp({ about = null }) {
           </div>
         )}
 
-        <div className="aw-play-section">
-          <div className="aw-play-stats">
-            <div className="aw-stat">
-              <div className="aw-stat-label">A hit earns</div>
-              <div className="aw-stat-value aw-signal">{gameLive ? fmtVtru(creditWei) : '…'} <span className="aw-faint" style={{ fontSize: '0.9rem' }}>credits</span></div>
-            </div>
-            <div className="aw-stat">
-              <div className="aw-stat-label">Wallet</div>
-              <div className="aw-stat-value">{isConnected && balance ? fmtVtru(balance.value) : '…'} <span className="aw-faint" style={{ fontSize: '0.9rem' }}>VTRU</span></div>
-            </div>
-            <div className="aw-stat">
-              <div className="aw-stat-label">Credits</div>
-              <div className="aw-stat-value" style={{ color: '#f0954f' }}>
-                {isConnected && player ? fmtVtru(player.credits) : '…'}
-                <span className="aw-faint" style={{ fontSize: '0.9rem' }}> / {gameLive ? fmtVtru(creditsPerNft) : '5,000'}</span>
-              </div>
-            </div>
-            <div className="aw-stat">
-              <div className="aw-stat-label">Tier 5 won</div>
-              <div className="aw-stat-value" style={{ color: '#f0954f' }}>{isConnected && player ? String(player.tier5Won) : '…'}</div>
-            </div>
+        {(error || cfgError || (cfg && !gameLive) || (cfg && !cfg.game?.serviceConfigured)) && (
+          <div className="aw-play-section" style={{ fontFamily: MONO, fontSize: '0.85rem', color: '#f87171' }}>
+            {cfgError
+              ? `Game service unreachable: ${cfgError}`
+              : error
+                ? error
+                : !gameLive
+                  ? 'The AIWarsNFT game contract has not been upgraded to the v3 rules yet.'
+                  : 'Results are not being posted: no result signer is configured on the server.'}
           </div>
-          <div className="mt-2 aw-dim" style={{ fontFamily: MONO, fontSize: '0.9rem', letterSpacing: '0.04em' }}>
-            Stake <span className="aw-ink">{minVtru.toLocaleString('en-US')}&ndash;{maxVtru.toLocaleString('en-US')} VTRU</span> on one bucket per game
-            {' '}&middot; a hit returns your stake plus <span className="aw-ink">{creditBps ? `${(creditBps / 10000).toFixed(2).replace(/\.?0+$/, '')}x` : '…'}</span> in credits
-            {' '}&middot; every <span className="aw-ink">{gameLive ? fmtVtru(creditsPerNft) : '5,000'}</span> credits mint you a Tier 5 shard, one per 24 hours
-            {' '}&middot; a miss is burned &middot; bets close four minutes in
-          </div>
-          {(error || cfgError || (cfg && !gameLive) || (cfg && !cfg.game?.serviceConfigured)) && (
-            <div className="mt-2" style={{ fontFamily: MONO, fontSize: '0.85rem', color: '#f87171' }}>
-              {cfgError
-                ? `Game service unreachable: ${cfgError}`
-                : error
-                  ? error
-                  : !gameLive
-                    ? 'The AIWarsNFT game contract has not been upgraded to the v3 rules yet.'
-                    : 'Results are not being posted: no result signer is configured on the server.'}
-            </div>
-          )}
-        </div>
+        )}
 
         <Eligibility onChange={onEligibility} embedded />
       </div>

@@ -33,7 +33,7 @@ export function Rulebook({ game }) {
   ];
 
   return (
-    <div className="aw-panel p-3 p-md-4 mt-4">
+    <div id="rulebook" className="aw-panel p-3 p-md-4 mt-4" style={{ scrollMarginTop: '5.5rem' }}>
       <h2 className="aw-kicker mb-3" style={{ fontSize: '0.95rem' }}>Rulebook</h2>
       <ol className="mb-0 ps-0" style={{ listStyle: 'none' }}>
         {rules.map(([k, v], i) => (
