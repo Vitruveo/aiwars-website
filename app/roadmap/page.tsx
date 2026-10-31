@@ -23,7 +23,7 @@ const s1Deliverables: [string, string, boolean][] = [
   ["Shard minting", "Archive Shard sale live: five tiers sold strictly in order, three per wallet, paid in USDT on BNB Smart Chain and minted as an upgradeable ERC-721 on Vitruveo, with metadata served from the site.", true],
   ["Beacon activation", "The Scape: 5,000 procedurally generated sectors around the Archive, one per shard, with a browser flyover of every sector and a holder-signed beacon that names a place and lights the sector on the world map.", true],
   ["Battle Momentum oracle feed", "The TrendPulse oracle publishes AI Wars Battle Momentum, a 0 to 100 composite read every two seconds, with history, live websocket ticks and a public status page, and resolves five-minute windows by ordinary least squares trend.", true],
-  ["AIWars Trends game", "The first shard activation on pretrend.ai: a new five-minute market on every five-minute mark, five outcome buckets calibrated from the feed, VTRU stakes settled by the shard contract on Vitruveo (losing stakes burned, winners earn credits toward Tier 5 shards), and a live on-chain leaderboard. Five free plays, then Tier 1 holders. In progress, ETA 26 Oct.", false],
+  ["AIWars Trends game", "The first shard activation on pretrend.ai: a new five-minute market on every five-minute mark, five outcome buckets calibrated from the feed, VTRU stakes settled by the shard contract on Vitruveo (losing stakes burned, winners earn credits toward Tier 5 shards), and a live on-chain leaderboard. You can play five times without holding a Tier 1 shard. In progress, ETA 26 Oct.", false],
 ];
 
 const sprints: Sprint[] = [

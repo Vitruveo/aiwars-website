@@ -15,7 +15,7 @@ export default function TrendsBanner() {
           AI Wars Trends · Live
         </span>
         <span className="grad-ember mt-2 block text-balance font-display text-xl font-bold sm:text-2xl">
-          Call the battle every five minutes. Win credits toward a free Tier 5 shard. Five plays free.
+          Call the battle every five minutes. Win credits toward a Tier 5 shard.
         </span>
       </span>
       <span className="relative shrink-0 border border-ember bg-ember px-6 py-3 text-center font-mono text-base font-bold uppercase tracking-[0.3em] text-abyss shadow-[0_0_30px_rgba(240,149,79,0.55)] transition-all group-hover:border-ink group-hover:bg-ink">
