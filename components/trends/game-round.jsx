@@ -411,6 +411,17 @@ export function GameRound({
               <g clipPath={`url(#game-plot-${id})`}>
                 <line x1={PX0} y1={py(userA + b * (viewStart - refStart))} x2={PX1} y2={py(userA + b * (viewEnd - refStart))} stroke={EMBER} strokeWidth="2.5" />
               </g>
+              {withStrip && (
+                <line
+                  x1={PX1}
+                  y1={py(userA + b * (viewEnd - refStart))}
+                  x2={BX0 - 2}
+                  y2={py(userA + b * (tsAtX(BX0 - 2) - refStart))}
+                  stroke={EMBER}
+                  strokeWidth="2.5"
+                  opacity="0.9"
+                />
+              )}
             </>
           )}
 
