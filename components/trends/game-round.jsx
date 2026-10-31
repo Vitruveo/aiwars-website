@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { GAME_S, FEED, BUCKET_NAMES, bucketRgba, bucketOf, stripEdges, trendAbsOf } from '@/lib/trends/gamemath';
 
 // Chart geometry
@@ -207,6 +207,14 @@ export function GameRound({
     setPick(i);
     setB((e[i] + e[i + 1]) / 2 / (GAME_S - 1)); // slope whose window trend is the bucket's middle
   };
+  // A fresh pick each game, preselected to the bucket the live trend is in, so the bet button is ready
+  // the moment the page loads. One click on another bucket changes it.
+  useEffect(() => {
+    setPick(null);
+  }, [start]);
+  useEffect(() => {
+    if (pick === null && canPick && liveBucket >= 0) choose(liveBucket);
+  }, [pick, canPick, liveBucket]); // eslint-disable-line react-hooks/exhaustive-deps
   const highlight = (i) => (settled ? i === trueBucket || (i === aimBucket && showAim) : i === liveBucket || (showAim && i === aimBucket));
   const boxFill = (i) => bucketRgba(i, highlight(i) ? 0.3 : 0.08);
   const boxStroke = (i) => bucketRgba(i, highlight(i) ? 1 : 0.45);
@@ -524,7 +532,11 @@ export function GameRound({
             ) : showAim ? (
               <>
                 {' '}&middot; your pick <span style={{ color: EMBER, fontWeight: 600 }}>{BUCKET_NAMES[aimBucket]}</span>
-                {hitCredits ? <> &middot; a hit earns <span style={{ color: '#eef3fb' }}>{hitCredits}</span> credits</> : null}
+                {!canBet && phase === 'open' ? (
+                  <> &middot; {betHint}</>
+                ) : hitCredits ? (
+                  <> &middot; a hit earns <span style={{ color: '#eef3fb' }}>{hitCredits}</span> credits</>
+                ) : null}
               </>
             ) : canBet && phase === 'open' ? (
               <> &middot; pick the bucket the trend will settle in</>
