@@ -70,9 +70,7 @@ export default function ActivationTabs() {
 
       {tab === 1 && (
         <a
-          href="https://www.pretrend.ai/market/aiwars/"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/trends"
           className="group flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-8"
         >
           <div className="shrink-0">
@@ -80,13 +78,13 @@ export default function ActivationTabs() {
           </div>
           <div className="flex-1">
             <p className="font-mono text-base uppercase tracking-[0.35em] text-ember">Trade the battle</p>
-            <p className="display mt-2 text-2xl text-ink sm:text-3xl">AIWars Trends on Pretrend</p>
+            <p className="display mt-2 text-2xl text-ink sm:text-3xl">AIWars Trends</p>
             <p className="mt-2 max-w-2xl text-lg text-dim">
               Pretrend reads live Battle Momentum from the Fall of Meridian and opens a new five-minute trend market on every five-minute mark. Stake up to 1,000 VTRU in the first minute, falling to 100 by the fourth, on which of five buckets the trend settles in. Hit and your stake comes back with 0.5x in credits; every 5,000 credits mints you a Tier 5 shard. Miss and the stake is burned. You can play five times without holding a Tier 1 shard.
             </p>
           </div>
           <span className="shrink-0 border border-signal bg-signal/15 px-6 py-4 font-mono text-base uppercase tracking-[0.3em] text-signal transition-all group-hover:bg-signal/25">
-            Play on pretrend.ai
+            Play Trends
           </span>
         </a>
       )}
