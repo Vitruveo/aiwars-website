@@ -6,7 +6,7 @@ import TierFlow from "@/components/TierFlow";
 import LiveSignal from "@/components/LiveSignal";
 import Logo from "@/components/Logo";
 import ActivationTabs from "@/components/ActivationTabs";
-import MysteryBanner from "@/components/MysteryBanner";
+import TrendsBanner from "@/components/TrendsBanner";
 
 import meridian from "@/public/art/meridian.jpg";
 import war from "@/public/art/war.jpg";
@@ -106,7 +106,7 @@ export default function Home() {
                 Enter the universe
               </a>
             </div>
-            <MysteryBanner />
+            <TrendsBanner />
           </div>
           <div className="mt-12">
             <ActivationTabs />

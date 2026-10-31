@@ -52,6 +52,9 @@ async function pass() {
     } catch {
       continue; // burned
     }
+    // AI Wars Trends prizes are minted by the game with an explicit tier; they are not sale tokens.
+    const explicit = await nftPub.readContract({ address: NFT_ADDRESS, abi: NFT_ABI, functionName: "explicitTier", args: [BigInt(id)] }).catch(() => 0);
+    if (Number(explicit) !== 0) continue;
     if (owner.toLowerCase() !== buyers[pos].toLowerCase()) {
       throw new Error(`token ${id} is owned by ${owner} but purchase ${indices[pos]} belongs to ${buyers[pos]}; resolve manually`);
     }

@@ -86,6 +86,22 @@ export default function Mint() {
             </Reveal>
           </div>
           <BeaconBanner />
+          <Reveal>
+            <a
+              href="/genesis"
+              className="group mt-6 flex flex-col gap-4 border border-ember/60 bg-[#1a0d06]/80 px-6 py-5 backdrop-blur-sm transition-colors hover:bg-[#241108]/90 sm:flex-row sm:items-center sm:justify-between"
+            >
+              <span className="min-w-0">
+                <span className="block font-mono text-sm font-bold uppercase tracking-[0.35em] text-ember">Genesis</span>
+                <span className="mt-2 block text-balance text-lg text-ink sm:text-xl">
+                  Bring buyers in. Earn 10% on every shard minted with your link, and a free shard every 20 sales.
+                </span>
+              </span>
+              <span className="shrink-0 border border-ember bg-ember px-6 py-3 text-center font-mono text-base font-bold uppercase tracking-[0.3em] text-abyss transition-colors group-hover:border-ink group-hover:bg-ink">
+                Open Genesis
+              </span>
+            </a>
+          </Reveal>
         </div>
       </section>
 

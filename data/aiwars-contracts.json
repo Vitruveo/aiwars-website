@@ -119,6 +119,133 @@
       {
         "type": "event",
         "anonymous": false,
+        "name": "BetPlaced",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "gameSerial",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "bettor",
+            "indexed": true
+          },
+          {
+            "type": "uint8",
+            "name": "bucket",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "amount",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Burned",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "gameSerial",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "amount",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Funded",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "from",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "amount",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "GameResolved",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "gameSerial",
+            "indexed": true
+          },
+          {
+            "type": "uint8",
+            "name": "bucket",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "GameRulesUpdated",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "gameMin",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "gameMax",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "creditBps",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "creditsPerNft",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "freePlays",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "lockSeconds",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "GameVoided",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "gameSerial",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
         "name": "Initialized",
         "inputs": [
           {
@@ -172,6 +299,79 @@
       {
         "type": "event",
         "anonymous": false,
+        "name": "PrizeMinted",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "player",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "tokenId",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "creditsSpent",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Refunded",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "gameSerial",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "bettor",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "stake",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "ServiceUpdated",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "service",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "TierSet",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "tokenId",
+            "indexed": true
+          },
+          {
+            "type": "uint8",
+            "name": "tier",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
         "name": "Transfer",
         "inputs": [
           {
@@ -212,6 +412,148 @@
             "type": "address",
             "name": "implementation",
             "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Withdrawn",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "to",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "amount",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Won",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "gameSerial",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "bettor",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "stake",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "credit",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "BUCKETS",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint8",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "BURN_ADDRESS",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "GAME_PERIOD",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "PLAY_TIER",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint8",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "PRIZE_CAP",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "PRIZE_TIER",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint8",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "RESULT_TIMEOUT",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
           }
         ]
       },
@@ -280,6 +622,285 @@
       },
       {
         "type": "function",
+        "name": "canPlay",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "claim",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "gameSerial"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": "refund"
+          },
+          {
+            "type": "uint256",
+            "name": "credit"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "claimFor",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "gameSerial"
+          },
+          {
+            "type": "address",
+            "name": "account"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": "refund"
+          },
+          {
+            "type": "uint256",
+            "name": "credit"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "claimable",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          },
+          {
+            "type": "uint256",
+            "name": "gameSerial"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": "refund"
+          },
+          {
+            "type": "uint256",
+            "name": "credit"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "creditBps",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "creditsPerNft",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "currentGame",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "explicitTier",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "tokenId"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint8",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "freePlays",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "freePlaysLeft",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "fund",
+        "constant": false,
+        "stateMutability": "payable",
+        "payable": true,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "gameInfo",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "gameSerial"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": "bettors"
+          },
+          {
+            "type": "uint256[5]",
+            "name": "bucketStakes"
+          },
+          {
+            "type": "uint256",
+            "name": "settled"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "gameMax",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "gameMin",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "gameResult",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "gameSerial"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": "resolved"
+          },
+          {
+            "type": "uint8",
+            "name": "bucket"
+          },
+          {
+            "type": "bool",
+            "name": "voided"
+          }
+        ]
+      },
+      {
+        "type": "function",
         "name": "getApproved",
         "constant": true,
         "stateMutability": "view",
@@ -293,6 +914,60 @@
         "outputs": [
           {
             "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "getBet",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          },
+          {
+            "type": "uint256",
+            "name": "gameSerial"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": "amount"
+          },
+          {
+            "type": "uint8",
+            "name": "bucket"
+          },
+          {
+            "type": "bool",
+            "name": "claimed"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "holdsTier",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          },
+          {
+            "type": "uint8",
+            "name": "tier"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
             "name": ""
           }
         ]
@@ -324,6 +999,62 @@
         "outputs": [
           {
             "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "isBettingOpen",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "gameSerial"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "isWinner",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          },
+          {
+            "type": "uint256",
+            "name": "gameSerial"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "lockSeconds",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
             "name": ""
           }
         ]
@@ -452,6 +1183,162 @@
       },
       {
         "type": "function",
+        "name": "placeBet",
+        "constant": false,
+        "stateMutability": "payable",
+        "payable": true,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "gameSerial"
+          },
+          {
+            "type": "uint256",
+            "name": "bet"
+          },
+          {
+            "type": "uint8",
+            "name": "bucket"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "playerCount",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "playerOf",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "tuple",
+            "name": "",
+            "components": [
+              {
+                "type": "uint64",
+                "name": "plays"
+              },
+              {
+                "type": "uint64",
+                "name": "wins"
+              },
+              {
+                "type": "uint32",
+                "name": "tier5Won"
+              },
+              {
+                "type": "uint128",
+                "name": "staked"
+              },
+              {
+                "type": "uint128",
+                "name": "returned"
+              },
+              {
+                "type": "uint128",
+                "name": "credits"
+              },
+              {
+                "type": "uint128",
+                "name": "creditsEarned"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "players",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "offset"
+          },
+          {
+            "type": "uint256",
+            "name": "limit"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "address[]",
+            "name": "addrs"
+          },
+          {
+            "type": "tuple[]",
+            "name": "stats",
+            "components": [
+              {
+                "type": "uint64",
+                "name": "plays"
+              },
+              {
+                "type": "uint64",
+                "name": "wins"
+              },
+              {
+                "type": "uint32",
+                "name": "tier5Won"
+              },
+              {
+                "type": "uint128",
+                "name": "staked"
+              },
+              {
+                "type": "uint128",
+                "name": "returned"
+              },
+              {
+                "type": "uint128",
+                "name": "credits"
+              },
+              {
+                "type": "uint128",
+                "name": "creditsEarned"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "prizesMinted",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
         "name": "proxiableUUID",
         "constant": true,
         "stateMutability": "view",
@@ -470,6 +1357,23 @@
         "constant": false,
         "payable": false,
         "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "result",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "gameSerial"
+          },
+          {
+            "type": "uint8",
+            "name": "bucket"
+          }
+        ],
         "outputs": []
       },
       {
@@ -520,6 +1424,20 @@
       },
       {
         "type": "function",
+        "name": "service",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
         "name": "setApprovalForAll",
         "constant": false,
         "payable": false,
@@ -550,6 +1468,69 @@
       },
       {
         "type": "function",
+        "name": "setGameRules",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "gameMin_"
+          },
+          {
+            "type": "uint256",
+            "name": "gameMax_"
+          },
+          {
+            "type": "uint256",
+            "name": "creditBps_"
+          },
+          {
+            "type": "uint256",
+            "name": "creditsPerNft_"
+          },
+          {
+            "type": "uint256",
+            "name": "freePlays_"
+          },
+          {
+            "type": "uint256",
+            "name": "lockSeconds_"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setService",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "service_"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setTiers",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256[]",
+            "name": "tokenIds"
+          },
+          {
+            "type": "uint8",
+            "name": "tier"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
         "name": "setTokenURI",
         "constant": false,
         "payable": false,
@@ -564,6 +1545,28 @@
           }
         ],
         "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "settle",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "gameSerial"
+          },
+          {
+            "type": "uint256",
+            "name": "max"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": "remaining"
+          }
+        ]
       },
       {
         "type": "function",
@@ -594,6 +1597,48 @@
         "outputs": [
           {
             "type": "string",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "tierCount",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          },
+          {
+            "type": "uint8",
+            "name": "tier"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": "count"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "tierOf",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "tokenId"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint8",
             "name": ""
           }
         ]
@@ -655,6 +1700,20 @@
         "outputs": [
           {
             "type": "string",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "totalBurned",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
             "name": ""
           }
         ]
@@ -731,6 +1790,14 @@
       },
       {
         "type": "function",
+        "name": "upgradeInit",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
         "name": "upgradeTo",
         "constant": false,
         "payable": false,
@@ -759,6 +1826,40 @@
           }
         ],
         "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "voidGame",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "gameSerial"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "withdraw",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "to"
+          },
+          {
+            "type": "uint256",
+            "name": "amount"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "receive",
+        "stateMutability": "payable"
       }
     ],
     "ShardSale": [

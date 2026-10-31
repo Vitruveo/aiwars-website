@@ -3,13 +3,14 @@
 import { useEffect, useState } from "react";
 import Logo from "@/components/Logo";
 import WalletButton from "@/components/WalletButton";
+import { TRENDS_URL } from "@/components/TrendsBanner";
 
 type Link = { href: string; label: string; children?: { href: string; label: string }[] };
 
 const links: Link[] = [
   { href: "/#universe", label: "Universe" },
   { href: "/nft", label: "Shards" },
-  { href: "/mint", label: "Mint", children: [{ href: "/genesis", label: "Genesis" }] },
+  { href: TRENDS_URL, label: "Trends" },
   { href: "/scape", label: "Scape" },
   // Roadmap (/roadmap, built but hidden) and Cost join Whitepaper here when they go live.
   { href: "/whitepaper", label: "Blueprint", children: [{ href: "/whitepaper", label: "Whitepaper" }] },
