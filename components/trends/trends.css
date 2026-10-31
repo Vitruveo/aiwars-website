@@ -521,4 +521,3 @@
 html:has(.aw-page) { scroll-behavior: smooth; }
 .aw-page .ms-auto { margin-left: auto !important; }
 .aw-page .aw-pick-row .aw-bucket-btn { padding: 10px 0 !important; font-size: 0.95rem !important; }
-.aw-page .aw-bucket-btn[aria-pressed="true"] { box-shadow: 0 0 0 2px #eef3fb inset; }

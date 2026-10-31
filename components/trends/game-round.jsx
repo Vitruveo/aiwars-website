@@ -215,10 +215,15 @@ export function GameRound({
   useEffect(() => {
     if (pick === null && canPick && liveBucket >= 0) choose(liveBucket);
   }, [pick, canPick, liveBucket]); // eslint-disable-line react-hooks/exhaustive-deps
-  const highlight = (i) => (settled ? i === trueBucket || (i === aimBucket && showAim) : i === liveBucket || (showAim && i === aimBucket));
-  const boxFill = (i) => bucketRgba(i, highlight(i) ? 0.3 : 0.08);
-  const boxStroke = (i) => bucketRgba(i, highlight(i) ? 1 : 0.45);
-  const boxText = (i) => (highlight(i) ? '#ffffff' : bucketRgba(i, 0.9));
+  // Two different marks: the bucket the trend is in (live, or the settled answer) is FILLED in its colour;
+  // the player's pick is OUTLINED in ember, the colour of their line. One bucket can carry both.
+  const isLive = (i) => (settled ? i === trueBucket : i === liveBucket);
+  const isPick = (i) => showAim && i === aimBucket;
+  const boxFill = (i) => bucketRgba(i, isLive(i) ? 0.38 : 0.06);
+  const boxStroke = (i) => (isPick(i) ? EMBER : bucketRgba(i, isLive(i) ? 0.9 : 0.4));
+  const boxStrokeW = (i) => (isPick(i) ? 3 : 1.5);
+  const boxText = (i) => (isLive(i) || isPick(i) ? '#ffffff' : bucketRgba(i, 0.9));
+  const liveTag = settled ? 'RESULT' : 'LIVE';
 
   const progress = settled ? 1 : Math.max(0, Math.min(1, elapsed / n));
   const lockFrac = lockS / n;
@@ -292,7 +297,7 @@ export function GameRound({
           {fit && (
             <g clipPath={`url(#game-plot-${id})`}>
               {wedges.map((pts, i) => (
-                <polygon key={`w${i}`} points={pts} fill={bucketRgba(i, highlight(i) ? 0.28 : 0.09)} />
+                <polygon key={`w${i}`} points={pts} fill={bucketRgba(i, isLive(i) ? 0.28 : isPick(i) ? 0.16 : 0.09)} />
               ))}
               {thresholds.map((t, i) => (
                 <line
@@ -324,7 +329,17 @@ export function GameRound({
                 aria-label={canPick ? `Pick ${name}` : undefined}
                 aria-pressed={canPick ? pick === i : undefined}
               >
-                <rect x={BX0} y={top} width={BX1 - BX0} height={h} rx={h >= 12 ? 6 : 2} fill={boxFill(i)} stroke={boxStroke(i)} strokeWidth={!settled && !inGame && pick === i ? 3 : 1.5} />
+                <rect x={BX0} y={top} width={BX1 - BX0} height={h} rx={h >= 12 ? 6 : 2} fill={boxFill(i)} stroke={boxStroke(i)} strokeWidth={boxStrokeW(i)} />
+                {h >= 26 && isPick(i) && (
+                  <text x={BX0 + 8} y={top + 13} fill={EMBER} fontSize="10" fontWeight="700" letterSpacing="1.5" fontFamily={FONT}>
+                    {inGame || settled ? 'YOUR BET' : 'PICK'}
+                  </text>
+                )}
+                {h >= 26 && isLive(i) && (
+                  <text x={BX1 - 8} y={top + 13} textAnchor="end" fill="rgba(255,255,255,0.75)" fontSize="10" fontWeight="700" letterSpacing="1.5" fontFamily={FONT}>
+                    {liveTag}
+                  </text>
+                )}
                 {fs > 0 && (
                   <text x={(BX0 + BX1) / 2} y={(top + bottom) / 2 + fs * 0.35} textAnchor="middle" fill={boxText(i)} fontSize={fs} fontWeight="600" fontFamily={FONT}>
                     {name}
@@ -454,7 +469,7 @@ export function GameRound({
             aria-pressed={pick === i}
             style={{
               background: boxFill(i),
-              border: `1.5px solid ${boxStroke(i)}`,
+              border: `${isPick(i) ? 3 : 1.5}px solid ${boxStroke(i)}`,
               borderRadius: '6px',
               padding: '8px 0',
               fontFamily: FONT,
