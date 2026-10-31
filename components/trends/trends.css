@@ -467,7 +467,7 @@
 .aw-intro-col { padding-top: 1.5rem; }
 @media (min-width: 992px) { .aw-intro-col { padding-top: calc(1.5rem + 1px); } }
 .aw-electric.h-100 { width: 100%; }
-.aw-electric.h-100 .aw-electric-title { font-size: clamp(1.2rem, 1.75vw, 1.7rem); }
+.aw-electric.h-100 .aw-electric-title { font-size: clamp(1.2rem, 1.75vw, 1.7rem); margin-bottom: 1rem; }
 .aw-electric.h-100 .aw-electric-sub { font-size: 0.85rem; }
 @media (max-width: 991.98px) {
   .aw-electric.h-100 .aw-electric-inner { min-height: 220px; }

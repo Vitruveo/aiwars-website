@@ -1,9 +1,10 @@
 import { getDefaultConfig } from "@rainbow-me/rainbowkit";
 import { bsc } from "wagmi/chains";
-import { vitruveo } from "@/lib/chains";
+import { vitruveo as vitruveoChain } from "@/lib/chains";
 
 // Two networks. Payment (USDT) happens on BNB Smart Chain; the NFT lives on Vitruveo.
-export { vitruveo };
+// RainbowKit has no built-in icon for Vitruveo; the mark is cut from vitruveo.com's logo.
+export const vitruveo = { ...vitruveoChain, iconUrl: "/vitruveo.svg", iconBackground: "#04070d" };
 
 export const PAY_CHAIN = bsc;
 export const NFT_CHAIN = vitruveo;

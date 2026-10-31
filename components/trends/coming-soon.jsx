@@ -164,7 +164,7 @@ export function PreviewLiveBanner() {
       <div className="aw-electric-veil" />
       <div className="aw-electric-bolt" />
       <div className="aw-electric-inner">
-        <p className="aw-kicker aw-kicker-ember mb-2">Archive status &middot; live</p>
+        <p className="aw-kicker aw-kicker-ember mb-2">Archive &middot; live</p>
         <div className="aw-display aw-electric-title">Play with VTRU</div>
         <p className="aw-electric-sub mb-0">
           Stake VTRU on the bucket the trend will settle in. A hit returns your stake plus credits toward a Tier 5
