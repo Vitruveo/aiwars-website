@@ -108,7 +108,7 @@ export default function Home() {
             </div>
             <TrendsBanner />
           </div>
-          <div className="mt-12">
+          <div id="activations" className="mt-12 scroll-mt-20">
             <ActivationTabs />
           </div>
         </div>

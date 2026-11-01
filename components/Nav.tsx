@@ -10,8 +10,15 @@ type Link = { href: string; label: string; children?: { href: string; label: str
 const links: Link[] = [
   { href: "/#universe", label: "Universe" },
   { href: "/nft", label: "Shards" },
-  { href: TRENDS_URL, label: "Trends" },
-  { href: "/scape", label: "Scape" },
+  {
+    href: "/#activations",
+    label: "Activations",
+    children: [
+      { href: "/scape", label: "Scape" },
+      { href: TRENDS_URL, label: "Trends" },
+      { href: "/enlist", label: "Enlist" },
+    ],
+  },
   // Roadmap (/roadmap, built but hidden) and Cost join Whitepaper here when they go live.
   { href: "/whitepaper", label: "Blueprint", children: [{ href: "/whitepaper", label: "Whitepaper" }] },
 ];

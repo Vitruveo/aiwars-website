@@ -7,7 +7,7 @@ import TrendsChart from "@/components/TrendsChart";
 
 // Mint page: what a shard switches on. One tab per activation; the first is live,
 // the second is the Pretrend trend game, the rest are still sealed.
-const TABS = ["Beacon", "Trends", "Unknown", "Unknown"];
+const TABS = ["Beacon", "Trends", "Enlist", "Unknown"];
 
 export default function ActivationTabs() {
   const [tab, setTab] = useState(0);
@@ -89,7 +89,25 @@ export default function ActivationTabs() {
         </a>
       )}
 
-      {tab >= 2 && (
+      {tab === 2 && (
+        <a href="/enlist" className="group flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-8">
+          <div className="shrink-0">
+            <Shard tier={2} size={84} float />
+          </div>
+          <div className="flex-1">
+            <p className="font-mono text-base uppercase tracking-[0.35em] text-ember">Join the war</p>
+            <p className="display mt-2 text-2xl text-ink sm:text-3xl">Enlist your survivor</p>
+            <p className="mt-2 max-w-2xl text-lg text-dim">
+              Every shard enlists one survivor in the Fall of Meridian. Name them and pick their role; the Archive writes their story and paints their portrait. The daily dispatch puts them in the war, and they come with you when the game ships.
+            </p>
+          </div>
+          <span className="shrink-0 border border-signal bg-signal/15 px-6 py-4 font-mono text-base uppercase tracking-[0.3em] text-signal transition-all group-hover:bg-signal/25">
+            Enlist
+          </span>
+        </a>
+      )}
+
+      {tab >= 3 && (
         <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-8">
           <div className="shrink-0 opacity-40">
             <Shard tier={tab + 2} size={84} />
