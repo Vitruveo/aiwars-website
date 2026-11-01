@@ -5,6 +5,7 @@ import { NFT_ADDRESS, NFT_ABI } from "@/lib/contracts";
 import { sql, ensureSchema } from "@/lib/db";
 import { SECTOR_SIZE } from "@/lib/scape/sector";
 import { beaconMessage } from "@/lib/scape/beaconMessage";
+import { wonTokenIds } from "@/lib/scape/won";
 
 // Beacons: one named point per sector, set by whoever holds that shard on Vitruveo.
 // Ownership is proven by a signed message and checked against ownerOf on chain.
@@ -17,8 +18,11 @@ const WINDOW_MS = 10 * 60 * 1000;
 export async function GET() {
   try {
     await ensureSchema();
-    const rows = await sql()`SELECT token_id, name, x, z, owner FROM beacons ORDER BY token_id`;
-    return NextResponse.json({ beacons: rows.map((r) => ({ tokenId: Number(r.token_id), name: r.name, x: Number(r.x), z: Number(r.z), owner: r.owner })) });
+    const [rows, won] = await Promise.all([
+      sql()`SELECT token_id, name, x, z, owner FROM beacons ORDER BY token_id`,
+      wonTokenIds().catch(() => [] as number[]), // sectors whose shard was won in AI Wars Trends
+    ]);
+    return NextResponse.json({ beacons: rows.map((r) => ({ tokenId: Number(r.token_id), name: r.name, x: Number(r.x), z: Number(r.z), owner: r.owner })), won });
   } catch (e) {
     return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }

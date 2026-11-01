@@ -21,6 +21,7 @@ export default function ScapeScene({
   locked = false,
   onManual,
   manual,
+  won = false,
 }: {
   sector: Sector;
   beacons: BeaconRecord[];
@@ -30,6 +31,7 @@ export default function ScapeScene({
   locked?: boolean;
   onManual?: (m: boolean) => void;
   manual: boolean;
+  won?: boolean;
 }) {
   const p = sector.palette;
   const fogDensity = locked ? sector.fogDensity * 2.6 : sector.fogDensity;
@@ -55,7 +57,7 @@ export default function ScapeScene({
         <Terrain sector={sector} segments={locked ? 110 : 180} onPick={placing && onPick ? (v) => onPick(v.x, v.z) : undefined} />
         <Structures sector={sector} />
         <Beacon sector={sector} />
-        <Markers sector={sector} beacons={beacons} draft={draft} />
+        <Markers sector={sector} beacons={beacons} draft={draft} won={won} />
       </Suspense>
       <FlyCamera
         sector={sector}

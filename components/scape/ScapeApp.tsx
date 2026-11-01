@@ -20,7 +20,7 @@ export default function ScapeApp() {
   useEffect(() => setMounted(true), []);
   const { isConnected, address, tokenIds } = useMyShards();
   const { openConnectModal } = useConnectModal();
-  const { beacons, refresh } = useBeacons();
+  const { beacons, won, refresh } = useBeacons();
   const { signMessageAsync } = useSignMessage();
 
   const mintedRead = useReadContract({ address: NFT_ADDRESS, abi: NFT_ABI, functionName: "totalMinted", chainId: NFT_CHAIN.id, query: { enabled: Boolean(NFT_ADDRESS), refetchInterval: 20_000 } });
@@ -101,7 +101,7 @@ export default function ScapeApp() {
     <div className="flex flex-col gap-4">
       {/* flyover */}
       <div ref={stage} className="panel panel-flat relative overflow-hidden bg-abyss" style={{ height: full ? "100svh" : "min(78svh, 820px)" }}>
-        {mounted && <ScapeScene sector={sector} beacons={sectorBeacons} draft={draft} placing={placing} onPick={(x, z) => setDraft((d) => ({ x, z, name: d?.name ?? "" }))} manual={manual} onManual={setManual} />}
+        {mounted && <ScapeScene sector={sector} beacons={sectorBeacons} draft={draft} placing={placing} onPick={(x, z) => setDraft((d) => ({ x, z, name: d?.name ?? "" }))} manual={manual} onManual={setManual} won={won.has(selected)} />}
 
         {/* HUD */}
         <div className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between p-5 sm:p-6">
@@ -111,6 +111,7 @@ export default function ScapeApp() {
             <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.25em] text-faint">
               {BIOME_LABEL[sector.biome]} · Tier {String(sector.tier).padStart(2, "0")} {sector.tierName} · grid {sector.cell.x}, {sector.cell.y}
             </p>
+            {won.has(selected) && <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.25em] text-ember">Won in AI Wars Trends</p>}
             <form
               className="pointer-events-auto mt-3 flex items-center gap-1 font-mono text-xs uppercase tracking-[0.25em]"
               onSubmit={(e) => {
@@ -228,6 +229,7 @@ export default function ScapeApp() {
               setSelected(id);
             }}
             beaconIds={beaconIds}
+            wonIds={won}
             height={600}
           />
         </div>
@@ -269,7 +271,7 @@ export default function ScapeApp() {
             </>
           )}
           <p className="mt-5 font-mono text-[11px] uppercase tracking-[0.25em] text-faint">
-            <span className="text-ink">{minted.toLocaleString("en-US")}</span> lit · <span className="text-ink">{beacons.length}</span> beacons
+            <span className="text-ink">{minted.toLocaleString("en-US")}</span> lit · <span className="text-ink">{beacons.length}</span> beacons · <span className="text-ember">{won.size}</span> won in Trends
           </p>
         </div>
       </div>

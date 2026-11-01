@@ -49,9 +49,10 @@ function Label({ text, color, y }: { text: string; color: string; y: number }) {
 
 // A holder's beacon: a light pillar into the sky, a slow sweeping beam, rings pulsing out
 // across the ground, and the name floating above. The draft (while placing) is ember.
-function BeaconMark({ sector, x, z, name, draft }: { sector: Sector; x: number; z: number; name: string; draft: boolean }) {
+// A beacon in a sector won in AI Wars Trends burns ember and carries a second plate saying so.
+function BeaconMark({ sector, x, z, name, draft, won = false }: { sector: Sector; x: number; z: number; name: string; draft: boolean; won?: boolean }) {
   const y = Math.max(sector.height(x, z), -6);
-  const color = draft ? "#f0954f" : "#2d8cff";
+  const color = draft || won ? "#f0954f" : "#2d8cff";
   const sweep = useRef<THREE.Group>(null);
   const rings = useRef<THREE.Mesh[]>([]);
   const core = useRef<THREE.Mesh>(null);
@@ -113,15 +114,16 @@ function BeaconMark({ sector, x, z, name, draft }: { sector: Sector; x: number; 
       </mesh>
       <pointLight position={[0, 14, 0]} color={color} intensity={1400} distance={220} decay={2} />
       <Label text={name || "UNNAMED"} color={color} y={30} />
+      {won && !draft && <Label text="Won in AI Wars Trends" color={color} y={22} />}
     </group>
   );
 }
 
-export default function Markers({ sector, beacons, draft }: { sector: Sector; beacons: BeaconRecord[]; draft?: { x: number; z: number; name: string } | null }) {
+export default function Markers({ sector, beacons, draft, won = false }: { sector: Sector; beacons: BeaconRecord[]; draft?: { x: number; z: number; name: string } | null; won?: boolean }) {
   return (
     <group>
       {beacons.map((b) => (
-        <BeaconMark key={b.tokenId} sector={sector} x={b.x} z={b.z} name={b.name} draft={false} />
+        <BeaconMark key={b.tokenId} sector={sector} x={b.x} z={b.z} name={b.name} draft={false} won={won} />
       ))}
       {draft && <BeaconMark sector={sector} x={draft.x} z={draft.z} name={draft.name} draft />}
     </group>

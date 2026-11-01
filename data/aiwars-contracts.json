@@ -517,6 +517,20 @@
       },
       {
         "type": "function",
+        "name": "PRIZES_PER_WINDOW",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
         "name": "PRIZE_CAP",
         "constant": true,
         "stateMutability": "view",
@@ -698,6 +712,24 @@
           {
             "type": "uint256",
             "name": "credit"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "claimPrizes",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
           }
         ]
       },
@@ -1136,6 +1168,25 @@
         "outputs": [
           {
             "type": "string",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "nextPrizeAt",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
             "name": ""
           }
         ]

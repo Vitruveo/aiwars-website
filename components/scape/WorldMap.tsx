@@ -6,6 +6,7 @@ import { tierForTokenId } from "@/lib/shards";
 import { sectorFor } from "@/lib/scape/sector";
 
 const TIER_COLOR = ["#f0954f", "#5aa6ff", "#2d8cff", "#1b5fd6", "#8fa0ba"];
+const WON = "#ffd166"; // Tier 1 tiles are already ember, so won sectors burn gold
 
 // The whole Scape from orbit: 5,000 sectors spiralling out from the Archive. Minted sectors are lit.
 export default function WorldMap({
@@ -14,6 +15,7 @@ export default function WorldMap({
   selected,
   onSelect,
   beaconIds,
+  wonIds = new Set(),
   height = 320,
 }: {
   minted: number;
@@ -21,6 +23,7 @@ export default function WorldMap({
   selected: number;
   onSelect: (id: number) => void;
   beaconIds: Set<number>;
+  wonIds?: Set<number>;
   height?: number;
 }) {
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -85,6 +88,24 @@ export default function WorldMap({
       g.fillRect(cx + cell.x * cellPx - cellPx * 0.42, cy + cell.y * cellPx - cellPx * 0.42, cellPx * 0.84, cellPx * 0.84);
       g.shadowBlur = 0;
     }
+    // sectors won in AI Wars Trends burn gold, ringed
+    for (const id of wonIds) {
+      const cell = ALL_CELLS[id - 1];
+      if (!cell) continue;
+      const x = cx + cell.x * cellPx;
+      const y = cy + cell.y * cellPx;
+      const pulse = 0.6 + 0.4 * Math.sin(t * 3 + id);
+      g.fillStyle = WON;
+      g.shadowColor = WON;
+      g.shadowBlur = 20;
+      g.fillRect(x - cellPx * 0.42, y - cellPx * 0.42, cellPx * 0.84, cellPx * 0.84);
+      g.shadowBlur = 0;
+      g.strokeStyle = WON;
+      g.globalAlpha = pulse;
+      g.lineWidth = 1.5;
+      g.strokeRect(x - cellPx * 0.75, y - cellPx * 0.75, cellPx * 1.5, cellPx * 1.5);
+      g.globalAlpha = 1;
+    }
     // the Archive
     const r = cellPx * 1.6 + Math.sin(t * 1.5) * cellPx * 0.2;
     const grad = g.createRadialGradient(cx, cy, 0, cx, cy, r * 3);
@@ -148,6 +169,7 @@ export default function WorldMap({
         {hoverSector ? (
           <>
             <span className="text-ink">{hoverSector.code}</span> · {hoverSector.name} · {hoverSector.tierName}
+            {wonIds.has(hover!) && <span style={{ color: WON }}> · won in Trends</span>}
             {beaconIds.has(hover!) ? <span className="text-ink"> · beacon</span> : hover && hover > minted ? <span className="text-faint"> · unlit</span> : <span className="text-signal"> · lit</span>}
           </>
         ) : (

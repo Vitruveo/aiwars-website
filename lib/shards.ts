@@ -16,7 +16,7 @@ export const TIERS: Tier[] = [
   { n: 2, name: "Vanguard", supply: 250, price: 100, acts: { power: true, scape: true, duo: true, trio: true } },
   { n: 3, name: "Defender", supply: 625, price: 100, acts: { power: true, scape: true, duo: true, trio: true } },
   { n: 4, name: "Citizen", supply: 1250, price: 100, acts: { power: true, scape: true, duo: true, trio: true } },
-  { n: 5, name: "Survivor", supply: 2750, price: 50, acts: { power: true, scape: false, duo: false, trio: true } },
+  { n: 5, name: "Survivor", supply: 2750, price: 50, acts: { power: true, scape: true, duo: false, trio: true } },
 ];
 
 // POWER — percentage bonuses. Each shard rolls POWER_SLOTS[tier] of these five at mint;
@@ -41,10 +41,10 @@ export const SCAPE: { name: string; what: string; from: number }[] = [
   { name: "Zone Link", what: "Comms, map and HUD keep working inside dead zones where machines jam everything.", from: 2 },
   { name: "Grapple Line", what: "Ascend tower faces and platform edges directly. Instead of a staircase, an escalator.", from: 3 },
   { name: "Transit Key", what: "Ride Meridian's suspended transport lines even where the network is dead.", from: 3 },
-  { name: "Drop Rig", what: "Step off any height and land unharmed. Descend a kilometer tower in seconds.", from: 4 },
-  { name: "Haze Sight", what: "See clearly through atmospheric haze, smoke and dust. No visibility penalty, ever.", from: 4 },
+  { name: "Drop Rig", what: "Step off any height and land unharmed. Descend a kilometer tower in seconds.", from: 5 },
+  { name: "Haze Sight", what: "See clearly through atmospheric haze, smoke and dust. No visibility penalty, ever.", from: 5 },
 ];
-export const SCAPE_SLOTS = [3, 2, 1, 1, 0];
+export const SCAPE_SLOTS = [3, 2, 1, 1, 1];
 
 // DUO — hold two shards and each of these doubles. Both shards must carry Duo.
 export const DUO: { name: string; what: string }[] = [

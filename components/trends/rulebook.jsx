@@ -17,6 +17,7 @@ export function Rulebook({ game }) {
   const lock = game?.lockSeconds ?? 240;
   const cap = game?.prizeCap ?? 750;
   const minted = game?.prizesMinted ?? 0;
+  const perWindow = game?.prizesPerWindow ?? 3;
 
   const winsAtMax = Math.max(1, Math.ceil(Number(perNft.replace(/,/g, '')) / (Number(max.replace(/,/g, '')) * Number(credit))));
   const rules = [
@@ -26,7 +27,7 @@ export function Rulebook({ game }) {
     ['Who can play', `You can play ${free} times without holding a Tier 1 Archive Shard. Every play stakes VTRU. From play ${free + 1} on, the wallet must hold a Tier 1 shard.`],
     ['A miss', 'Your stake is burned: sent to 0x…dEaD when the result is posted, gone for good.'],
     ['A hit', `Your stake comes back to your wallet automatically, plus ${credit}x of it in credits. Credits are not VTRU; they count toward shards.`],
-    ['Credits to shards', `Every ${perNft} credits mint a Tier 5 Archive Shard straight to your wallet and are deducted from your balance. At most one shard per wallet in any 24 hours; credits beyond that carry over and mint on a later win. ${winsAtMax === 1 ? `One win at the ${max} VTRU maximum stake earns a shard.` : `At the ${max} VTRU maximum stake, a shard takes at least ${winsAtMax} wins.`}`],
+    ['Credits to shards', `Every ${perNft} credits mint a Tier 5 Archive Shard straight to your wallet and are deducted from your balance. At most ${perWindow === 1 ? 'one shard' : `${perWindow} shards`} per wallet in any 24 hours; credits beyond that carry over and mint automatically once the 24 hours are up. ${winsAtMax === 1 ? `One win at the ${max} VTRU maximum stake earns a shard.` : `At the ${max} VTRU maximum stake, a shard takes at least ${winsAtMax} wins.`}`],
     ['The cap', `At most ${n(cap)} Tier 5 shards can ever be won. ${n(minted)} won so far. After the last one, credits still count on the leaderboard but mint nothing.`],
     ['Voids and delays', 'If the oracle stores too few points, the game is voided and every stake is returned. If no result lands within 24 hours, every stake can be claimed back.'],
     ['Settlement', 'Everything settles on chain in the AIWarsNFT contract on Vitruveo. The AI Wars service posts each result from the TrendPulse oracle; the contract burns, returns and mints.'],

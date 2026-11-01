@@ -9,11 +9,21 @@ import { SALE_ADDRESS, SALE_ABI, NFT_ADDRESS, NFT_ABI } from "@/lib/contracts";
 // It trusts nothing from the caller; the BSC contract is the only source of what to mint.
 //
 // Env: OWNER_PRIVATE_KEY (required), BSC_RPC_URL, VITRUVEO_RPC_URL, FULFILL_SKIP (owner gift mints
-// made outside the sale, default 3).
+// made outside the sale, default 3), FULFILL_GIFT_IDS (token ids given outside the sale after it
+// opened, as "a-b,c", default the first Archive run 17-26).
 
 export const maxDuration = 120;
 
 const BATCH = 50n;
+
+function parseIds(spec: string): Set<number> {
+  const ids = new Set<number>();
+  for (const part of spec.split(",").map((p) => p.trim()).filter(Boolean)) {
+    const [a, b] = part.split("-").map(Number);
+    for (let id = a; id <= (b || a); id++) ids.add(id);
+  }
+  return ids;
+}
 
 type Minted = { purchase: number; tokenId: number; to: Address };
 
@@ -27,6 +37,7 @@ async function pass() {
   if (!SALE_ADDRESS || !NFT_ADDRESS) throw new Error("contracts not deployed");
   const account = privateKeyToAccount((pk.startsWith("0x") ? pk : `0x${pk}`) as `0x${string}`);
   const skip = Number(process.env.FULFILL_SKIP ?? "3");
+  const gifts = parseIds(process.env.FULFILL_GIFT_IDS ?? "17-26");
 
   const bscTransport = http(process.env.BSC_RPC_URL || "https://bsc-dataseed.binance.org");
   const vtruTransport = http(process.env.VITRUVEO_RPC_URL || vitruveo.rpcUrls.default.http[0]);
@@ -46,6 +57,7 @@ async function pass() {
   const total = Number((await nftPub.readContract({ address: NFT_ADDRESS, abi: NFT_ABI, functionName: "totalMinted" })) as bigint);
   let pos = 0;
   for (let id = skip + issued + 1; id <= total && pos < indices.length; id++) {
+    if (gifts.has(id)) continue; // Archive gifts minted after the sale opened
     let owner: Address;
     try {
       owner = (await nftPub.readContract({ address: NFT_ADDRESS, abi: NFT_ABI, functionName: "ownerOf", args: [BigInt(id)] })) as Address;
