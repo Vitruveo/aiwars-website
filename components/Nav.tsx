@@ -19,8 +19,14 @@ const links: Link[] = [
       { href: "/enlist", label: "Enlist" },
     ],
   },
-  // Roadmap (/roadmap, built but hidden) and Cost join Whitepaper here when they go live.
-  { href: "/whitepaper", label: "Blueprint", children: [{ href: "/whitepaper", label: "Whitepaper" }] },
+  {
+    href: "/whitepaper",
+    label: "Blueprint",
+    children: [
+      { href: "/whitepaper", label: "Whitepaper" },
+      { href: "/roadmap", label: "Roadmap" },
+    ],
+  },
 ];
 
 const linkClass =

@@ -30,6 +30,22 @@ export const SIGN_WINDOW_MS = 10 * 60 * 1000;
 export const cleanName = (s: unknown) => String(s ?? "").replace(/[^\x20-\x7e]/g, "").replace(/\s+/g, " ").trim().slice(0, NAME_MAX);
 export const cleanLine = (s: unknown) => String(s ?? "").replace(/[^\x20-\x7e]/g, "").replace(/\s+/g, " ").trim().slice(0, LINE_MAX);
 
+export type Gender = "woman" | "man";
+
+// Broad ancestries, drawn evenly so the roster spans the world's people.
+export const ANCESTRIES = [
+  "West African", "East African", "Afro-Caribbean", "North African", "Middle Eastern", "South Asian", "East Asian",
+  "Southeast Asian", "Central Asian", "Pacific Islander", "Indigenous American", "Latin American", "Northern European",
+  "Southern European", "Eastern European",
+];
+
+// The survivor's default gender and ancestry, an even draw seeded by the shard id. The player's name or
+// lines override it when they imply otherwise.
+export function appearanceDraw(tokenId: number): { gender: Gender; ancestry: string } {
+  const r = mulberry32(hashSeed(tokenId, 0x475245));
+  return { gender: r() < 0.5 ? "woman" : "man", ancestry: ANCESTRIES[Math.floor(r() * ANCESTRIES.length)] };
+}
+
 export type EnlistForm = { name: string; role: string; origin: string; before: string; look: string };
 
 export function enlistMessage(tokenId: number, f: EnlistForm, ts: number) {
@@ -69,6 +85,7 @@ export type Survivor = {
   origin: string;
   epithet: string;
   backstory: string;
+  gender: Gender;
   tier: number; // 1..5
   rank: string;
   sector: string;

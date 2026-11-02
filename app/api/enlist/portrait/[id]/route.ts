@@ -38,7 +38,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
     if (!s) return NextResponse.json({ error: "no survivor for this shard" }, { status: 404 });
     if (s.regens >= PORTRAIT_REGENS) return NextResponse.json({ error: "no new portraits left" }, { status: 409 });
 
-    const { portrait, thumb } = await paintPortrait(s.visual, s.role, s.origin);
+    const { portrait, thumb } = await paintPortrait(s.visual, s.gender, s.role, s.origin);
     await savePortrait(tokenId, portrait, thumb, true);
     return NextResponse.json({ tokenId, portraitV: s.portraitV + 1, regens: s.regens + 1 });
   } catch (e) {

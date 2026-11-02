@@ -1,5 +1,5 @@
 import { sql, ensureSchema } from "@/lib/db";
-import type { Dispatch, Survivor } from "@/lib/enlist/profile";
+import type { Dispatch, Gender, Survivor } from "@/lib/enlist/profile";
 
 // Enlist state in Neon: one survivor row per shard (portrait bytes inline, WebP) and one dispatch per UTC day.
 
@@ -29,6 +29,8 @@ export function ensureEnlistSchema() {
         featured_count integer NOT NULL DEFAULT 0,
         created_at timestamptz NOT NULL DEFAULT now()
       )`;
+      // Every survivor enlisted before this column existed is a man.
+      await q`ALTER TABLE survivors ADD COLUMN IF NOT EXISTS gender text NOT NULL DEFAULT 'man'`;
       await q`CREATE TABLE IF NOT EXISTS dispatches (
         day date PRIMARY KEY,
         status text NOT NULL DEFAULT 'pending',
@@ -54,6 +56,7 @@ const toSurvivor = (r: Row): Survivor => ({
   role: String(r.role),
   origin: String(r.origin),
   epithet: String(r.epithet),
+  gender: r.gender === "woman" ? "woman" : "man",
   backstory: String(r.backstory),
   tier: Number(r.tier),
   rank: String(r.rank),
@@ -64,7 +67,7 @@ const toSurvivor = (r: Row): Survivor => ({
   createdAt: new Date(String(r.created_at)).toISOString(),
 });
 
-const COLS = "token_id, name, role, origin, epithet, backstory, tier, rank, sector, owner, portrait_v, regens, created_at";
+const COLS = "token_id, name, role, origin, epithet, gender, backstory, tier, rank, sector, owner, portrait_v, regens, created_at";
 
 export async function listSurvivors(): Promise<Survivor[]> {
   await ensureEnlistSchema();
@@ -80,11 +83,11 @@ export async function getSurvivor(tokenId: number): Promise<(Survivor & { visual
 
 export async function insertSurvivor(s: {
   tokenId: number; name: string; role: string; origin: string; before: string; look: string; epithet: string;
-  backstory: string; visual: string; tier: number; rank: string; sector: string; owner: string;
+  gender: Gender; backstory: string; visual: string; tier: number; rank: string; sector: string; owner: string;
 }) {
   await ensureEnlistSchema();
-  const rows = await sql()`INSERT INTO survivors (token_id, name, role, origin, before_line, look_line, epithet, backstory, visual, tier, rank, sector, owner)
-    VALUES (${s.tokenId}, ${s.name}, ${s.role}, ${s.origin}, ${s.before}, ${s.look}, ${s.epithet}, ${s.backstory}, ${s.visual}, ${s.tier}, ${s.rank}, ${s.sector}, ${s.owner})
+  const rows = await sql()`INSERT INTO survivors (token_id, name, role, origin, before_line, look_line, epithet, gender, backstory, visual, tier, rank, sector, owner)
+    VALUES (${s.tokenId}, ${s.name}, ${s.role}, ${s.origin}, ${s.before}, ${s.look}, ${s.epithet}, ${s.gender}, ${s.backstory}, ${s.visual}, ${s.tier}, ${s.rank}, ${s.sector}, ${s.owner})
     ON CONFLICT (token_id) DO NOTHING RETURNING token_id`;
   return rows.length > 0;
 }
@@ -156,7 +159,7 @@ export async function releaseDay(day: string) {
 // Candidates for a dispatch: everyone with a portrait, least featured first.
 export async function dispatchCandidates() {
   await Promise.all([ensureEnlistSchema(), ensureSchema()]);
-  const rows = (await sql()`SELECT s.token_id, s.name, s.role, s.origin, s.epithet, s.rank, s.sector, s.owner, s.featured_count,
+  const rows = (await sql()`SELECT s.token_id, s.name, s.role, s.origin, s.epithet, s.gender, s.rank, s.sector, s.owner, s.featured_count,
       EXISTS (SELECT 1 FROM beacons b WHERE b.token_id = s.token_id) AS beacon
     FROM survivors s WHERE s.portrait IS NOT NULL`) as Row[];
   return rows.map((r) => ({
@@ -165,6 +168,7 @@ export async function dispatchCandidates() {
     role: String(r.role),
     origin: String(r.origin),
     epithet: String(r.epithet),
+    gender: String(r.gender),
     rank: String(r.rank),
     sector: String(r.sector),
     owner: String(r.owner),

@@ -81,7 +81,7 @@ export async function writeDispatch(day = utcDay()) {
       ? `${m.open} to ${m.close} (range ${m.low}-${m.high})`
       : "feed quiet";
     const cast = featured.length
-      ? featured.map((s) => `- ${s.name}${s.epithet ? ` "${s.epithet}"` : ""}: ${s.rank} ${s.role}, ${s.origin}, home sector ${s.sector}`).join("\n")
+      ? featured.map((s) => `- ${s.name}${s.epithet ? ` "${s.epithet}"` : ""}: ${s.gender}, ${s.rank} ${s.role}, ${s.origin}, home sector ${s.sector}`).join("\n")
       : "(no survivors have enlisted yet; tell it through unnamed defenders)";
     const { output } = await generateText({
       model: TEXT_MODEL,

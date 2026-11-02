@@ -54,13 +54,13 @@ export async function POST(req: Request) {
     if (!draft.acceptable) return NextResponse.json({ error: "The Archive will not record that. Choose a different name or details." }, { status: 422 });
 
     const inserted = await insertSurvivor({
-      tokenId, ...form, epithet: cleanLine(draft.epithet), backstory: draft.backstory.trim(), visual: draft.visual.trim(),
+      tokenId, ...form, epithet: cleanLine(draft.epithet), gender: draft.gender, backstory: draft.backstory.trim(), visual: draft.visual.trim(),
       tier, rank: rankOf(tier - 1), sector: draft.sector, owner: owner.toLowerCase(),
     });
     if (!inserted) return NextResponse.json({ error: "this shard is already enlisting" }, { status: 409 });
     claimed = tokenId;
 
-    const { portrait, thumb } = await paintPortrait(draft.visual, form.role, form.origin);
+    const { portrait, thumb } = await paintPortrait(draft.visual, draft.gender, form.role, form.origin);
     await savePortrait(tokenId, portrait, thumb, false);
     claimed = 0;
     return NextResponse.json({ tokenId });
