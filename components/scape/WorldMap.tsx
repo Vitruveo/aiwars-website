@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ALL_CELLS, WORLD_RADIUS, cellAt } from "@/lib/scape/layout";
-import { tierAtPosition } from "@/lib/scape/places";
+import { tierAtPosition, isLegacy } from "@/lib/scape/places";
 import { sectorFor } from "@/lib/scape/sector";
 
 const TIER_COLOR = ["#f0954f", "#5aa6ff", "#2d8cff", "#1b5fd6", "#8fa0ba"];
@@ -28,6 +28,11 @@ export default function WorldMap({
   height?: number;
 }) {
   const minted = occupied.size;
+  // Rift sectors: inner-Meridian ground the Archive threw out to another band (see sector.ts).
+  const isRift = (position: number) => {
+    const id = occupied.get(position);
+    return id !== undefined && isLegacy(id) && tierAtPosition(id) !== tierAtPosition(position);
+  };
   const canvas = useRef<HTMLCanvasElement>(null);
   const [hover, setHover] = useState<number | null>(null);
   const [size, setSize] = useState({ w: 600, h: height });
@@ -109,6 +114,22 @@ export default function WorldMap({
       g.strokeRect(x - cellPx * 0.75, y - cellPx * 0.75, cellPx * 1.5, cellPx * 1.5);
       g.globalAlpha = 1;
     }
+    // Rift sectors carry a dark notch, so they read apart from the rest of the band
+    for (const id of occupied.keys()) {
+      if (!isRift(id)) continue;
+      const cell = ALL_CELLS[id - 1];
+      const x = cx + cell.x * cellPx;
+      const y = cy + cell.y * cellPx;
+      const k = cellPx * 0.28;
+      g.fillStyle = "#04070d";
+      g.beginPath();
+      g.moveTo(x, y - k);
+      g.lineTo(x + k, y);
+      g.lineTo(x, y + k);
+      g.lineTo(x - k, y);
+      g.closePath();
+      g.fill();
+    }
     // the Archive
     const r = cellPx * 1.6 + Math.sin(t * 1.5) * cellPx * 0.2;
     const grad = g.createRadialGradient(cx, cy, 0, cx, cy, r * 3);
@@ -172,6 +193,7 @@ export default function WorldMap({
         {hoverSector ? (
           <>
             <span className="text-ink">{hoverSector.code}</span> · {hoverSector.name} · {hoverSector.tierName}
+            {isRift(hover!) && <span className="text-ember"> · Rift</span>}
             {wonIds.has(hover!) && <span style={{ color: WON }}> · won in Trends</span>}
             {beaconIds.has(hover!) ? <span className="text-ink"> · beacon</span> : hover && !occupied.has(hover) ? <span className="text-faint"> · unlit</span> : <span className="text-signal"> · lit</span>}
           </>

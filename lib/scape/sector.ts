@@ -72,6 +72,7 @@ export type Sector = {
   path: [number, number, number][];
   fogDensity: number;
   veins: number;
+  rift: boolean; // Rift ground: inner-Meridian terrain the Archive threw out to another band
 };
 
 function biomeFor(tier: number, r: () => number): Biome {
@@ -214,10 +215,18 @@ export function sectorFor(position: number, tokenId: number | null = null): Sect
     path,
     fogDensity: biome === "haze" ? 0.0065 : biome === "wastes" ? 0.004 : 0.0032,
     veins: biome === "meridian" ? 0.9 : biome === "highland" ? 0.5 : biome === "haze" ? 0.2 : 0.35,
+    rift: legacy && tierAtPosition(tokenId) !== tier,
   };
   cache.set(key, sector);
   return sector;
 }
+
+// The Rift: in the instant the Archive activated, a band of districts at its nexus was torn loose and set
+// down in the haze margin, intact. In the Scape these are the grandfathered Trends prize sectors (tokens
+// minted before v5 whose ground came from Tier 1).
+export const RIFT_LABEL = "Rift ground · torn from inner Meridian";
+
+export const sectorLabel = (s: Sector) => (s.rift ? RIFT_LABEL : BIOME_LABEL[s.biome]);
 
 export const BIOME_LABEL: Record<Biome, string> = {
   meridian: "Meridian · inner ring",

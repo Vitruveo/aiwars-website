@@ -5,7 +5,7 @@ import { createPublicClient, http, type Address } from "viem";
 import { vitruveo } from "@/lib/chains";
 import { NFT_ADDRESS, NFT_ABI } from "@/lib/contracts";
 import { sections } from "@/lib/whitepaper";
-import { BIOME_LABEL } from "@/lib/scape/sector";
+import { sectorLabel } from "@/lib/scape/sector";
 import { homeSector } from "@/lib/scape/placesServer";
 import { ROLES, ORIGINS, rankOf, appearanceDraw, type EnlistForm, type Gender } from "@/lib/enlist/profile";
 
@@ -61,7 +61,7 @@ Name: ${f.name}
 Role: ${role.name} (${role.what})
 Origin: ${origin.name} (${origin.what})
 Rank: ${rankOf(tierIndex)} (Tier ${tierIndex + 1} of 5; Tier 1 is the most senior)
-Home sector: ${sector.code} ${sector.name}, ${BIOME_LABEL[sector.biome]}
+Home sector: ${sector.code} ${sector.name}, ${sectorLabel(sector)}${sector.rift ? " (an inner-Meridian district beside the Archive that was torn loose and set down in the haze margin, intact, in the instant the Archive activated; they call it the Rift)" : ""}
 Player's line about their life before the fall: ${f.before || "(none given)"}
 Player's line about their look or gear: ${f.look || "(none given)"}
 

@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useMemo, useState } from "react";
-import { sectorFor, BIOME_LABEL } from "@/lib/scape/sector";
+import { sectorFor, sectorLabel } from "@/lib/scape/sector";
 import { usePlaces } from "@/lib/usePlaces";
 
 const ScapeScene = dynamic(() => import("@/components/scape/ScapeScene"), { ssr: false, loading: () => <div className="h-full w-full bg-abyss" /> });
@@ -28,7 +28,7 @@ export default function ActivationScape() {
           <p className="font-mono text-sm uppercase tracking-[0.35em] text-signal">{sector.code}</p>
           <p className="display mt-1 text-2xl text-ink sm:text-3xl">{sector.name}</p>
           <p className="mt-1 font-mono text-sm uppercase tracking-[0.25em] text-faint">
-            {BIOME_LABEL[sector.biome]} · Tier {String(sector.tier).padStart(2, "0")} {sector.tierName}
+            {sectorLabel(sector)} · Tier {String(sector.tier).padStart(2, "0")} {sector.tierName}
           </p>
         </div>
         <p className="hidden font-mono text-sm uppercase tracking-[0.25em] text-faint sm:block">Sector {String(id).padStart(4, "0")} of 5000 · drag to look</p>

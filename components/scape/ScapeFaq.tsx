@@ -8,6 +8,10 @@ export const FAQ: { q: string; a: string }[] = [
     a: "Your shard's tier decides the band, and the order it was minted in decides the place within it. Sectors 1 to 125 ring the Archive and belong to Archivists; Vanguard and Defender hold the districts and highlands beyond, Citizens the wastes, Survivors the haze at the margin from sector 2,251 out. Connect your wallet and your sectors are listed under the map.",
   },
   {
+    q: "Why is there city in the haze?",
+    a: "The Rift. In the instant the Archive activated, a band of districts at its nexus was torn loose and set down at the haze margin, towers, streets and energy veins intact. Eighty-eight sectors landed out there, marked with a dark notch on the map. They are the only Rift ground there will ever be, and the first evidence that the Archive can move the world.",
+  },
+  {
     q: "How do I look at other sectors?",
     a: "Click any tile on the world map, use the arrows or the number box under the sector name, or hit Random. Any sector can be flown by anyone. Lit tiles are minted; dark tiles are not yet claimed.",
   },

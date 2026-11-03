@@ -7,7 +7,7 @@ import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useMyShards } from "@/lib/useMyShards";
 import { useBeacons } from "@/lib/useBeacons";
 import { usePlaces } from "@/lib/usePlaces";
-import { sectorFor, BIOME_LABEL } from "@/lib/scape/sector";
+import { sectorFor, sectorLabel } from "@/lib/scape/sector";
 import { beaconMessage } from "@/lib/scape/beaconMessage";
 import WorldMap from "@/components/scape/WorldMap";
 
@@ -115,7 +115,7 @@ export default function ScapeApp() {
             <p className="font-mono text-[11px] uppercase tracking-[0.35em] text-signal">{sector.code}</p>
             <p className="display mt-1 text-2xl text-ink sm:text-4xl">{sector.name}</p>
             <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.25em] text-faint">
-              {BIOME_LABEL[sector.biome]} · Tier {String(sector.tier).padStart(2, "0")} {sector.tierName} · grid {sector.cell.x}, {sector.cell.y}
+              {sectorLabel(sector)} · Tier {String(sector.tier).padStart(2, "0")} {sector.tierName} · grid {sector.cell.x}, {sector.cell.y}
             </p>
             {wonHere && <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.25em] text-ember">Won in AI Wars Trends</p>}
             <form

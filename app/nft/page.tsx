@@ -168,7 +168,9 @@ export default function Mint() {
               <p className="mt-6 text-xl text-dim sm:text-2xl">
                 The night Meridian held, the Archive activated. It did not open. It fractured, and
                 {" "}{fmt(TOTAL_SUPPLY)} fragments of its memory went out across the city. Whoever was standing
-                closest caught the brightest ones; those from the core are the Archive Shards.
+                closest caught the brightest ones; those from the core are the Archive Shards. In the same
+                instant a band of districts at the Archive&apos;s nexus was torn loose and thrown to the haze
+                margin, intact. Survivors call it the Rift.
               </p>
               <p className="mt-5 text-xl text-dim">
                 A shard is one of those fragments. It is older than the city. It remembers the
