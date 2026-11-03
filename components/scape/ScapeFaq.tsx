@@ -5,7 +5,7 @@ export const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "Which sector is mine?",
-    a: "Sector number equals token id. Token 1 sits beside the Archive and the numbers spiral outward, so Archivists ring the Archive, Vanguard and Defender hold the districts and highlands beyond, Citizens the wastes, Survivors the haze at the margin. Connect your wallet and your sectors are listed under the map.",
+    a: "Your shard's tier decides the band, and the order it was minted in decides the place within it. Sectors 1 to 125 ring the Archive and belong to Archivists; Vanguard and Defender hold the districts and highlands beyond, Citizens the wastes, Survivors the haze at the margin from sector 2,251 out. Connect your wallet and your sectors are listed under the map.",
   },
   {
     q: "How do I look at other sectors?",
@@ -13,7 +13,7 @@ export const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "Is a sector fixed, or generated fresh each time?",
-    a: "Fixed. Everything in a sector is computed from its token id and nothing else: the terrain, the biome, the structures, the name and the flight path. The same sector renders the same on every machine, every visit. Nothing is stored except beacons.",
+    a: "Fixed. Everything in a sector is computed from its number and nothing else: the terrain, the biome, the structures, the name and the flight path. The same sector renders the same on every machine, every visit. Nothing is stored except beacons.",
   },
   {
     q: "What is the column of light in the middle?",

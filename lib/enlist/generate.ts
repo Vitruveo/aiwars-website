@@ -5,7 +5,8 @@ import { createPublicClient, http, type Address } from "viem";
 import { vitruveo } from "@/lib/chains";
 import { NFT_ADDRESS, NFT_ABI } from "@/lib/contracts";
 import { sections } from "@/lib/whitepaper";
-import { sectorFor, BIOME_LABEL } from "@/lib/scape/sector";
+import { BIOME_LABEL } from "@/lib/scape/sector";
+import { homeSector } from "@/lib/scape/placesServer";
 import { ROLES, ORIGINS, rankOf, appearanceDraw, type EnlistForm, type Gender } from "@/lib/enlist/profile";
 
 // Server side of Enlist: chain reads, the writer, the portrait.
@@ -45,7 +46,9 @@ const SurvivorSchema = z.object({
 
 export async function writeSurvivor(tokenId: number, f: EnlistForm, tierIndex: number) {
   const draw = appearanceDraw(tokenId);
-  const sector = sectorFor(tokenId);
+  const home = await homeSector(tokenId);
+  if (!home) throw new Error(`no place for shard ${tokenId}`);
+  const sector = home.sector;
   const role = ROLES.find((r) => r.name === f.role)!;
   const origin = ORIGINS.find((o) => o.name === f.origin)!;
   const { output } = await generateText({
@@ -65,7 +68,7 @@ Player's line about their look or gear: ${f.look || "(none given)"}
 Gender and ancestry: the survivor is a ${draw.gender} of ${draw.ancestry} descent, unless the name is clearly a given name of the other gender or the player's lines say or imply a different gender or ancestry; then follow the player. Use the matching pronouns throughout, and state the ancestry in the visual description.`,
   });
   if (!output) throw new Error("the writer returned nothing");
-  return { ...output, sector: `${sector.name}, sector ${String(tokenId).padStart(4, "0")}` };
+  return { ...output, sector: home.label };
 }
 
 const STYLE =

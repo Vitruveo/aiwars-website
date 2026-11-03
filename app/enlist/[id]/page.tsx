@@ -4,6 +4,7 @@ import PortraitRedo from "@/components/enlist/PortraitRedo";
 import ShareRow from "@/components/enlist/ShareRow";
 import { getSurvivor, appearances } from "@/lib/enlist/db";
 import { powerRolls, portraitUrl } from "@/lib/enlist/profile";
+import { homeSector } from "@/lib/scape/placesServer";
 
 export const dynamic = "force-dynamic";
 
@@ -11,8 +12,10 @@ type Props = { params: Promise<{ id: string }> };
 
 async function load(raw: string) {
   const tokenId = Number(raw);
-  if (!Number.isInteger(tokenId) || tokenId < 1) return { tokenId: 0, s: null };
-  return { tokenId, s: await getSurvivor(tokenId).catch(() => null) };
+  if (!Number.isInteger(tokenId) || tokenId < 1) return { tokenId: 0, s: null, home: null };
+  const [s, home] = await Promise.all([getSurvivor(tokenId).catch(() => null), homeSector(tokenId).catch(() => null)]);
+  // The home sector follows the shard's current place in the Scape; the stored label is the fallback.
+  return { tokenId, s: s && home ? { ...s, sector: home.label } : s, home };
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -26,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 const fmtDay = (day: string) => new Date(`${day}T00:00:00Z`).toLocaleDateString("en-US", { timeZone: "UTC", month: "long", day: "numeric", year: "numeric" });
 
 export default async function SurvivorPage({ params }: Props) {
-  const { tokenId, s } = await load((await params).id);
+  const { tokenId, s, home } = await load((await params).id);
   if (!s || s.portraitV === 0) {
     return (
       <main className="min-h-svh">
@@ -77,7 +80,7 @@ export default async function SurvivorPage({ params }: Props) {
               ].map(([k, v]) => (
                 <div key={k} className="bg-abyss px-4 py-3">
                   <dt className="font-mono text-xs uppercase tracking-[0.3em] text-faint">{k}</dt>
-                  <dd className="mt-1 text-base text-ink">{k === "Home" ? <a href={`/scape?sector=${tokenId}`} className="hover:text-signal">{v}</a> : v}</dd>
+                  <dd className="mt-1 text-base text-ink">{k === "Home" ? <a href={`/scape?sector=${home?.position ?? tokenId}`} className="hover:text-signal">{v}</a> : v}</dd>
                 </div>
               ))}
             </dl>

@@ -587,6 +587,20 @@
       },
       {
         "type": "function",
+        "name": "TIERS",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint8",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
         "name": "approve",
         "constant": false,
         "payable": false,
@@ -798,25 +812,6 @@
         "outputs": [
           {
             "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "explicitTier",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "tokenId"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "uint8",
             "name": ""
           }
         ]
@@ -1107,24 +1102,6 @@
       },
       {
         "type": "function",
-        "name": "mint",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "to"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": "tokenId"
-          }
-        ]
-      },
-      {
-        "type": "function",
         "name": "mintBatch",
         "constant": false,
         "payable": false,
@@ -1132,31 +1109,13 @@
           {
             "type": "address[]",
             "name": "to"
+          },
+          {
+            "type": "uint8[]",
+            "name": "tiers"
           }
         ],
         "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "mintWithURI",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "to"
-          },
-          {
-            "type": "string",
-            "name": "uri"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": "tokenId"
-          }
-        ]
       },
       {
         "type": "function",
@@ -1267,6 +1226,29 @@
           }
         ],
         "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "placeOf",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "tokenId"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint8",
+            "name": "tier"
+          },
+          {
+            "type": "uint256",
+            "name": "serial"
+          }
+        ]
       },
       {
         "type": "function",
@@ -1699,6 +1681,20 @@
       },
       {
         "type": "function",
+        "name": "tierMinted",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint32[5]",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
         "name": "tierOf",
         "constant": true,
         "stateMutability": "view",
@@ -1712,6 +1708,25 @@
         "outputs": [
           {
             "type": "uint8",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "tierSupply",
+        "constant": true,
+        "stateMutability": "pure",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint8",
+            "name": "tier"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
             "name": ""
           }
         ]
@@ -2169,6 +2184,23 @@
       {
         "type": "event",
         "anonymous": false,
+        "name": "TierSupplyUpdated",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "tier",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "supply",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
         "name": "TreasuryUpdated",
         "inputs": [
           {
@@ -2580,6 +2612,23 @@
           {
             "type": "uint256",
             "name": "price"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setTierSupply",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "tier"
+          },
+          {
+            "type": "uint256",
+            "name": "supply"
           }
         ],
         "outputs": []

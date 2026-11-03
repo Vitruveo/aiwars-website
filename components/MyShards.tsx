@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import ShardCard from "@/components/ShardCard";
-import { MAX_PER_WALLET, tierForTokenId } from "@/lib/shards";
+import { MAX_PER_WALLET } from "@/lib/shards";
 import { useMyShards } from "@/lib/useMyShards";
+import { usePlaces } from "@/lib/usePlaces";
 
 // Three slots, one per shard a wallet may hold. A minted shard fills its slot with the NFT card.
 export default function MyShards({ size = 200 }: { size?: number }) {
@@ -19,6 +20,7 @@ export default function MyShards({ size = 200 }: { size?: number }) {
     return () => window.removeEventListener("resize", fit);
   }, [size]);
   const { isConnected, tokenIds } = useMyShards();
+  const { byToken } = usePlaces();
   const { openConnectModal } = useConnectModal();
   const connected = mounted && isConnected;
 
@@ -28,11 +30,11 @@ export default function MyShards({ size = 200 }: { size?: number }) {
         {Array.from({ length: MAX_PER_WALLET }, (_, i) => {
           const id = tokenIds[i];
           if (id) {
-            const t = tierForTokenId(id);
+            const tier = byToken.get(id)?.tier;
             return (
               <div key={id} className="relative">
                 <div className="absolute inset-0 -z-10 rounded-full bg-signal/25 blur-[50px]" />
-                <ShardCard tier={t?.tier.n ?? 1} size={slot} tokenId={id} />
+                <ShardCard tier={tier ?? 5} size={slot} tokenId={id} />
               </div>
             );
           }

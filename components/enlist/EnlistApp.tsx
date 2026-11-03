@@ -5,6 +5,7 @@ import { useSignMessage } from "wagmi";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useMyShards } from "@/lib/useMyShards";
 import { sectorFor } from "@/lib/scape/sector";
+import { usePlaces } from "@/lib/usePlaces";
 import {
   ROLES, ORIGINS, NAME_MAX, LINE_MAX, enlistMessage, cleanName, cleanLine, portraitUrl,
   type Survivor, type Dispatch,
@@ -107,7 +108,9 @@ function EnlistPanel({ byId, onEnlisted }: { byId: Map<number, Survivor>; onEnli
     }
   }
 
-  const sector = selected ? sectorFor(selected) : null;
+  const { byToken } = usePlaces();
+  const place = selected ? byToken.get(selected) : undefined;
+  const sector = selected && place ? sectorFor(place.position, selected) : null;
 
   return (
     <section className="panel panel-flat p-6 sm:p-8">

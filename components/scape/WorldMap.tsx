@@ -1,16 +1,17 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ALL_CELLS, WORLD_RADIUS, cellForToken } from "@/lib/scape/layout";
-import { tierForTokenId } from "@/lib/shards";
+import { ALL_CELLS, WORLD_RADIUS, cellAt } from "@/lib/scape/layout";
+import { tierAtPosition } from "@/lib/scape/places";
 import { sectorFor } from "@/lib/scape/sector";
 
 const TIER_COLOR = ["#f0954f", "#5aa6ff", "#2d8cff", "#1b5fd6", "#8fa0ba"];
 const WON = "#ffd166"; // Tier 1 tiles are already ember, so won sectors burn gold
 
-// The whole Scape from orbit: 5,000 sectors spiralling out from the Archive. Minted sectors are lit.
+// The whole Scape from orbit: 5,000 sectors spiralling out from the Archive, Tier 1 innermost. Sectors
+// with a shard placed in them are lit. Everything here is by position (sector number), not token id.
 export default function WorldMap({
-  minted,
+  occupied,
   mine,
   selected,
   onSelect,
@@ -18,14 +19,15 @@ export default function WorldMap({
   wonIds = new Set(),
   height = 320,
 }: {
-  minted: number;
-  mine: number[];
+  occupied: Map<number, number>; // position => token id
+  mine: Set<number>;
   selected: number;
-  onSelect: (id: number) => void;
+  onSelect: (position: number) => void;
   beaconIds: Set<number>;
   wonIds?: Set<number>;
   height?: number;
 }) {
+  const minted = occupied.size;
   const canvas = useRef<HTMLCanvasElement>(null);
   const [hover, setHover] = useState<number | null>(null);
   const [size, setSize] = useState({ w: 600, h: height });
@@ -65,10 +67,11 @@ export default function WorldMap({
       g.fillRect(cx + cell.x * cellPx - cellPx * 0.4, cy + cell.y * cellPx - cellPx * 0.4, cellPx * 0.8, cellPx * 0.8);
     }
     // lit cells
-    for (let id = 1; id <= Math.min(minted, ALL_CELLS.length); id++) {
+    for (const id of occupied.keys()) {
       const cell = ALL_CELLS[id - 1];
-      const tier = tierForTokenId(id)?.index ?? 4;
-      const own = mine.includes(id);
+      if (!cell) continue;
+      const tier = tierAtPosition(id) - 1;
+      const own = mine.has(id);
       const pulse = 0.75 + 0.25 * Math.sin(t * 2 + id);
       g.fillStyle = TIER_COLOR[tier];
       g.globalAlpha = own ? 1 : 0.85 * pulse;
@@ -125,7 +128,7 @@ export default function WorldMap({
     // selection + hover
     for (const [id, stroke] of [[selected, "#eef3fb"], [hover, "#f0954f"]] as [number | null, string][]) {
       if (!id) continue;
-      const cell = cellForToken(id);
+      const cell = cellAt(id);
       g.strokeStyle = stroke;
       g.lineWidth = 1.5;
       g.strokeRect(cx + cell.x * cellPx - cellPx * 0.7, cy + cell.y * cellPx - cellPx * 0.7, cellPx * 1.4, cellPx * 1.4);
@@ -151,7 +154,7 @@ export default function WorldMap({
     return byCell.get(`${x},${y}`) ?? null;
   }
 
-  const hoverSector = hover ? sectorFor(hover) : null;
+  const hoverSector = hover ? sectorFor(hover, occupied.get(hover) ?? null) : null;
   return (
     <div className="relative w-full" style={{ height }}>
       <canvas
@@ -170,7 +173,7 @@ export default function WorldMap({
           <>
             <span className="text-ink">{hoverSector.code}</span> · {hoverSector.name} · {hoverSector.tierName}
             {wonIds.has(hover!) && <span style={{ color: WON }}> · won in Trends</span>}
-            {beaconIds.has(hover!) ? <span className="text-ink"> · beacon</span> : hover && hover > minted ? <span className="text-faint"> · unlit</span> : <span className="text-signal"> · lit</span>}
+            {beaconIds.has(hover!) ? <span className="text-ink"> · beacon</span> : hover && !occupied.has(hover) ? <span className="text-faint"> · unlit</span> : <span className="text-signal"> · lit</span>}
           </>
         ) : (
           <>

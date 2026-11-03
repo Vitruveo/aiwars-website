@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useMemo, useState } from "react";
 import { sectorFor, BIOME_LABEL } from "@/lib/scape/sector";
+import { usePlaces } from "@/lib/usePlaces";
 
 const ScapeScene = dynamic(() => import("@/components/scape/ScapeScene"), { ssr: false, loading: () => <div className="h-full w-full bg-abyss" /> });
 
@@ -15,7 +16,9 @@ export default function ActivationScape() {
     setMounted(true);
   }, []);
   const [manual, setManual] = useState(false);
-  const sector = useMemo(() => sectorFor(id), [id]);
+  const { byPosition } = usePlaces();
+  const tokenHere = byPosition.get(id) ?? null;
+  const sector = useMemo(() => sectorFor(id, tokenHere), [id, tokenHere]);
 
   return (
     <div className="panel panel-flat relative overflow-hidden bg-abyss" style={{ height: "min(56svh, 460px)" }}>

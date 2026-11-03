@@ -1,9 +1,11 @@
 import { makeNoise2D, fbm, ridged, mulberry32, hashSeed, type Noise2D } from "@/lib/scape/noise";
-import { cellForToken } from "@/lib/scape/layout";
-import { tierForTokenId } from "@/lib/shards";
+import { cellAt } from "@/lib/scape/layout";
+import { TIERS } from "@/lib/shards";
+import { tierAtPosition, isLegacy } from "@/lib/scape/places";
 
-// One sector of the Scape: the world a single shard owns. Everything here is a pure function of the
-// token id, so the client, the server and the video renderer all agree.
+// One sector of the Scape: a position on the spiral and the ground there. Everything here is a pure
+// function of the position (and, for grandfathered shards, the token id), so the client, the server and
+// the video renderer all agree.
 
 export const SECTOR_SIZE = 400; // world units across
 export const SEA = -6; // haze floor height
@@ -54,10 +56,11 @@ export type Structure = {
 };
 
 export type Sector = {
-  tokenId: number;
-  tier: number;
+  position: number; // 1-5000, the sector number
+  tokenId: number | null; // the shard placed here, if any
+  tier: number; // tier of the band this position is in
   tierName: string;
-  serial: number;
+  serial: number; // place within that tier's band
   cell: { x: number; y: number };
   biome: Biome;
   name: string;
@@ -171,15 +174,19 @@ function makePath(r: () => number, height: Sector["height"]): [number, number, n
   return pts;
 }
 
-const cache = new Map<number, Sector>();
+const cache = new Map<string, Sector>();
 
-export function sectorFor(tokenId: number): Sector {
-  const hit = cache.get(tokenId);
+// The sector at `position`, holding `tokenId` if a shard is placed there. A grandfathered shard (minted
+// before v5) keeps the ground it was first given: seeded by its token id, terrain of its original tier.
+export function sectorFor(position: number, tokenId: number | null = null): Sector {
+  const key = `${position}:${tokenId ?? 0}`;
+  const hit = cache.get(key);
   if (hit) return hit;
-  const t = tierForTokenId(tokenId) ?? { index: 4, tier: { n: 5, name: "Survivor" }, serial: tokenId };
-  const seed = hashSeed(0x5ca9e, tokenId);
+  const tier = tierAtPosition(position);
+  const legacy = tokenId !== null && isLegacy(tokenId);
+  const seed = legacy ? hashSeed(0x5ca9e, tokenId) : hashSeed(0x5ca9f, position);
   const r = mulberry32(seed);
-  const biome = biomeFor(t.tier.n, r);
+  const biome = biomeFor(legacy ? tierAtPosition(tokenId) : tier, r);
   const n = makeNoise2D(hashSeed(seed, 1));
   const n2 = makeNoise2D(hashSeed(seed, 2));
   // Offset the sample so the beacon never sits on the noise origin, which is always flat or a crest.
@@ -191,14 +198,15 @@ export function sectorFor(tokenId: number): Sector {
   const path = makePath(r, height);
   const name = `${NAMES[Math.floor(r() * NAMES.length)]} ${FORMS[biome][Math.floor(r() * FORMS[biome].length)]}`;
   const sector: Sector = {
+    position,
     tokenId,
-    tier: t.tier.n,
-    tierName: t.tier.name,
-    serial: t.serial,
-    cell: cellForToken(tokenId),
+    tier,
+    tierName: TIERS[tier - 1].name,
+    serial: position - TIERS.slice(0, tier - 1).reduce((a, t) => a + t.supply, 0),
+    cell: cellAt(position),
     biome,
     name,
-    code: `SECTOR ${String(tokenId).padStart(4, "0")}`,
+    code: `SECTOR ${String(position).padStart(4, "0")}`,
     palette: PALETTES[biome],
     seed,
     height,
@@ -207,7 +215,7 @@ export function sectorFor(tokenId: number): Sector {
     fogDensity: biome === "haze" ? 0.0065 : biome === "wastes" ? 0.004 : 0.0032,
     veins: biome === "meridian" ? 0.9 : biome === "highland" ? 0.5 : biome === "haze" ? 0.2 : 0.35,
   };
-  cache.set(tokenId, sector);
+  cache.set(key, sector);
   return sector;
 }
 

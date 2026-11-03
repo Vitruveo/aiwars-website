@@ -2,29 +2,31 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useReadContract, useSignMessage } from "wagmi";
+import { useSignMessage } from "wagmi";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { NFT_CHAIN } from "@/lib/web3";
-import { NFT_ADDRESS, NFT_ABI } from "@/lib/contracts";
 import { useMyShards } from "@/lib/useMyShards";
 import { useBeacons } from "@/lib/useBeacons";
+import { usePlaces } from "@/lib/usePlaces";
 import { sectorFor, BIOME_LABEL } from "@/lib/scape/sector";
 import { beaconMessage } from "@/lib/scape/beaconMessage";
 import WorldMap from "@/components/scape/WorldMap";
 
 const ScapeScene = dynamic(() => import("@/components/scape/ScapeScene"), { ssr: false, loading: () => <div className="h-full w-full bg-abyss" /> });
 
-// /scape: map and flyover for everyone; beacons for the holder of the sector.
+// /scape: map and flyover for everyone; beacons for the holder of the sector. `selected` is a sector
+// position (1-5000); the shard placed there, if any, comes from the contract via usePlaces.
 export default function ScapeApp() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   const { isConnected, address, tokenIds } = useMyShards();
   const { openConnectModal } = useConnectModal();
-  const { beacons, won, refresh } = useBeacons();
+  const { beacons, refresh } = useBeacons();
+  const { byToken, byPosition, won } = usePlaces();
   const { signMessageAsync } = useSignMessage();
 
-  const mintedRead = useReadContract({ address: NFT_ADDRESS, abi: NFT_ABI, functionName: "totalMinted", chainId: NFT_CHAIN.id, query: { enabled: Boolean(NFT_ADDRESS), refetchInterval: 20_000 } });
-  const minted = Number((mintedRead.data as bigint | undefined) ?? 0n);
+  const positionOfToken = (id: number) => byToken.get(id)?.position;
+  const toPositions = (ids: Iterable<number>) => new Set([...ids].map(positionOfToken).filter((p): p is number => p !== undefined));
+  const myPositions = useMemo(() => toPositions(tokenIds), [tokenIds, byToken]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Anyone can fly any sector. Holding the sector's shard is what lets you write its beacon.
   const holder = mounted && isConnected && tokenIds.length > 0;
@@ -33,14 +35,18 @@ export default function ScapeApp() {
   useEffect(() => {
     if (chosen) return;
     const fromUrl = Number(new URLSearchParams(window.location.search).get("sector"));
+    const mine = tokenIds.map(positionOfToken).find((p) => p !== undefined);
     if (fromUrl >= 1) setSelected(fromUrl);
-    else if (tokenIds.length > 0) setSelected(tokenIds[0]);
-  }, [tokenIds, chosen]);
+    else if (mine) setSelected(mine);
+  }, [tokenIds, chosen, byToken]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const sector = useMemo(() => sectorFor(selected), [selected]);
-  const owns = tokenIds.includes(selected);
-  const sectorBeacons = useMemo(() => beacons.filter((b) => b.tokenId === selected), [beacons, selected]);
-  const beaconIds = useMemo(() => new Set(beacons.map((b) => b.tokenId)), [beacons]);
+  const tokenHere = byPosition.get(selected) ?? null;
+  const sector = useMemo(() => sectorFor(selected, tokenHere), [selected, tokenHere]);
+  const owns = tokenHere !== null && tokenIds.includes(tokenHere);
+  const wonHere = tokenHere !== null && won.has(tokenHere);
+  const sectorBeacons = useMemo(() => beacons.filter((b) => b.tokenId === tokenHere), [beacons, tokenHere]);
+  const beaconPositions = useMemo(() => toPositions(beacons.map((b) => b.tokenId)), [beacons, byToken]); // eslint-disable-line react-hooks/exhaustive-deps
+  const wonPositions = useMemo(() => toPositions(won), [won, byToken]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // beacon placement
   const [placing, setPlacing] = useState(false);
@@ -74,15 +80,15 @@ export default function ScapeApp() {
   }
 
   async function saveBeacon() {
-    if (!draft || !address) return;
+    if (!draft || !address || tokenHere === null) return;
     const name = draft.name.trim();
     if (name.length < 2) return setNote("Name the beacon first");
     setSaving(true);
     setNote(null);
     try {
       const ts = Date.now();
-      const signature = await signMessageAsync({ message: beaconMessage(selected, name, draft.x, draft.z, ts) });
-      const res = await fetch("/api/beacons", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ tokenId: selected, name, x: draft.x, z: draft.z, ts, address, signature }) });
+      const signature = await signMessageAsync({ message: beaconMessage(tokenHere, name, draft.x, draft.z, ts) });
+      const res = await fetch("/api/beacons", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ tokenId: tokenHere, name, x: draft.x, z: draft.z, ts, address, signature }) });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "failed");
       await refresh();
@@ -101,7 +107,7 @@ export default function ScapeApp() {
     <div className="flex flex-col gap-4">
       {/* flyover */}
       <div ref={stage} className="panel panel-flat relative overflow-hidden bg-abyss" style={{ height: full ? "100svh" : "min(78svh, 820px)" }}>
-        {mounted && <ScapeScene sector={sector} beacons={sectorBeacons} draft={draft} placing={placing} onPick={(x, z) => setDraft((d) => ({ x, z, name: d?.name ?? "" }))} manual={manual} onManual={setManual} won={won.has(selected)} />}
+        {mounted && <ScapeScene sector={sector} beacons={sectorBeacons} draft={draft} placing={placing} onPick={(x, z) => setDraft((d) => ({ x, z, name: d?.name ?? "" }))} manual={manual} onManual={setManual} won={wonHere} />}
 
         {/* HUD */}
         <div className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between p-5 sm:p-6">
@@ -111,7 +117,7 @@ export default function ScapeApp() {
             <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.25em] text-faint">
               {BIOME_LABEL[sector.biome]} · Tier {String(sector.tier).padStart(2, "0")} {sector.tierName} · grid {sector.cell.x}, {sector.cell.y}
             </p>
-            {won.has(selected) && <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.25em] text-ember">Won in AI Wars Trends</p>}
+            {wonHere && <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.25em] text-ember">Won in AI Wars Trends</p>}
             <form
               className="pointer-events-auto mt-3 flex items-center gap-1 font-mono text-xs uppercase tracking-[0.25em]"
               onSubmit={(e) => {
@@ -221,15 +227,15 @@ export default function ScapeApp() {
         <div className="panel panel-flat p-3 lg:col-span-2">
           <p className="px-2 pb-1 font-mono text-[11px] uppercase tracking-[0.3em] text-faint">World map · click any tile to fly that sector</p>
           <WorldMap
-            minted={minted}
-            mine={tokenIds}
+            occupied={byPosition}
+            mine={myPositions}
             selected={selected}
             onSelect={(id) => {
               setChosen(true);
               setSelected(id);
             }}
-            beaconIds={beaconIds}
-            wonIds={won}
+            beaconIds={beaconPositions}
+            wonIds={wonPositions}
             height={600}
           />
         </div>
@@ -238,15 +244,17 @@ export default function ScapeApp() {
           {holder ? (
             <ul className="mt-3 space-y-2">
               {tokenIds.map((id) => {
-                const s = sectorFor(id);
+                const position = positionOfToken(id);
+                if (position === undefined) return null;
+                const s = sectorFor(position, id);
                 return (
                   <li key={id}>
                     <button
                       onClick={() => {
                         setChosen(true);
-                        setSelected(id);
+                        setSelected(position);
                       }}
-                      className={`flex w-full items-center justify-between border px-3 py-2 text-left font-mono text-xs uppercase tracking-[0.2em] ${id === selected ? "border-signal text-ink" : "border-hairline text-faint hover:text-ink"}`}
+                      className={`flex w-full items-center justify-between border px-3 py-2 text-left font-mono text-xs uppercase tracking-[0.2em] ${position === selected ? "border-signal text-ink" : "border-hairline text-faint hover:text-ink"}`}
                     >
                       <span>{s.code}</span>
                       <span className="text-signal">{s.name}</span>
@@ -257,7 +265,7 @@ export default function ScapeApp() {
             </ul>
           ) : (
             <>
-            <p className="mt-3 text-sm text-dim">Sectors are assigned by token id. Token 1 sits beside the Archive; the spiral runs outward through every tier. Hold a shard to light its sector and name a place in it.</p>
+            <p className="mt-3 text-sm text-dim">Sectors are assigned by tier. Tier 1 shards sit beside the Archive and each tier after them lies further out, in the order the shards were minted. Hold a shard to light its sector and name a place in it.</p>
             <div className="mt-4 flex gap-3">
               {!isConnected && (
                 <button onClick={() => openConnectModal?.()} className="h-10 border border-hairline px-4 font-mono text-xs uppercase tracking-[0.25em] text-faint hover:text-ink">
@@ -271,7 +279,7 @@ export default function ScapeApp() {
             </>
           )}
           <p className="mt-5 font-mono text-[11px] uppercase tracking-[0.25em] text-faint">
-            <span className="text-ink">{minted.toLocaleString("en-US")}</span> lit · <span className="text-ink">{beacons.length}</span> beacons · <span className="text-ember">{won.size}</span> won in Trends
+            <span className="text-ink">{byPosition.size.toLocaleString("en-US")}</span> lit · <span className="text-ink">{beacons.length}</span> beacons · <span className="text-ember">{won.size}</span> won in Trends
           </p>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { TOTAL_SUPPLY } from "@/lib/shards";
 
-// The world is a square spiral of 5,000 sectors around the Archive at (0, 0). Token 1 sits
-// next to the Archive; Archivists ring it, Survivors hold the outer wastes.
+// The world is a square spiral of 5,000 sectors around the Archive at (0, 0). Position 1 sits next to
+// the Archive; Tier 1 holds the first 125 positions, Tier 5 the last 2,750 (see places.ts).
 // Cell coordinates are integers; the grid is about 71 x 71.
 
 export type Cell = { x: number; y: number };
@@ -32,8 +32,8 @@ const cells: Cell[] = [];
   }
 })();
 
-export function cellForToken(tokenId: number): Cell {
-  return cells[Math.min(Math.max(tokenId, 1), TOTAL_SUPPLY) - 1];
+export function cellAt(position: number): Cell {
+  return cells[Math.min(Math.max(position, 1), TOTAL_SUPPLY) - 1];
 }
 
 export const WORLD_RADIUS = Math.max(...cells.map((c) => Math.max(Math.abs(c.x), Math.abs(c.y))));

@@ -1,19 +1,21 @@
 import { NextResponse } from "next/server";
-import { TIERS, TOTAL_SUPPLY, MAX_PER_WALLET, tierForTokenId } from "@/lib/shards";
+import { TIERS, TOTAL_SUPPLY, MAX_PER_WALLET } from "@/lib/shards";
 import { createPublicClient, http } from "viem";
 import { givenSerial } from "@/lib/mystery/db";
 import { vitruveo } from "@/lib/chains";
 import { NFT_ADDRESS, NFT_ABI } from "@/lib/contracts";
+import { wonTokenIds } from "@/lib/scape/won";
+import { placeOfToken } from "@/lib/scape/placesServer";
 
 const chain = createPublicClient({ chain: vitruveo, transport: http(process.env.VITRUVEO_RPC_URL || vitruveo.rpcUrls.default.http[0]) });
 
-// Tier stored on chain for tokens the contract minted with an explicit tier (AI Wars Trends prizes); 0 otherwise.
-async function explicitTier(id: number): Promise<number> {
+// The token's tier as the contract reports it (written at mint); 0 if not minted or unknown.
+async function chainTier(id: number): Promise<number> {
   if (!NFT_ADDRESS) return 0;
   try {
-    return Number(await chain.readContract({ address: NFT_ADDRESS, abi: NFT_ABI, functionName: "explicitTier", args: [BigInt(id)] }));
+    return Number(await chain.readContract({ address: NFT_ADDRESS, abi: NFT_ABI, functionName: "tierOf", args: [BigInt(id)] }));
   } catch {
-    return 0; // contract not upgraded yet, or RPC down: fall back to sale order
+    return 0;
   }
 }
 
@@ -33,21 +35,20 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
   const id = Number(raw);
   if (id < 1) return NextResponse.json({ error: "token id out of range" }, { status: 404 });
 
-  // Shards given through the Archive (/mystery) are Tier 5 Survivor regardless of id; everything else
-  // follows the sale order.
-  // Tokens won in AI Wars Trends carry their tier on chain.
-  let given: number | null = null;
-  const [onchain, g] = await Promise.all([explicitTier(id), givenSerial(id).catch(() => null)]);
-  given = g;
-  const won = onchain >= 1 && onchain <= TIERS.length;
-  // Past the sale's 5000 only game prizes exist.
-  if (!won && id > TOTAL_SUPPLY) return NextResponse.json({ error: "token id out of range" }, { status: 404 });
-  const t = won
-    ? { index: onchain - 1, tier: TIERS[onchain - 1], serial: 0 }
-    : given
-      ? { index: TIERS.length - 1, tier: TIERS[TIERS.length - 1], serial: given }
-      : tierForTokenId(id);
-  if (!t) return NextResponse.json({ error: "token id out of range" }, { status: 404 });
+  // Shards given through the Archive (/mystery) are Tier 5 Survivor regardless of id. Every other token's
+  // tier comes from the contract: sale tokens carry their purchase tier, Trends prizes Tier 5.
+  const [onchain, given, prizes, place] = await Promise.all([
+    chainTier(id),
+    givenSerial(id).catch(() => null),
+    wonTokenIds().catch(() => [] as number[]),
+    placeOfToken(id).catch(() => null),
+  ]);
+  const won = prizes.includes(id);
+  const tierN = place?.tier ?? (onchain >= 1 && onchain <= TIERS.length ? onchain : 0);
+  if (!tierN) return NextResponse.json({ error: "token id out of range" }, { status: 404 });
+  const t = given
+    ? { index: TIERS.length - 1, tier: TIERS[TIERS.length - 1], serial: given }
+    : { index: tierN - 1, tier: TIERS[tierN - 1], serial: place?.serial ?? 0 };
 
   const site = siteUrl(req);
   const acts = Object.entries(t.tier.acts)
@@ -68,7 +69,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
     attributes: [
       { trait_type: "Tier", value: t.tier.n, display_type: "number", max_value: TIERS.length },
       { trait_type: "Tier Name", value: t.tier.name },
-      ...(won ? [] : [{ trait_type: "Tier Serial", value: t.serial, display_type: "number", max_value: t.tier.supply }]),
+      ...(t.serial ? [{ trait_type: "Tier Serial", value: t.serial, display_type: "number", max_value: t.tier.supply }] : []),
       { trait_type: "Activations", value: acts.join(" · ") },
       { trait_type: "Mint Price (USD)", value: won || given ? 0 : t.tier.price, display_type: "number" },
       { trait_type: "Origin", value: won ? "Won in AI Wars Trends" : given ? "Given by the Archive" : "Sale" },

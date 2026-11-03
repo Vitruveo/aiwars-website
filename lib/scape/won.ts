@@ -8,9 +8,9 @@ const PRIZE_MINTED = parseAbiItem("event PrizeMinted(address indexed player, uin
 
 let memo: { ids: number[]; at: number } | null = null;
 
-export async function wonTokenIds(): Promise<number[]> {
+export async function wonTokenIds(fresh = false): Promise<number[]> {
   if (!NFT_ADDRESS) return [];
-  if (memo && Date.now() - memo.at < 60_000) return memo.ids;
+  if (!fresh && memo && Date.now() - memo.at < 60_000) return memo.ids;
   const logs = await client.getLogs({ address: NFT_ADDRESS, event: PRIZE_MINTED, fromBlock: 0n, toBlock: "latest" });
   const ids = logs.map((l) => Number(l.args.tokenId)).sort((a, b) => a - b);
   memo = { ids, at: Date.now() };
