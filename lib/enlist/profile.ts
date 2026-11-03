@@ -1,7 +1,7 @@
 import { POWER, POWER_SLOTS, TIERS } from "@/lib/shards";
 import { mulberry32, hashSeed } from "@/lib/scape/noise";
 
-// Enlist: one survivor per shard. Shared by the form, the signing client and the verifying routes.
+// Enlist: one operative per shard. Shared by the form, the signing client and the verifying routes.
 
 // The seven identities from the whitepaper.
 export const ROLES: { name: string; what: string }[] = [
@@ -39,7 +39,7 @@ export const ANCESTRIES = [
   "Southern European", "Eastern European",
 ];
 
-// The survivor's default gender and ancestry, an even draw seeded by the shard id. The player's name or
+// The operative's default gender and ancestry, an even draw seeded by the shard id. The player's name or
 // lines override it when they imply otherwise.
 export function appearanceDraw(tokenId: number): { gender: Gender; ancestry: string } {
   const r = mulberry32(hashSeed(tokenId, 0x475245));
@@ -51,7 +51,7 @@ export type EnlistForm = { name: string; role: string; origin: string; before: s
 export function enlistMessage(tokenId: number, f: EnlistForm, ts: number) {
   return [
     "AI Wars Enlist",
-    `Survivor for shard ${tokenId}`,
+    `Operative for shard ${tokenId}`,
     `Name: ${f.name}`,
     `Role: ${f.role}`,
     `Origin: ${f.origin}`,

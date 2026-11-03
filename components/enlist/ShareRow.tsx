@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-// Share a survivor card: post to X, copy the link, or download the card image.
+// Share an operative card: post to X, copy the link, or download the card image.
 export default function ShareRow({ tokenId, name }: { tokenId: number; name: string }) {
   const [copied, setCopied] = useState(false);
   const url = () => `${window.location.origin}/enlist/${tokenId}`;
@@ -33,7 +33,7 @@ export default function ShareRow({ tokenId, name }: { tokenId: number; name: str
       >
         {copied ? "Link copied" : "Copy link"}
       </button>
-      <a href={`/enlist/${tokenId}/opengraph-image`} download={`survivor-${tokenId}.png`} className={btn}>
+      <a href={`/enlist/${tokenId}/opengraph-image`} download={`operative-${tokenId}.png`} className={btn}>
         Download card
       </a>
     </div>

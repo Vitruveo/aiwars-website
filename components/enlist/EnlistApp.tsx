@@ -45,7 +45,7 @@ export default function EnlistApp() {
 
 const STAGES = [
   { after: 0, label: "Waiting for your signature" },
-  { after: 1, label: "The Archive is writing your survivor" },
+  { after: 1, label: "The Archive is writing your operative" },
   { after: 12, label: "Painting the portrait" },
   { after: 45, label: "Still painting, almost there" },
 ];
@@ -114,8 +114,8 @@ function EnlistPanel({ byId, onEnlisted }: { byId: Map<number, Survivor>; onEnli
 
   return (
     <section className="panel panel-flat p-6 sm:p-8">
-      <p className="font-mono text-base uppercase tracking-[0.35em] text-ember">Enlist your survivor</p>
-      <h2 className="display mt-2 text-balance text-2xl text-ink sm:text-3xl">One survivor per shard</h2>
+      <p className="font-mono text-base uppercase tracking-[0.35em] text-ember">Enlist your operative</p>
+      <h2 className="display mt-2 text-balance text-2xl text-ink sm:text-3xl">One operative per shard</h2>
       <p className="mt-2 max-w-3xl text-pretty text-lg text-dim">
         Name them, pick their role and where they came from. The Archive writes their story and paints their portrait. They appear in the daily dispatch and carry into the game when it ships.
       </p>
@@ -171,7 +171,7 @@ function EnlistPanel({ byId, onEnlisted }: { byId: Map<number, Survivor>; onEnli
           </div>
 
           {selected === null ? (
-            <p className="text-lg text-dim">Every shard you hold has a survivor. Their cards are linked above.</p>
+            <p className="text-lg text-dim">Every shard you hold has an operative. Their cards are linked above.</p>
           ) : (
             <div className="flex flex-col gap-6">
               <p className="text-lg text-dim">
@@ -279,7 +279,7 @@ function Roster({ survivors, loaded }: { survivors: Survivor[]; loaded: boolean 
         </p>
       </div>
       {loaded && survivors.length === 0 ? (
-        <p className="mt-4 text-lg text-dim">No one has enlisted yet. The first survivors will be named in tomorrow&apos;s dispatch.</p>
+        <p className="mt-4 text-lg text-dim">No one has enlisted yet. The first operatives will be named in tomorrow&apos;s dispatch.</p>
       ) : (
         <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
           {survivors.map((s) => (

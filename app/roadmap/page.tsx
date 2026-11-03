@@ -23,7 +23,7 @@ const s1Deliverables: [string, string, boolean][] = [
   ["Beacon engagement", "The Scape: 5,000 procedurally generated sectors around the Archive, one per shard, with a browser flyover of every sector and a holder-signed beacon that names a place and lights the sector on the world map.", true],
   ["Battle Momentum oracle feed", "The TrendPulse oracle publishes AI Wars Battle Momentum, a 0 to 100 composite read every two seconds, with history, live websocket ticks and a public status page, and resolves five-minute windows by ordinary least squares trend.", true],
   ["AIWars Trends engagement", "A shard engagement at /trends on the AI Wars site: a new five-minute market on every five-minute mark, five outcome buckets calibrated from the feed, VTRU stakes settled by the shard contract on Vitruveo (losing stakes burned, winners earn credits toward Tier 5 shards), and a live on-chain leaderboard. You can play five times without holding a Tier 1 shard.", true],
-  ["Enlist engagement", "Every shard enlists one survivor into the Fall of Meridian: the holder names them and picks a role and origin, the Archive writes their backstory and paints their portrait, and a daily Field Dispatch written from the Battle Momentum feed names survivors from the roster. The survivor stays with the shard and carries into the game.", true],
+  ["Enlist engagement", "Every shard enlists one operative into the Fall of Meridian: the holder names them and picks a role and origin, the Archive writes their backstory and paints their portrait, and a daily Field Dispatch written from the Battle Momentum feed names operatives from the roster. The survivor stays with the shard and carries into the game.", true],
 ];
 
 const sprints: Sprint[] = [
@@ -43,7 +43,7 @@ const sprints: Sprint[] = [
     "n": "S3",
     "title": "Arena live",
     "dates": "30 Nov 2026 to 20 Dec 2026",
-    "scope": "Standings and replays on the site. Agent wins drive $AIWARS emissions. First browser combat build: one wave on Defense Platform 7, holders only. Engagement, Arena Calls: a pretrend.ai market on every match, settled by the shard contract like Trends. Engagement, Arena dispatch: enlisted survivors are written into the daily match reports.",
+    "scope": "Standings and replays on the site. Agent wins drive $AIWARS emissions. First browser combat build: one wave on Defense Platform 7, holders only. Engagement, Arena Calls: a pretrend.ai market on every match, settled by the shard contract like Trends. Engagement, Arena dispatch: enlisted operatives are written into the daily match reports.",
     "gate": "Arena live. First playable.",
     "total": 94000,
     "d": 66,

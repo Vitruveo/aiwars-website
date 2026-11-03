@@ -35,7 +35,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
     const owner = await ownerOf(tokenId);
     if (!owner || owner.toLowerCase() !== body.address.toLowerCase()) return NextResponse.json({ error: "you do not hold this shard" }, { status: 403 });
     const s = await getSurvivor(tokenId);
-    if (!s) return NextResponse.json({ error: "no survivor for this shard" }, { status: 404 });
+    if (!s) return NextResponse.json({ error: "no operative for this shard" }, { status: 404 });
     if (s.regens >= PORTRAIT_REGENS) return NextResponse.json({ error: "no new portraits left" }, { status: 409 });
 
     const { portrait, thumb } = await paintPortrait(s.visual, s.gender, s.role, s.origin);

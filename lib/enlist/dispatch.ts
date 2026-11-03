@@ -8,7 +8,7 @@ import { claimDay, finishDay, releaseDay, dispatchCandidates } from "@/lib/enlis
 import { TEXT_MODEL, WORLD } from "@/lib/enlist/generate";
 
 // The daily war dispatch: the last 24 hours of Battle Momentum told as a field report from the Fall of
-// Meridian, naming a few enlisted survivors. One per UTC day; whoever calls first writes it.
+// Meridian, naming a few enlisted operatives. One per UTC day; whoever calls first writes it.
 
 const FEATURED = 4;
 const chain = createPublicClient({ chain: vitruveo, transport: http(process.env.VITRUVEO_RPC_URL || vitruveo.rpcUrls.default.http[0]) });
@@ -82,10 +82,10 @@ export async function writeDispatch(day = utcDay()) {
       : "feed quiet";
     const cast = featured.length
       ? featured.map((s) => `- ${s.name}${s.epithet ? ` "${s.epithet}"` : ""}: ${s.gender}, ${s.rank} ${s.role}, ${s.origin}, home sector ${s.sector}`).join("\n")
-      : "(no survivors have enlisted yet; tell it through unnamed defenders)";
+      : "(no operatives have enlisted yet; tell it through unnamed defenders)";
     const { output } = await generateText({
       model: TEXT_MODEL,
-      system: `You write the daily field dispatch for AI Wars: what happened in the last day of the war for Meridian, as read from the Battle Momentum feed. Battle Momentum runs 0 to 100: high means humanity is pressing forward, low means the machines are; sharp drops are machine offensives, sharp rises are counterattacks. Terse, grounded, cinematic; concrete places and actions; no exclamation marks, no emojis, no numbers from the feed in the prose except at most one. Each named survivor appears doing something that fits their role and origin; give each one a moment, none a death. Never contradict the setting below.
+      system: `You write the daily field dispatch for AI Wars: what happened in the last day of the war for Meridian, as read from the Battle Momentum feed. Battle Momentum runs 0 to 100: high means humanity is pressing forward, low means the machines are; sharp drops are machine offensives, sharp rises are counterattacks. Terse, grounded, cinematic; concrete places and actions; no exclamation marks, no emojis, no numbers from the feed in the prose except at most one. Each named operative appears doing something that fits their role and origin; give each one a moment, none a death. Never contradict the setting below.
 
 ${WORLD}`,
       output: Output.object({ schema: DispatchSchema }),
@@ -95,7 +95,7 @@ Battle Momentum, last 24 hours: opened ${m?.open ?? "?"}, closed ${m?.close ?? "
 Hourly averages, oldest first: ${m?.hourly.join(", ") ?? "unavailable"}.
 Sharpest hourly rise: ${m ? `${m.sharpestRise.points} points, ${m.sharpestRise.hoursAgo} hours ago` : "?"}. Sharpest hourly fall: ${m ? `${m.sharpestFall.points} points, ${m.sharpestFall.hoursAgo} hours ago` : "?"}.
 
-Survivors to name:
+Operatives to name:
 ${cast}`,
     });
     if (!output) throw new Error("the writer returned nothing");

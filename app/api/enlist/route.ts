@@ -4,7 +4,7 @@ import { listSurvivors, listDispatches, insertSurvivor, survivorExists, deleteSu
 import { ownerOf, tierOf, writeSurvivor, paintPortrait } from "@/lib/enlist/generate";
 import { ROLES, ORIGINS, SIGN_WINDOW_MS, cleanName, cleanLine, enlistMessage, rankOf } from "@/lib/enlist/profile";
 
-// Enlist: GET is the public roster and recent dispatches. POST enlists one survivor for a shard the
+// Enlist: GET is the public roster and recent dispatches. POST enlists one operative for a shard the
 // signer holds on Vitruveo: the writer drafts the backstory, then the portrait is painted and stored.
 
 export const dynamic = "force-dynamic";
@@ -46,7 +46,7 @@ export async function POST(req: Request) {
     if (!owner || owner.toLowerCase() !== address.toLowerCase()) return NextResponse.json({ error: "you do not hold this shard" }, { status: 403 });
 
     const existing = await survivorExists(tokenId);
-    if (existing?.hasPortrait) return NextResponse.json({ error: "this shard already has a survivor" }, { status: 409 });
+    if (existing?.hasPortrait) return NextResponse.json({ error: "this shard already has an operative" }, { status: 409 });
     if (existing) await deleteSurvivor(tokenId, true);
 
     const tier = await tierOf(tokenId);

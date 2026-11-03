@@ -2,11 +2,11 @@ import { ImageResponse } from "next/og";
 import { getSurvivor, readPortrait } from "@/lib/enlist/db";
 import { homeSector } from "@/lib/scape/placesServer";
 
-// The survivor card as a 1200x630 image: link previews on X and Discord, and the "Download card" button.
+// The operative card as a 1200x630 image: link previews on X and Discord, and the "Download card" button.
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "AI Wars survivor card";
+export const alt = "AI Wars operative card";
 
 export default async function Image({ params }: { params: Promise<{ id: string }> }) {
   const tokenId = Number((await params).id);
@@ -27,7 +27,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
         )}
         <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "56px 52px", borderLeft: "2px solid #f0954f" }}>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ fontSize: 22, letterSpacing: 6, color: "#f0954f", textTransform: "uppercase" }}>{`Survivor · Shard #${tokenId}`}</div>
+            <div style={{ fontSize: 22, letterSpacing: 6, color: "#f0954f", textTransform: "uppercase" }}>{`Operative · Shard #${tokenId}`}</div>
             <div style={{ fontSize: s && s.name.length > 14 ? 56 : 72, fontWeight: 700, marginTop: 18, lineHeight: 1.05 }}>{s?.name ?? "Not enlisted"}</div>
             {s?.epithet ? <div style={{ fontSize: 32, color: "#f0954f", marginTop: 12 }}>{s.epithet}</div> : null}
           </div>

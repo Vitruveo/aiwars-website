@@ -96,9 +96,9 @@ export default function ActivationTabs() {
           </div>
           <div className="flex-1">
             <p className="font-mono text-base uppercase tracking-[0.35em] text-ember">Join the war</p>
-            <p className="display mt-2 text-2xl text-ink sm:text-3xl">Enlist your survivor</p>
+            <p className="display mt-2 text-2xl text-ink sm:text-3xl">Enlist your operative</p>
             <p className="mt-2 max-w-2xl text-lg text-dim">
-              Every shard enlists one survivor in the Fall of Meridian. Name them and pick their role; the Archive writes their story and paints their portrait. The daily dispatch puts them in the war, and they come with you when the game ships.
+              Every shard enlists one operative in the Fall of Meridian. Name them and pick their role; the Archive writes their story and paints their portrait. The daily dispatch puts them in the war, and they come with you when the game ships.
             </p>
           </div>
           <span className="shrink-0 border border-signal bg-signal/15 px-6 py-4 font-mono text-base uppercase tracking-[0.3em] text-signal transition-all group-hover:bg-signal/25">

@@ -38,7 +38,7 @@ export default async function SurvivorPage({ params }: Props) {
           <p className="kicker mb-3">
             <span className="kicker-num">06</span>Enlist
           </p>
-          <h1 className="display text-3xl text-ink sm:text-5xl">No survivor for shard #{tokenId || "?"}</h1>
+          <h1 className="display text-3xl text-ink sm:text-5xl">No operative for shard #{tokenId || "?"}</h1>
           <p className="mt-3 text-lg text-dim">The holder of this shard has not enlisted yet.</p>
           <a href="/enlist" className="mt-8 inline-block border border-signal px-6 py-3 font-mono text-base uppercase tracking-[0.25em] text-signal hover:bg-signal/10">
             Back to Enlist
@@ -67,7 +67,7 @@ export default async function SurvivorPage({ params }: Props) {
           </div>
 
           <div>
-            <p className="font-mono text-base uppercase tracking-[0.35em] text-ember">Survivor · Shard #{tokenId}</p>
+            <p className="font-mono text-base uppercase tracking-[0.35em] text-ember">Operative · Shard #{tokenId}</p>
             <h1 className="display mt-2 text-balance text-4xl text-ink sm:text-6xl">{s.name}</h1>
             {s.epithet && <p className="mt-2 text-2xl text-ember">{s.epithet}</p>}
 
@@ -115,7 +115,7 @@ export default async function SurvivorPage({ params }: Props) {
                   ))}
                 </ul>
               ) : (
-                <p className="mt-3 text-lg text-dim">Not named in a dispatch yet. Every survivor comes round in turn.</p>
+                <p className="mt-3 text-lg text-dim">Not named in a dispatch yet. Every operative comes round in turn.</p>
               )}
             </div>
 
