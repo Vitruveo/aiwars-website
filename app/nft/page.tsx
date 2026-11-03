@@ -16,9 +16,9 @@ import beyond from "@/public/art/beyond.jpg";
 import { TIERS, POWER, POWER_SLOTS, SCAPE, SCAPE_SLOTS, DUO, TRIO, TOTAL_SUPPLY, MAX_PER_WALLET, liveTierIndex, actsCount, fmt } from "@/lib/shards";
 
 export const metadata: Metadata = {
-  title: "Archive Shard — AI Wars",
+  title: "Shards — AI Wars",
   description:
-    "5,000 Archive Shards. Five tiers minted in order. Three per wallet. Holders are the exclusive beta testers of AI Wars.",
+    "5,000 shards. Five tiers minted in order. Three bought per wallet. Holders are the exclusive beta testers of AI Wars.",
 };
 
 const th = "sticky top-16 z-10 border-b border-signal/40 bg-abyss px-4 py-5 text-left align-bottom";
@@ -84,7 +84,7 @@ export default function Mint() {
         <div className="relative mx-auto grid w-full max-w-7xl items-center gap-10 px-5 pb-16 pt-32 sm:px-8 lg:grid-cols-[1fr_1fr]">
           <div className="hero-copy">
             <p className="kicker mb-6">
-              Your shards · <span className="text-ember">max three per wallet</span>
+              Your shards · <span className="text-ember">buy up to three per wallet</span>
             </p>
             <h1 className="display text-[13vw] leading-none text-ink sm:text-8xl lg:text-[8rem]">
               Archive
@@ -97,7 +97,7 @@ export default function Mint() {
             <div className="rule my-8" />
             <p className="text-xl text-ink drop-shadow-[0_2px_10px_rgba(4,7,13,0.9)] sm:text-2xl sm:text-dim sm:drop-shadow-none">
               {fmt(TOTAL_SUPPLY)} shards. Never more. Five tiers, minted strictly in order.
-              The earlier you arrive, the stronger the shard. Three per wallet, so no one buys the war.
+              The earlier you arrive, the stronger the shard. Three bought per wallet, so no one buys the war.
               <span className="text-ink"> Holders play first: every shard is a seat in the closed beta.</span>
             </p>
             <p className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 border-l-2 border-signal pl-4 font-mono text-base uppercase tracking-[0.25em] text-signal">
@@ -107,7 +107,7 @@ export default function Mint() {
               </span>
               <span className="text-ink">Tier {String(live.n).padStart(2, "0")} {live.name}</span>
               <span className="text-ember">${live.price}</span>
-              <span className="text-dim"><TierLeft /> of {fmt(live.supply)} left</span>
+              <span className="text-dim"><TierLeft /> of {fmt(live.sale)} left</span>
             </p>
             <div className="mt-6 flex flex-wrap gap-4">
               <a href="/mint" className="btn-pulse border border-signal bg-signal/15 px-8 py-4 font-mono text-base uppercase tracking-[0.3em] text-signal transition-all hover:bg-signal/25">
@@ -134,7 +134,7 @@ export default function Mint() {
             {[
               { v: TOTAL_SUPPLY, l: "shards. fixed forever" },
               { v: 5, l: "tiers. minted in order" },
-              { v: MAX_PER_WALLET, l: "per wallet. maximum" },
+              { v: MAX_PER_WALLET, l: "bought per wallet. maximum" },
               { v: 4, l: "activations. hold more, unlock more" },
             ].map((s, i) => (
               <Reveal key={s.l} delay={i * 80}>
@@ -168,10 +168,10 @@ export default function Mint() {
               <p className="mt-6 text-xl text-dim sm:text-2xl">
                 The night Meridian held, the Archive activated. It did not open. It fractured, and
                 {" "}{fmt(TOTAL_SUPPLY)} fragments of its memory went out across the city. Whoever was standing
-                closest caught the brightest ones.
+                closest caught the brightest ones; those from the core are the Archive Shards.
               </p>
               <p className="mt-5 text-xl text-dim">
-                An Archive Shard is one of those fragments. It is older than the city. It remembers the
+                A shard is one of those fragments. It is older than the city. It remembers the
                 ground before Meridian was built on it, which is why it makes terrain easier. It remembers
                 what people are capable of, which is why it makes you stronger. And fragments of one thing
                 want to be whole again: bring two together and they amplify, bring three together and
@@ -185,7 +185,7 @@ export default function Mint() {
 
           <div className="mt-14 grid gap-3 md:grid-cols-5">
             {[
-              ["Archivists", "were inside the Archive when it broke. Their shards came from the core."],
+              ["Archivists", "were inside the Archive when it broke. Their shards came from the core: the Archive Shards."],
               ["Vanguard", "held the Archive Approach. Their shards fell at their feet."],
               ["Defenders", "stood on the platforms above the city. Their shards were carried on the wind."],
               ["Citizens", "were in the streets and towers of Meridian. Their shards landed among them."],
@@ -409,18 +409,18 @@ export default function Mint() {
               <Kicker n="06">On chain</Kicker>
               <h2 className="display text-4xl text-ink sm:text-5xl">Written on every shard</h2>
               <p className="mt-6 text-xl text-dim">
-                Written to Vitruveo at mint and never changed. No two shards need be alike:
-                the powers and scapes are rolled, the tier sets how many and how strong.
+                The tier and the shard&apos;s place in it are written to Vitruveo at mint and never change.
+                No two shards need be alike: the powers and scapes are rolled, the tier sets how many and how strong.
               </p>
             </Reveal>
             <Reveal delay={100}>
               <div className="panel panel-flat divide-y divide-hairline">
                 {[
-                  ["Tier", "01–05", "Fixed at mint. Sets values, slots and which activations you carry."],
+                  ["Tier", "01–05", "Written on chain at mint. Sets values, slots and which activations you carry."],
+                  ["Serial", "1–2,750", "The shard's place in its tier, written on chain at mint."],
                   ["Powers", "1–3 of 5", "Which bonuses this shard rolled: Armor, Recovery, Salvage, Standing, Production."],
-                  ["Scapes", "0–3 of 8", "Which terrain assists this shard rolled, from Haze Sight to Orbital Drop."],
-                  ["Affinity", "4 kinds", "Continuity · Integrationist · Sovereign · Machine. Who trusts you first."],
-                  ["Sector", "1–12", "Meridian district the shard was recovered from."],
+                  ["Scapes", "1–3 of 8", "Which terrain assists this shard rolled, from Haze Sight to Orbital Drop."],
+                  ["Sector", "1–5,000", "The shard's sector of the Scape, set by its tier and serial."],
                 ].map(([k, range, v]) => (
                   <div key={k} className="grid grid-cols-[6.5rem_5.5rem_1fr] gap-4 px-6 py-4">
                     <span className="font-mono text-base uppercase tracking-[0.15em] text-ember">{k}</span>

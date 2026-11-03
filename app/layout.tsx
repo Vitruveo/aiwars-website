@@ -36,18 +36,18 @@ export const metadata: Metadata = {
   ),
   title: "AI Wars — The Fall of Meridian",
   description:
-    "A persistent science-fiction universe about agency, intelligence, memory and war. Archive Shard public mint — 5,000 NFTs, five tiers, four activations. A Vertical Foundation project.",
+    "A persistent science-fiction universe about agency, intelligence, memory and war. Shard public mint — 5,000 NFTs, five tiers, four activations. A Vertical Foundation project.",
   openGraph: {
     title: "AI Wars — The Fall of Meridian",
     description:
-      "Humanity's greatest city. Its most dangerous secret. Archive Shard public mint — a Vertical Foundation project.",
+      "Humanity's greatest city. Its most dangerous secret. Shard public mint — a Vertical Foundation project.",
     images: [{ url: "/og.jpg", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "AI Wars — The Fall of Meridian",
     description:
-      "Humanity's greatest city. Its most dangerous secret. Archive Shard public mint — a Vertical Foundation project.",
+      "Humanity's greatest city. Its most dangerous secret. Shard public mint — a Vertical Foundation project.",
     images: ["/og.jpg"],
   },
 };

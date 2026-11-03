@@ -7,7 +7,7 @@ import "@/components/trends/trends.css";
 export const metadata: Metadata = {
   title: "AIWars Trends — AI Wars",
   description:
-    "A live five-minute trend game on AI Wars Battle Momentum. Stake VTRU on one of five buckets: a hit returns your stake plus credits toward a Tier 5 Archive Shard, a miss is burned.",
+    "A live five-minute trend game on AI Wars Battle Momentum. Stake VTRU on one of five buckets: a hit returns your stake plus credits toward a Tier 5 shard, a miss is burned.",
 };
 
 // The game first, as on home and mint; then what it is, the leaderboard and the rulebook.
@@ -23,7 +23,7 @@ export default function Trends() {
           <div className="aw-starfield" />
           <div className="aw-scanline" />
           <div className="container position-relative" style={{ maxWidth: "1100px", paddingTop: "110px", paddingBottom: "40px" }}>
-            <p className="aw-kicker aw-kicker-ink mb-3">Shard activation &middot; The Fall of Meridian</p>
+            <p className="aw-kicker aw-kicker-ink mb-3">Shard engagement &middot; The Fall of Meridian</p>
             <h1 className="aw-glitch mb-2" style={{ lineHeight: 1 }}>
               <span aria-label="AI WARS" role="img" className="aw-logo">
                 A<span aria-hidden="true" className="aw-logo-i">I</span>WARS

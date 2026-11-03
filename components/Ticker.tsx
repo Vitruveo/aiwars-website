@@ -38,7 +38,7 @@ function TickerRow({ signals }: { signals: (Signal & { dir: number })[] }) {
       ))}
       <span className="mx-6 inline-flex items-baseline gap-2 whitespace-nowrap">
         <span className="text-faint">SIGNAL CADENCE</span>
-        <span className="text-ink">5S</span>
+        <span className="text-ink">2S</span>
       </span>
       <span className="mx-6 inline-flex items-baseline gap-2 whitespace-nowrap">
         <span className="text-faint">ARCHIVE STATUS</span>

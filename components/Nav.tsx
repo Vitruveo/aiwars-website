@@ -11,8 +11,8 @@ const links: Link[] = [
   { href: "/#universe", label: "Universe" },
   { href: "/nft", label: "Shards" },
   {
-    href: "/#activations",
-    label: "Activations",
+    href: "/#engagements",
+    label: "Engagements",
     children: [
       { href: "/scape", label: "Scape" },
       { href: TRENDS_URL, label: "Trends" },

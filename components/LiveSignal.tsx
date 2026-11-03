@@ -72,8 +72,8 @@ export default function LiveSignal() {
         </circle>
       </svg>
       <div className="mt-2 flex justify-between font-mono text-sm tracking-[0.2em] text-faint">
-        <span>UPDATES EVERY 5S IN PRODUCTION</span>
-        <span>10M MARKET WINDOW</span>
+        <span>UPDATES EVERY 2S IN PRODUCTION</span>
+        <span>5M MARKET WINDOW</span>
       </div>
     </div>
   );

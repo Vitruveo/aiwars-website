@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tokenId, s } = await load((await params).id);
   if (!s) return { title: `Shard #${tokenId} — Enlist — AI Wars` };
   const title = `${s.name}${s.epithet ? `, ${s.epithet}` : ""} — AI Wars`;
-  const description = `${s.rank} ${s.role} from ${s.sector}. Enlisted in the Fall of Meridian with Archive Shard #${tokenId}.`;
+  const description = `${s.rank} ${s.role} from ${s.sector}. Enlisted in the Fall of Meridian with shard #${tokenId}.`;
   return { title, description, openGraph: { title, description }, twitter: { card: "summary_large_image", title, description } };
 }
 

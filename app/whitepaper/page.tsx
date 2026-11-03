@@ -6,7 +6,7 @@ import archive from "@/public/art/archive.jpg";
 export const metadata: Metadata = {
   title: "Whitepaper — AI Wars",
   description:
-    "AI Wars: Complete Vision. A persistent science-fiction universe about agency, intelligence, memory and war — with the Archive Shard NFT appendix.",
+    "AI Wars: Complete Vision. A persistent science-fiction universe about agency, intelligence, memory and war — with the shard NFT appendix.",
 };
 
 import { sections, shardRows } from "@/lib/whitepaper";
@@ -35,7 +35,7 @@ export default function Whitepaper() {
           <h1 className="display text-5xl text-ink sm:text-7xl">AI Wars</h1>
           <p className="mt-6 max-w-2xl text-xl text-dim">
             A persistent science-fiction universe about agency, intelligence, memory
-            and war — and the Archive Shard that anchors its first players.
+            and war — and the shards that anchor its first players.
           </p>
         </div>
       </section>
@@ -64,7 +64,7 @@ export default function Whitepaper() {
                 className="flex gap-3 text-base text-dim transition-colors hover:text-signal"
               >
                 <span className="font-mono text-ember">15</span>
-                Appendix — Archive Shard
+                Appendix — Shards
               </a>
             </li>
           </ol>
@@ -100,7 +100,7 @@ export default function Whitepaper() {
               <span className="kicker-num">15</span>
               Appendix
             </p>
-            <h2 className="display mb-8 text-4xl text-ink">Archive Shard NFT</h2>
+            <h2 className="display mb-8 text-4xl text-ink">Shard NFT</h2>
             <div className="panel divide-y divide-hairline">
               {shardRows.map(([k, v]) => (
                 <div key={k} className="flex flex-col gap-1 px-6 py-4 sm:flex-row sm:gap-6">

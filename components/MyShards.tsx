@@ -7,7 +7,7 @@ import { MAX_PER_WALLET } from "@/lib/shards";
 import { useMyShards } from "@/lib/useMyShards";
 import { usePlaces } from "@/lib/usePlaces";
 
-// Three slots, one per shard a wallet may hold. A minted shard fills its slot with the NFT card.
+// Three slots, one per shard a wallet may buy, plus one per shard won beyond that. A held shard fills its slot with the NFT card.
 export default function MyShards({ size = 200 }: { size?: number }) {
   const [mounted, setMounted] = useState(false);
   const [slot, setSlot] = useState(size);
@@ -27,7 +27,7 @@ export default function MyShards({ size = 200 }: { size?: number }) {
   return (
     <div className="flex flex-col items-center gap-4">
       <div className="grid grid-cols-3 gap-3 sm:gap-4">
-        {Array.from({ length: MAX_PER_WALLET }, (_, i) => {
+        {Array.from({ length: Math.max(MAX_PER_WALLET, tokenIds.length) }, (_, i) => {
           const id = tokenIds[i];
           if (id) {
             const tier = byToken.get(id)?.tier;
@@ -55,7 +55,7 @@ export default function MyShards({ size = 200 }: { size?: number }) {
         })}
       </div>
       <p className="font-mono text-sm uppercase tracking-[0.25em] text-faint">
-        {!connected ? "Connect a wallet to see your shards" : tokenIds.length === 0 ? "No shards yet · max 3 per wallet" : `${tokenIds.length} of ${MAX_PER_WALLET} held on Vitruveo`}
+        {!connected ? "Connect a wallet to see your shards" : tokenIds.length === 0 ? "No shards yet · buy up to 3 per wallet" : `${tokenIds.length} held on Vitruveo`}
       </p>
     </div>
   );

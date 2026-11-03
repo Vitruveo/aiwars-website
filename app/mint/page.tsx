@@ -12,8 +12,8 @@ import world from "@/public/art/world.jpg";
 import { TIERS, liveTierIndex, actsCount, fmt } from "@/lib/shards";
 
 export const metadata: Metadata = {
-  title: "Mint — Archive Shard — AI Wars",
-  description: "Mint an Archive Shard. Pay in USDT on BNB Smart Chain; the NFT is minted to your wallet on Vitruveo.",
+  title: "Mint — Shards — AI Wars",
+  description: "Mint a shard. Pay in USDT on BNB Smart Chain; the NFT is minted to your wallet on Vitruveo.",
 };
 
 function Kicker({ n, children }: { n: string; children: React.ReactNode }) {
@@ -45,7 +45,7 @@ export default function Mint() {
             <Kicker n="01">Mint</Kicker>
             <h2 className="display text-4xl text-ink sm:text-6xl">Claim your shard</h2>
             <p className="mt-6 text-xl text-dim">
-              Tier {String(live.n).padStart(2, "0")} <SaleLabel open="is open" closed="mints first" />. When its {fmt(live.supply)} shards are gone, it never comes back.
+              Tier {String(live.n).padStart(2, "0")} <SaleLabel open="is open" closed="mints first" />. When its {fmt(live.sale)} shards are gone, it never comes back.
             </p>
           </Reveal>
           <div className="mt-12 grid gap-6 lg:grid-cols-5">

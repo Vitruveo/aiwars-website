@@ -108,7 +108,7 @@ export default function Home() {
             </div>
             <TrendsBanner />
           </div>
-          <div id="activations" className="mt-12 scroll-mt-20">
+          <div id="engagements" className="mt-12 scroll-mt-20">
             <ActivationTabs />
           </div>
         </div>
@@ -338,8 +338,8 @@ export default function Home() {
                     ["AI WARS", "Gameplay only"],
                     ["RAW GAME TELEMETRY", "Dense, continuous, multidimensional"],
                     ["PRETREND PROVIDER MODULE", "Interprets the event stream"],
-                    ["BATTLE MOMENTUM SIGNAL", "Proprietary, external, 5-second cadence"],
-                    ["10-MINUTE TREND MARKET", "Live, tradable, continuously moving"],
+                    ["BATTLE MOMENTUM SIGNAL", "Proprietary, external, 2-second cadence"],
+                    ["5-MINUTE TREND MARKET", "Live, tradable, continuously moving"],
                     ["RESOLUTION / SETTLEMENT", "Vitruveo where durability matters"],
                   ].map(([step, note], i) => (
                     <div key={step}>
@@ -362,13 +362,13 @@ export default function Home() {
               <Reveal delay={80}>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="panel panel-glow p-8 text-center">
-                    <p className="display grad-text text-6xl">5s</p>
+                    <p className="display grad-text text-6xl">2s</p>
                     <p className="mt-3 font-mono text-base uppercase tracking-[0.2em] text-dim">
                       signal update cadence
                     </p>
                   </div>
                   <div className="panel panel-glow p-8 text-center">
-                    <p className="display grad-ember text-6xl">10m</p>
+                    <p className="display grad-ember text-6xl">5m</p>
                     <p className="mt-3 font-mono text-base uppercase tracking-[0.2em] text-dim">
                       market duration
                     </p>
@@ -575,11 +575,11 @@ export default function Home() {
         </div>
         <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
           <Reveal>
-            <Kicker num="07">Archive Shard</Kicker>
+            <Kicker num="07">Shards</Kicker>
             <h2 className="display text-4xl text-ink sm:text-6xl">The NFT mint</h2>
             <p className="mt-6 max-w-2xl text-xl text-dim">
               5,000 shards. Five tiers, minted in order. Same price, better shard, the
-              earlier you arrive. Three per wallet. Holders play first: every shard is a
+              earlier you arrive. Three bought per wallet. Holders play first: every shard is a
               seat in the closed beta.
             </p>
           </Reveal>
@@ -623,7 +623,7 @@ export default function Home() {
               </div>
               <div>
                 <p className="mb-4 font-mono text-base uppercase tracking-[0.3em] text-faint">
-                  Archive Shard
+                  Shards
                 </p>
                 <ul className="space-y-2.5 text-base text-dim">
                   <li><a href="/mint" className="transition-colors hover:text-signal">Mint</a></li>

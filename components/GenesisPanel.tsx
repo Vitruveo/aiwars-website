@@ -152,7 +152,7 @@ export default function GenesisPanel() {
       base.refetch();
       setStep("minting");
       const ids = address ? await requestFulfill(address) : null;
-      setNotice(ids && ids.length > 0 ? `Claim #${id} redeemed. Minted on Vitruveo: Archive Shard ${ids.map((n) => `#${n}`).join(", ")}` : `Claim #${id} redeemed. Your shard is being minted on Vitruveo.`);
+      setNotice(ids && ids.length > 0 ? `Claim #${id} redeemed. Minted on Vitruveo: shard ${ids.map((n) => `#${n}`).join(", ")}` : `Claim #${id} redeemed. Your shard is being minted on Vitruveo.`);
     } catch (e) {
       setError(short(e));
     } finally {

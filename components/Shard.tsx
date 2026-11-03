@@ -1,4 +1,4 @@
-// Crystalline Archive Shard. Pure SVG, tier sets brightness and core color.
+// Crystalline shard. Pure SVG, tier sets brightness and core color.
 // Renders on the server; motion comes from CSS classes.
 
 const TIER_STYLE = [

@@ -5,8 +5,8 @@ import Shard from "@/components/Shard";
 import ActivationScape from "@/components/ActivationScape";
 import TrendsChart from "@/components/TrendsChart";
 
-// Mint page: what a shard switches on. One tab per activation; the first is live,
-// the second is the Pretrend trend game, the rest are still sealed.
+// Shard Engagements: what a holder can do with a shard today, before the game ships. One tab per
+// engagement; the last is still sealed.
 const TABS = ["Beacon", "Trends", "Enlist", "Unknown"];
 
 export default function ActivationTabs() {
@@ -24,8 +24,8 @@ export default function ActivationTabs() {
   return (
     <div className="panel panel-flat sweep p-7 sm:p-8">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className="font-mono text-base uppercase tracking-[0.35em] text-ember">Shard Activations</p>
-        <div role="tablist" aria-label="Shard activations" className="flex flex-wrap gap-2">
+        <p className="font-mono text-base uppercase tracking-[0.35em] text-ember">Shard Engagements</p>
+        <div role="tablist" aria-label="Shard engagements" className="flex flex-wrap gap-2">
           {TABS.map((name, i) => {
             const active = i === tab;
             return (
@@ -114,9 +114,9 @@ export default function ActivationTabs() {
           </div>
           <div className="flex-1">
             <p className="font-mono text-base uppercase tracking-[0.35em] text-faint">Sealed</p>
-            <p className="display mt-2 text-2xl text-ink sm:text-3xl">More Shard activations coming</p>
+            <p className="display mt-2 text-2xl text-ink sm:text-3xl">More shard engagements coming</p>
             <p className="mt-2 max-w-2xl text-lg text-dim">
-              This activation is still sealed in the Archive. Holders will be the first to know.
+              This engagement is still sealed in the Archive. Holders will be the first to know.
             </p>
           </div>
         </div>

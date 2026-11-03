@@ -131,7 +131,7 @@ function EnlistPanel({ byId, onEnlisted }: { byId: Map<number, Survivor>; onEnli
         </div>
       ) : tokenIds.length === 0 ? (
         <div className="flex flex-wrap items-center gap-4">
-          <p className="text-lg text-dim">You need an Archive Shard to enlist. Anyone can read the dispatch; only holders are in it.</p>
+          <p className="text-lg text-dim">You need a shard to enlist. Anyone can read the dispatch; only holders are in it.</p>
           <a href="/mint" className="border border-signal bg-signal px-6 py-3 font-mono text-base uppercase tracking-[0.25em] text-abyss hover:bg-ink">
             Mint a shard
           </a>

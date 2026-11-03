@@ -156,16 +156,16 @@ export const sections: Section[] = [
 ];
 
 export const shardRows: [string, string][] = [
-  ["Type", "One NFT type — the Archive Shard"],
+  ["Type", "One NFT type — the shard. Tier 1 shards are the Archive Shards"],
   ["Beta", "Holders are the exclusive closed-beta testers of the game"],
-  ["Supply", "5,000 shards, fixed forever. Unsold shards are burned at close."],
-  ["Tiers", "T1 Archivist 125 · T2 Vanguard 250 · T3 Defender 625 · T4 Citizen 1,250 · T5 Survivor 2,750"],
-  ["Price", "$100 for Tiers 1–4, $50 for Tier 5 — $362,500 max raise"],
+  ["Supply", "5,000 shards, fixed forever: 4,250 sold, 750 Tier 5 won in AI Wars Trends. Unsold shards are burned at close."],
+  ["Tiers", "T1 Archivist 125 · T2 Vanguard 250 · T3 Defender 625 · T4 Citizen 1,250 · T5 Survivor 2,750 (2,000 sold, 750 won)"],
+  ["Price", "$100 for Tiers 1–4, $50 for Tier 5 — $325,000 max raise"],
   ["Sequence", "Each tier opens only when the one above it sells out. Speed decides tier."],
-  ["Wallet cap", "3 shards per wallet and IP pair"],
-  ["Metadata", "Tier, Powers, Scapes, Affinity, Sector — all on chain"],
+  ["Wallet cap", "3 shards bought per wallet and IP pair; shards won in Trends come on top"],
+  ["Metadata", "Tier and serial written on chain at mint; powers, scapes and sector follow from them"],
   ["Power", "Each shard rolls 1–3 of five bonuses; the value is fixed by tier"],
-  ["Scape", "Each shard rolls 0–3 of eight terrain assists from its tier's pool — an escalator instead of a staircase"],
+  ["Scape", "Each shard rolls 1–3 of eight terrain assists from its tier's pool — an escalator instead of a staircase"],
   ["Activations", "Power, Scape, Duo, Trio — earlier tiers roll more and stronger"],
   ["Set rule", "A set activation applies only if every participating shard carries it"],
 ];

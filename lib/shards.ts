@@ -1,4 +1,4 @@
-// Archive Shard: one NFT type, five tiers, four activations.
+// Shards: one NFT type, five tiers, four activations. Tier 1 shards are the Archive Shards.
 // Tier index 0 = Tier 01 (strongest). Every array below is ordered 01..05.
 
 export type Acts = { power: boolean; scape: boolean; duo: boolean; trio: boolean };
@@ -7,16 +7,17 @@ export type Tier = {
   n: number;
   name: string;
   supply: number;
+  sale: number; // sold on BSC; the rest of the supply is won in AI Wars Trends
   price: number;
   acts: Acts;
 };
 
 export const TIERS: Tier[] = [
-  { n: 1, name: "Archivist", supply: 125, price: 100, acts: { power: true, scape: true, duo: true, trio: true } },
-  { n: 2, name: "Vanguard", supply: 250, price: 100, acts: { power: true, scape: true, duo: true, trio: true } },
-  { n: 3, name: "Defender", supply: 625, price: 100, acts: { power: true, scape: true, duo: true, trio: true } },
-  { n: 4, name: "Citizen", supply: 1250, price: 100, acts: { power: true, scape: true, duo: true, trio: true } },
-  { n: 5, name: "Survivor", supply: 2750, price: 50, acts: { power: true, scape: true, duo: false, trio: true } },
+  { n: 1, name: "Archivist", supply: 125, sale: 125, price: 100, acts: { power: true, scape: true, duo: true, trio: true } },
+  { n: 2, name: "Vanguard", supply: 250, sale: 250, price: 100, acts: { power: true, scape: true, duo: true, trio: true } },
+  { n: 3, name: "Defender", supply: 625, sale: 625, price: 100, acts: { power: true, scape: true, duo: true, trio: true } },
+  { n: 4, name: "Citizen", supply: 1250, sale: 1250, price: 100, acts: { power: true, scape: true, duo: true, trio: true } },
+  { n: 5, name: "Survivor", supply: 2750, sale: 2000, price: 50, acts: { power: true, scape: true, duo: false, trio: true } },
 ];
 
 // POWER — percentage bonuses. Each shard rolls POWER_SLOTS[tier] of these five at mint;
@@ -64,14 +65,16 @@ export const TRIO: { name: string; what: string }[] = [
 ];
 
 export const TOTAL_SUPPLY = TIERS.reduce((a, t) => a + t.supply, 0); // 5000
-export const MAX_RAISE = TIERS.reduce((a, t) => a + t.supply * t.price, 0); // 362500
+export const SALE_SUPPLY = TIERS.reduce((a, t) => a + t.sale, 0); // 4250
+export const PRIZE_RESERVE = TOTAL_SUPPLY - SALE_SUPPLY; // 750 Tier 5 shards won in AI Wars Trends
+export const MAX_RAISE = TIERS.reduce((a, t) => a + t.sale * t.price, 0); // 325000
 export const MAX_PER_WALLET = 3;
 
 // Minted per tier. Replaced by contract reads when the sale opens.
 export const MINTED = [0, 0, 0, 0, 0];
 
 export function liveTierIndex() {
-  const i = TIERS.findIndex((t, i) => MINTED[i] < t.supply);
+  const i = TIERS.findIndex((t, i) => MINTED[i] < t.sale);
   return i === -1 ? TIERS.length - 1 : i;
 }
 

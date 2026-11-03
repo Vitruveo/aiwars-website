@@ -55,7 +55,7 @@ export async function writeSurvivor(tokenId: number, f: EnlistForm, tierIndex: n
     model: TEXT_MODEL,
     system: WRITER,
     output: Output.object({ schema: SurvivorSchema }),
-    prompt: `Create the survivor a player enlists for Archive Shard ${tokenId}.
+    prompt: `Create the survivor a player enlists for shard ${tokenId}.
 
 Name: ${f.name}
 Role: ${role.name} (${role.what})

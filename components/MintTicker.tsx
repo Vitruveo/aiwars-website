@@ -6,14 +6,14 @@ import { useSaleTiers } from "@/lib/useSaleTiers";
 
 export default function MintTicker() {
   const open = useSaleOpen();
-  const { live: i, minted } = useSaleTiers();
+  const { live: i, minted, supply } = useSaleTiers();
   const t = TIERS[i];
   const items = [
     [open ? "MINTING NOW" : "OPENING SOON", `TIER ${String(t.n).padStart(2, "0")} ${t.name.toUpperCase()}`],
     ["PRICE", `$${t.price}`],
-    ["LEFT IN TIER", `${fmt(t.supply - minted[i])} / ${fmt(t.supply)}`],
+    ["LEFT IN TIER", `${fmt(supply[i] - minted[i])} / ${fmt(supply[i])}`],
     ["TOTAL SUPPLY", `${fmt(TOTAL_SUPPLY)} · FIXED`],
-    ["PER WALLET", `MAX ${MAX_PER_WALLET}`],
+    ["PER WALLET", `BUY UP TO ${MAX_PER_WALLET}`],
     ["HOLDERS", "EXCLUSIVE BETA ACCESS"],
     ["NEXT", `TIER ${String(Math.min(t.n + 1, 5)).padStart(2, "0")} UNLOCKS WHEN ${String(t.n).padStart(2, "0")} SELLS OUT`],
   ];

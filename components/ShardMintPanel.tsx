@@ -170,7 +170,7 @@ export default function ShardMintPanel() {
       ? "Paid on BNB Chain. Minting your shard on Vitruveo…"
       : step === "done"
         ? mintedIds && mintedIds.length > 0
-          ? `Minted on Vitruveo: Archive Shard ${mintedIds.map((n) => `#${n}`).join(", ")}`
+          ? `Minted on Vitruveo: shard ${mintedIds.map((n) => `#${n}`).join(", ")}`
           : "Paid on BNB Chain. Your shard is being minted on Vitruveo."
       : !mounted || !isConnected
         ? "Pay in USDT on BNB Chain · NFT minted on Vitruveo"
@@ -191,7 +191,7 @@ export default function ShardMintPanel() {
       </div>
 
       <label className="mb-2 block font-mono text-base uppercase tracking-[0.3em] text-faint">
-        How many · max {MAX_PER_WALLET} per wallet
+        How many · buy up to {MAX_PER_WALLET} per wallet
       </label>
       <div className="mb-4 grid grid-cols-3 gap-2">
         {[1, 2, 3].map((v) => (

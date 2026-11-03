@@ -5,9 +5,10 @@ import SaleLabel from "@/components/SaleLabel";
 import { TIERS, TOTAL_SUPPLY, actsCount, fmt } from "@/lib/shards";
 import { useSaleTiers } from "@/lib/useSaleTiers";
 
-// Five tier nodes on one energy line. The line flows from 01 to 05; the live node pulses.
+// Five tier nodes on one energy line. The line flows from 01 to 05; the live node pulses. Counts are sales
+// on BSC; Tier 5 also holds the shards won in AI Wars Trends.
 export default function TierFlow() {
-  const { live, minted: MINTED, total: mintedTotal } = useSaleTiers();
+  const { live, minted: MINTED, supply: SALE, total: mintedTotal, saleTotal } = useSaleTiers();
 
   return (
     <div>
@@ -18,7 +19,7 @@ export default function TierFlow() {
           <line x1="100" y1="40" x2="900" y2="40" stroke="#2d8cff" strokeWidth="2" className="flow-line" opacity="0.9" />
           {TIERS.map((t, i) => {
             const x = 100 + i * 200;
-            const soldOut = MINTED[i] >= t.supply;
+            const soldOut = MINTED[i] >= SALE[i];
             const isLive = i === live;
             return (
               <g key={t.n}>
@@ -34,9 +35,9 @@ export default function TierFlow() {
 
       <ol className="grid gap-3 md:grid-cols-5">
         {TIERS.map((t, i) => {
-          const soldOut = MINTED[i] >= t.supply;
+          const soldOut = MINTED[i] >= SALE[i];
           const isLive = i === live;
-          const pct = (MINTED[i] / t.supply) * 100;
+          const pct = (MINTED[i] / SALE[i]) * 100;
           return (
             <li
               key={t.n}
@@ -53,6 +54,11 @@ export default function TierFlow() {
               <p className="mt-1 font-mono text-base tracking-[0.15em] text-dim">
                 {fmt(t.supply)} SHARDS · <span className="text-ember">${t.price}</span>
               </p>
+              {SALE[i] < t.supply && (
+                <p className="mt-1 font-mono text-sm tracking-[0.15em] text-faint">
+                  {fmt(SALE[i])} SOLD · {fmt(t.supply - SALE[i])} WON IN TRENDS
+                </p>
+              )}
               <p className="mt-3 font-mono text-sm tracking-[0.15em] text-faint">
                 {actsCount(t)} OF 4 ACTIVATIONS
               </p>
@@ -60,7 +66,7 @@ export default function TierFlow() {
                 <div className="h-1.5 bg-signal" style={{ width: `${pct}%` }} />
               </div>
               <p className="mt-1.5 font-mono text-sm tabular-nums tracking-[0.1em] text-faint">
-                {fmt(MINTED[i])} / {fmt(t.supply)} MINTED
+                {fmt(MINTED[i])} / {fmt(SALE[i])} SOLD
               </p>
               <p
                 className={`mt-4 inline-flex items-center gap-2 font-mono text-base uppercase tracking-[0.25em] ${
@@ -80,7 +86,7 @@ export default function TierFlow() {
         <div className="mb-2 flex items-baseline justify-between font-mono text-base tracking-[0.2em]">
           <span>
             <span className="display text-3xl text-signal">{fmt(mintedTotal)}</span>
-            <span className="text-faint"> / {fmt(TOTAL_SUPPLY)} MINTED</span>
+            <span className="text-faint"> / {fmt(saleTotal)} SOLD</span>
           </span>
           <span className="text-faint">01 → 05</span>
         </div>

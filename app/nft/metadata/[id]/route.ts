@@ -55,13 +55,15 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
     .filter(([, on]) => on)
     .map(([k]) => k[0].toUpperCase() + k.slice(1));
 
+  // Only Tier 1 shards are Archive Shards.
+  const kind = t.tier.n === 1 ? "Archive Shard" : "Shard";
   const body = {
-    name: `Archive Shard #${id}`,
+    name: `${kind} #${id}`,
     description:
       (won
-        ? `Archive Shard ${id}. Tier ${String(t.tier.n).padStart(2, "0")} ${t.tier.name}, won in AI Wars Trends. `
-        : `Archive Shard ${id} of ${TOTAL_SUPPLY}. Tier ${String(t.tier.n).padStart(2, "0")} ${t.tier.name}. `) +
-      `One of ${TOTAL_SUPPLY} shards, five tiers minted strictly in order, ${MAX_PER_WALLET} per wallet. ` +
+        ? `${kind} ${id}. Tier ${String(t.tier.n).padStart(2, "0")} ${t.tier.name}, won in AI Wars Trends. `
+        : `${kind} ${id}. Tier ${String(t.tier.n).padStart(2, "0")} ${t.tier.name}. `) +
+      `One of ${TOTAL_SUPPLY} shards, five tiers minted strictly in order, ${MAX_PER_WALLET} bought per wallet. ` +
       "Holders are the exclusive beta testers of AI Wars, a Vertical Foundation project.",
     image: `${site}/aiwars_nft.gif`,
     external_url: `${site}/nft`,

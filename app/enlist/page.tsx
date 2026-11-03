@@ -4,7 +4,7 @@ import EnlistApp from "@/components/enlist/EnlistApp";
 
 export const metadata: Metadata = {
   title: "Enlist — AI Wars",
-  description: "Every Archive Shard enlists one survivor in the Fall of Meridian: a name, a role, a portrait and a story, named in the daily field dispatch.",
+  description: "Every shard enlists one survivor in the Fall of Meridian: a name, a role, a portrait and a story, named in the daily field dispatch.",
 };
 
 export default function EnlistPage() {

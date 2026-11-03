@@ -20,7 +20,7 @@ export default function ShardCard({ tier = 1, size = 320, serial = "001", tokenI
             </p>
           </div>
           <div className="relative flex w-full items-center justify-between border-t border-hairline/80 font-mono uppercase" style={label}>
-            <span className="text-signal">Archive Shard</span>
+            <span className="text-signal">{tier === 1 ? "Archive Shard" : "Shard"}</span>
             <span className="text-faint">{tokenId ? `#${tokenId}` : `No. ${serial}`}</span>
           </div>
         </div>
